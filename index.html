@@ -48,19 +48,20 @@
   a{color:var(--forest);font-weight:600}
 
   /* ---------- app shell ---------- */
-  .app{height:100dvh;max-width:1680px;margin:0 auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(8px,1.4vh,16px);padding:clamp(10px,1.8vh,20px) clamp(12px,2vw,26px)}
+  .app{height:100dvh;max-width:1680px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(8px,1.4vh,16px);padding:clamp(10px,1.8vh,20px) clamp(12px,2vw,26px)}
 
   /* ---------- top bar ---------- */
   .topbar{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
     padding:clamp(9px,1.5vh,15px) clamp(14px,1.6vw,20px);border-radius:var(--radius);
     color:var(--paper-2);background:linear-gradient(114deg,#0b3728 8%,#175c43 92%);box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
   .topbar:after{content:"";position:absolute;right:-70px;top:-90px;width:220px;height:220px;border:44px solid rgba(183,204,103,.16);border-radius:50%}
+  .topbar{min-width:0}
   .tb-main{min-width:0}
   .eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:.72em;letter-spacing:.13em;text-transform:uppercase;opacity:.85;margin-bottom:5px}
   .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime)}
   .topbar h1{font-size:clamp(15px,2.3vh,23px);line-height:1.14;color:#fff;max-width:44ch}
   .tb-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
-  .tb-meta span{font-size:.72em;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.12)}
+  .tb-meta span{font-size:.72em;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.12);overflow-wrap:anywhere}
   .tb-prog{display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1}
   .ring{--p:23;width:clamp(52px,7vh,74px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
     background:conic-gradient(var(--lime) calc(var(--p)*1%),rgba(255,255,255,.16) 0)}
@@ -68,8 +69,8 @@
   .tb-prog small{font-size:.68em;opacity:.82;letter-spacing:.06em;text-transform:uppercase}
 
   /* ---------- board ---------- */
-  .board{display:grid;grid-template-columns:1fr 1fr 1.06fr;gap:clamp(9px,1.3vw,16px);min-height:0}
-  .zone{display:flex;flex-direction:column;min-height:0;background:var(--panel);border:1px solid var(--line);
+  .board{display:grid;grid-template-columns:1fr 1fr 1.06fr;gap:clamp(9px,1.3vw,16px);min-height:0;min-width:0}
+  .zone{display:flex;flex-direction:column;min-height:0;min-width:0;background:var(--panel);border:1px solid var(--line);
     border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;position:relative}
   .zone-head{padding:clamp(10px,1.7vh,16px) clamp(12px,1.4vw,18px) clamp(6px,1vh,10px);cursor:pointer;transition:background .16s}
   .zone-head:hover{background:color-mix(in srgb,var(--forest) 7%,transparent)}
@@ -78,8 +79,9 @@
   .zone-head h2{font-size:clamp(15px,2.15vh,21px);margin:6px 0 4px;line-height:1.1}
   .zone-head p{margin:0;color:var(--muted);font-size:.82em;line-height:1.45}
   .zone-body{flex:1;min-height:0;overflow:hidden;padding:clamp(4px,.8vh,8px) clamp(12px,1.4vw,18px) clamp(10px,1.6vh,16px);display:flex;flex-direction:column;gap:clamp(6px,.9vh,9px)}
-  .zgrow{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(8px,1.5vh,16px)}
-  .zbottom{display:flex;flex-direction:column;gap:clamp(5px,.8vh,8px)}
+  .zgrow{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(8px,1.6vh,18px)}
+  .zgrow>*{flex:0 0 auto}
+  .zbottom{display:flex;flex-direction:column;gap:clamp(5px,.8vh,8px);padding-top:clamp(6px,1.2vh,12px)}
   .zone-foot{padding:8px clamp(12px,1.4vw,18px);border-top:1px dashed var(--line);font-size:.74em;color:var(--muted);display:flex;align-items:center;gap:6px}
   .zone-foot:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--forest-3)}
 
@@ -215,10 +217,18 @@
     body{overflow:auto}
     .app{height:auto;min-height:100dvh}
     .board{grid-template-columns:1fr}
-    .zone-body{overflow:visible}
-    .arrow{display:none}
+    .zone,.zone-body{overflow:visible}
+    .zgrow{justify-content:flex-start}
     .strip{grid-template-columns:1fr 1fr}
     .strip .src{grid-column:1/-1;text-align:left;max-width:none}
+  }
+  @media (max-width:640px){
+    html,body{overflow-x:hidden}
+    .topbar{grid-template-columns:1fr}
+    .tb-prog{flex-direction:row;align-self:flex-start;gap:8px}
+    .ring{width:44px}
+    .strip{grid-template-columns:1fr}
+    .kfig{grid-template-columns:1fr 1fr}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -425,10 +435,10 @@ const D = {
     ["PermenLHK No. 14 Tahun 2023","Terbitnya aturan penyelesaian usaha/kegiatan terbangun di KSA, KPA, dan Taman Buru menunjukkan adanya kegiatan terbangun yang harus diselesaikan melalui inventarisasi, skema penyelesaian, monitoring, evaluasi, pembinaan, dan pengendalian.",[]],
     ["Laporan KSDAE Tahun 2024","Kawasan konservasi rentan terhadap ancaman perburuan dan penggunaan lahan lain yang tidak sesuai aturan; terdapat kawasan yang rusak dan memerlukan restorasi/rehabilitasi.",[]],
     ["Kinerja PNBP & devisa TSL","2023: PNBP jasa lingkungan & pemanfaatan TSL terealisasi Rp185,75 miliar (80,76% dari target Rp230 miliar); nilai ekspor TSL 80,56% dari target. 2025: penekanan optimalisasi devisa/PNBP, cashless payment, e-ticketing, SOP, dan sarana pengamanan.",[]],
-    ["Renstra KSDAE 2025&ndash;2029","Kawasan konservasi memiliki potensi besar jasa lingkungan (wisata, air, energi air, panas bumi, karbon), yang bernilai ekonomi sekaligus menimbulkan risiko izin, tarif, PNBP, dampak ekologis, bagi hasil/kompensasi, dan pengamanan kawasan.",[]],
+    ["Renstra KSDAE 2025–2029","Kawasan konservasi memiliki potensi besar jasa lingkungan (wisata, air, energi air, panas bumi, karbon), yang bernilai ekonomi sekaligus menimbulkan risiko izin, tarif, PNBP, dampak ekologis, bagi hasil/kompensasi, dan pengamanan kawasan.",[]],
     ["Hasil desk analisis data spasial (uji petik)","QGIS, Google Hybrid, dan peta interaktif bhumi.atrbpn.go.id menunjukkan:",[
-      "Pelepasan CA Teluk Kelumpang&ndash;Selat Laut&ndash;Selat Sebuku (Kalsel) menjadi APL ±930 ha, tidak tercantum dalam IGT Pelepasan Kawasan Hutan",
-      "Areal pertambangan PT Dian Unggul Baratama di dalam CA Teluk Kelumpang&ndash;Selat Laut&ndash;Selat Sebuku",
+      "Pelepasan CA Teluk Kelumpang–Selat Laut–Selat Sebuku (Kalsel) menjadi APL ±930 ha, tidak tercantum dalam IGT Pelepasan Kawasan Hutan",
+      "Areal pertambangan PT Dian Unggul Baratama di dalam CA Teluk Kelumpang–Selat Laut–Selat Sebuku",
       "Jetty SBT (Satui Bara Tama) di Batulicin",
       "Areal PT Jhonlin Marine Lines, PT Jhonlin Baratama, PT Anugerah Barokah Energi Baru, PT Arutmin Indonesia",
       "Sertipikat Hak Milik dalam TN Gunung Halimun Salak di Desa Sobang, Kec. Sobang, Kab. Lebak, Banten"
@@ -477,7 +487,7 @@ const D = {
     ["Inventarisasi Potensi Kawasan","Memperoleh data ekosistem, tutupan lahan, tumbuhan/satwa, habitat penting, sumber air, jasa lingkungan, kondisi sosial ekonomi, ancaman, aksesibilitas, sarana, dan potensi wisata. Dasar seluruh keputusan pengelolaan berikutnya."],
     ["Penyusunan Rencana Pengelolaan","Rencana jangka panjang dan tahunan memuat target ekologis, perlindungan, pemulihan, pemanfaatan, pemberdayaan, dan indikator evaluasi. Dasar program, anggaran, personel, sarana, kemitraan, perizinan, pengawasan."],
     ["Penataan Zona dan Blok Pengelolaan","Zonasi pada taman nasional; blok pengelolaan pada CA, SM, Tahura, dan TWA. Menentukan kegiatan yang diperbolehkan, lokasi pemanfaatan, akses tradisional, area pemulihan, intensitas patroli, dan bagian yang dilindungi ketat."],
-    ["Perlindungan dan Pengamanan Kawasan","Patroli, pengamanan batas, pencegahan perambahan, pengendalian kebakaran, pencegahan perburuan & perdagangan ilegal, penanganan konflik manusia&ndash;satwa, pengawasan perizinan, penegakan hukum — berbasis pemetaan ancaman dan risiko."],
+    ["Perlindungan dan Pengamanan Kawasan","Patroli, pengamanan batas, pencegahan perambahan, pengendalian kebakaran, pencegahan perburuan & perdagangan ilegal, penanganan konflik manusia–satwa, pengawasan perizinan, penegakan hukum — berbasis pemetaan ancaman dan risiko."],
     ["Pengawetan Keanekaragaman Hayati","In-situ (perlindungan spesies di habitat alami) dan ex-situ (lembaga konservasi, penangkaran, kebun botani, penyelamatan sumber daya genetik), termasuk perlindungan habitat, kesehatan satwa, surveilans, dan pengendalian jenis invasif."],
     ["Pemulihan Ekosistem","Terhadap kawasan yang terbakar, dirambah, ditebang, berubah tutupan lahan, rusak habitat, terinvasi spesies asing, atau terganggu hidrologi. Metode: pemulihan alami, rehabilitasi, restorasi, pengayaan jenis, pengendalian invasif, penutupan sementara."],
     ["Pemanfaatan Secara Lestari","Wisata alam, penelitian, pendidikan, air & energi air, panas bumi, energi angin, karbon, jasa keanekaragaman hayati, pemanfaatan tradisional tertentu, dan perburuan terkendali di taman buru — sesuai fungsi, perizinan, zonasi/blok, dan daya dukung."],
@@ -486,7 +496,7 @@ const D = {
   ],
 
   spiSumber:[
-    ["Kawasan hutan konservasi","IGT kawasan hutan 2021&ndash;2025","Menguji perubahan luas, fungsi, dan posisi kawasan antarperiode"],
+    ["Kawasan hutan konservasi","IGT kawasan hutan 2021–2025","Menguji perubahan luas, fungsi, dan posisi kawasan antarperiode"],
     ["Pelepasan kawasan hutan","Data pelepasan kawasan hutan","Menguji apakah pengurangan kawasan telah didukung prosedur pelepasan"],
     ["Bidang tanah","BHUMI ATR/BPN dan HGU 15 provinsi","Mengidentifikasi bidang bersertipikat atau hak atas tanah di dalam kawasan"],
     ["Tutupan lahan","Digitasi citra Google Earth / Google Hybrid","Mengidentifikasi permukiman, perkebunan, pertambangan, dan area terbuka"],
@@ -603,7 +613,7 @@ const D = {
     ["Pemberdayaan/kemitraan dan penyelesaian tenurial","Data kehutanan dan pertanahan belum terintegrasi untuk penyelesaian kasus","Konflik tenurial dan ketidakpastian status hak berlarut","Rekonsiliasi dengan ATR/BPN dan susun status penyelesaian per bidang"],
     ["Pemantauan dan evaluasi","Belum terlihat register kasus terpadu yang memuat status, tenggat, bukti, dan hasil penyelesaian","Masalah berulang dan progres sulit dipantau","Bangun register kasus spasial dengan PIC, target waktu, bukti, dan eskalasi"]
   ],
-  kesimpulan:"Analisis dua minggu pertama dan himpunan permasalahan internal Ditjen Planologi&ndash;Ditjen KSDAE menunjukkan bahwa risiko telah muncul pada beberapa sub proses bisnis sekaligus. Dalam siklus pengukuhan, risiko terutama berada pada penunjukan, penataan batas, pemetaan, dan penetapan. Dalam siklus pengelolaan, risiko terutama berada pada inventarisasi, penataan zona/blok, perlindungan, pemulihan, pemanfaatan lestari, penyelesaian tenurial, serta pemantauan dan evaluasi. Oleh karena itu, pengujian pengendalian perlu diarahkan pada kemampuan setiap tahapan untuk mencegah atau mendeteksi ketidaksesuaian, merekonsiliasi data dan dokumen legal, menetapkan penanggung jawab, serta memastikan penyelesaian dan pemulihan dapat dipantau sampai tuntas."
+  kesimpulan:"Analisis dua minggu pertama dan himpunan permasalahan internal Ditjen Planologi–Ditjen KSDAE menunjukkan bahwa risiko telah muncul pada beberapa sub proses bisnis sekaligus. Dalam siklus pengukuhan, risiko terutama berada pada penunjukan, penataan batas, pemetaan, dan penetapan. Dalam siklus pengelolaan, risiko terutama berada pada inventarisasi, penataan zona/blok, perlindungan, pemulihan, pemanfaatan lestari, penyelesaian tenurial, serta pemantauan dan evaluasi. Oleh karena itu, pengujian pengendalian perlu diarahkan pada kemampuan setiap tahapan untuk mencegah atau mendeteksi ketidaksesuaian, merekonsiliasi data dan dokumen legal, menetapkan penanggung jawab, serta memastikan penyelesaian dan pemulihan dapat dipantau sampai tuntas."
 };
 
 /* =========================================================================
@@ -651,7 +661,7 @@ V['tujuan'] = {
     return `
     <p class="lead">Tujuan pemeriksaan pendahuluan adalah <strong>memberikan penilaian atas efektivitas sistem pengendalian intern (SPI) dan penilaian risiko</strong> sebagai dasar pelaksanaan pemeriksaan terinci.</p>
     <h4>Rangkaian kegiatan (a&ndash;i)</h4>
-    <div class="grid2">${D.kegiatan.map(k=>`<div class="box"><span class="tag">${k[0].toUpperCase()} · ${({done:'selesai/awal',active:'sedang berjalan',next:'tahap berikutnya'})[k[2]]}</span><div style="margin-top:4px">${esc(k[1])}</div></div>`).join('')}</div>
+    <div class="grid2">${D.kegiatan.map(k=>`<div class="box"><span class="tag">${k[0].toUpperCase()} · ${({done:'tahap awal',active:'sedang berjalan',next:'tahap berikutnya'})[k[2]]}</span><div style="margin-top:4px">${esc(k[1])}</div></div>`).join('')}</div>
     <div class="grid2">
       <div><h4>Lingkup pemeriksaan</h4><p>Kegiatan pengukuhan dan pengelolaan kawasan hutan konservasi oleh Kementerian Kehutanan dan instansi terkait lainnya, <strong>Tahun 2021 s.d. 2025</strong>.</p>
       <h4>Entitas yang diperiksa</h4><div class="pill-list">${D.entitas.map(e=>`<span>${esc(e)}</span>`).join('')}</div>
