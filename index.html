@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Lapduming ke-1 — Pemeriksaan Pendahuluan Konservasi</title>
+<meta name="description" content="Dashboard infografis interaktif Laporan Perkembangan Pelaksanaan Pemeriksaan Pendahuluan (Lapduming) ke-1: tujuan pemeriksaan, pekerjaan yang telah dilakukan, dan hasil yang diperoleh.">
+<style>
+  :root{
+    --ink:#19362f; --muted:#5d726b; --faint:#8496905c;
+    --paper:#f4f0e5; --paper-2:#f8f5ec; --panel:#fffdf7; --card:#fdfbf3;
+    --forest:#175c43; --forest-2:#26775a; --forest-3:#3f8f6d;
+    --lime:#b7cc67; --gold:#d89a35; --gold-ink:#8c5c13;
+    --blue:#2f7182; --rust:#b5502f; --plum:#7a4a6b;
+    --line:#d9ddcf; --line-2:#e7e6d8;
+    --ok:#4f9f6f; --warn:#d89a35; --bad:#c05a3a;
+    --shadow:0 18px 48px rgba(24,54,47,.13);
+    --shadow-sm:0 6px 18px rgba(24,54,47,.09);
+    --radius:16px; --radius-sm:11px;
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e9ece4; --muted:#a2b1a8; --faint:#5a6b6355;
+      --paper:#10201b; --paper-2:#132620; --panel:#182f28; --card:#1c352d;
+      --forest:#5bbd93; --forest-2:#7cc9a8; --forest-3:#9ad7bd;
+      --lime:#b7cc67; --gold:#e5b25c; --gold-ink:#e5b25c;
+      --blue:#6fb2c2; --rust:#e08a68; --plum:#c79ab8;
+      --line:#2c463d; --line-2:#26403700;
+      --shadow:0 18px 48px rgba(0,0,0,.4);
+      --shadow-sm:0 6px 18px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;color:var(--ink);font-family:var(--sans);
+    font-size:clamp(13px,1.15vh,15px);line-height:1.5;
+    background:
+      radial-gradient(circle at 92% -4%,rgba(183,204,103,.20),transparent 34rem),
+      radial-gradient(circle at 2% 104%,rgba(47,113,130,.14),transparent 30rem),
+      linear-gradient(180deg,var(--paper-2),var(--paper));
+    overflow:hidden;
+  }
+  button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;margin:0}
+  a{color:var(--forest);font-weight:600}
+
+  /* ---------- app shell ---------- */
+  .app{height:100dvh;max-width:1680px;margin:0 auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(8px,1.4vh,16px);padding:clamp(10px,1.8vh,20px) clamp(12px,2vw,26px)}
+
+  /* ---------- top bar ---------- */
+  .topbar{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
+    padding:clamp(9px,1.5vh,15px) clamp(14px,1.6vw,20px);border-radius:var(--radius);
+    color:var(--paper-2);background:linear-gradient(114deg,#0b3728 8%,#175c43 92%);box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+  .topbar:after{content:"";position:absolute;right:-70px;top:-90px;width:220px;height:220px;border:44px solid rgba(183,204,103,.16);border-radius:50%}
+  .tb-main{min-width:0}
+  .eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:.72em;letter-spacing:.13em;text-transform:uppercase;opacity:.85;margin-bottom:5px}
+  .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime)}
+  .topbar h1{font-size:clamp(15px,2.3vh,23px);line-height:1.14;color:#fff;max-width:44ch}
+  .tb-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+  .tb-meta span{font-size:.72em;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.12)}
+  .tb-prog{display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1}
+  .ring{--p:23;width:clamp(52px,7vh,74px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+    background:conic-gradient(var(--lime) calc(var(--p)*1%),rgba(255,255,255,.16) 0)}
+  .ring span{width:76%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#124633;font-family:var(--serif);font-size:clamp(14px,2vh,20px);color:#fff}
+  .tb-prog small{font-size:.68em;opacity:.82;letter-spacing:.06em;text-transform:uppercase}
+
+  /* ---------- board ---------- */
+  .board{display:grid;grid-template-columns:1fr 1fr 1.06fr;gap:clamp(9px,1.3vw,16px);min-height:0}
+  .zone{display:flex;flex-direction:column;min-height:0;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;position:relative}
+  .zone-head{padding:clamp(10px,1.7vh,16px) clamp(12px,1.4vw,18px) clamp(6px,1vh,10px);cursor:pointer;transition:background .16s}
+  .zone-head:hover{background:color-mix(in srgb,var(--forest) 7%,transparent)}
+  .z-step{display:flex;align-items:center;gap:8px;font-size:.7em;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-ink)}
+  .z-step b{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--gold);color:#402c07;font-family:var(--serif)}
+  .zone-head h2{font-size:clamp(15px,2.15vh,21px);margin:6px 0 4px;line-height:1.1}
+  .zone-head p{margin:0;color:var(--muted);font-size:.82em;line-height:1.45}
+  .zone-body{flex:1;min-height:0;overflow:hidden;padding:clamp(4px,.8vh,8px) clamp(12px,1.4vw,18px) clamp(10px,1.6vh,16px);display:flex;flex-direction:column;gap:clamp(6px,.9vh,9px)}
+  .zgrow{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(8px,1.5vh,16px)}
+  .zbottom{display:flex;flex-direction:column;gap:clamp(5px,.8vh,8px)}
+  .zone-foot{padding:8px clamp(12px,1.4vw,18px);border-top:1px dashed var(--line);font-size:.74em;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .zone-foot:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--forest-3)}
+
+  /* generic clickable item */
+  .item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;
+    padding:clamp(7px,1.1vh,11px) clamp(9px,.9vw,13px);border:1px solid var(--line);border-radius:var(--radius-sm);
+    background:var(--card);transition:transform .14s,border-color .14s,box-shadow .14s}
+  .item:hover{transform:translateY(-2px);border-color:var(--forest-2);box-shadow:var(--shadow-sm)}
+  .item .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--forest) 12%,transparent);color:var(--forest);font-family:var(--serif);font-size:14px}
+  .item .tx{min-width:0}
+  .item .tx b{display:block;font-weight:650;font-size:.92em;line-height:1.2}
+  .item .tx span{display:block;color:var(--muted);font-size:.78em;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .item .go{color:var(--muted);font-size:13px}
+  .item.mini{grid-template-columns:1fr auto;padding:6px 10px}
+  .item.mini b{font-size:.86em}
+
+  .statline{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{font-size:.72em;padding:3px 8px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--muted);white-space:nowrap}
+  .chip.on{background:var(--forest);border-color:var(--forest);color:#fff}
+  .chip.warn{background:color-mix(in srgb,var(--gold) 22%,transparent);border-color:transparent;color:var(--gold-ink)}
+  .chip b{font-family:var(--serif);font-weight:500;margin-right:2px;opacity:.75}
+  .chip.on b{opacity:1}
+
+  .kfig{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .kfig div{border:1px solid var(--line);border-radius:var(--radius-sm);padding:7px 9px;background:var(--card)}
+  .kfig div.click{cursor:pointer;transition:transform .14s,border-color .14s}
+  .kfig div.click:hover{transform:translateY(-2px);border-color:var(--forest-2)}
+  .kfig b{display:block;font-family:var(--serif);font-size:clamp(14px,2vh,19px);color:var(--forest);line-height:1}
+  .kfig span{font-size:.72em;color:var(--muted);line-height:1.25;display:block;margin-top:3px}
+  .mini-h{font-size:.66em;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+
+  .zbtn{margin-top:auto;align-self:flex-start;font-size:.76em;font-weight:700;color:var(--forest);display:inline-flex;gap:5px;align-items:center;padding:5px 2px}
+  .zbtn:hover{gap:8px}
+
+  /* ---------- strip ---------- */
+  .strip{display:grid;grid-template-columns:1fr 1fr 1.2fr auto;gap:clamp(8px,1vw,14px);align-items:stretch;
+    padding:clamp(8px,1.3vh,13px) clamp(12px,1.5vw,18px);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+  .strip button.sc{text-align:left;display:flex;flex-direction:column;gap:2px;padding:4px 8px;border-radius:9px;transition:background .15s}
+  .strip button.sc:hover{background:color-mix(in srgb,var(--forest) 7%,transparent)}
+  .strip .lab{font-size:.66em;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);display:flex;align-items:center;gap:6px}
+  .strip .lab.bad{color:var(--bad)}
+  .strip .tt{font-size:.82em;line-height:1.3;color:var(--ink)}
+  .strip .src{font-size:.68em;color:var(--muted);align-self:center;text-align:right;max-width:22ch}
+
+  /* ---------- overlay / panel ---------- */
+  .overlay{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:clamp(10px,3vh,40px);
+    background:rgba(11,34,26,.44);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .2s}
+  .overlay.open{opacity:1;pointer-events:auto}
+  .panel{width:min(1040px,96vw);max-height:92dvh;display:flex;flex-direction:column;
+    background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+    transform:translateY(14px) scale(.985);transition:transform .22s}
+  .overlay.open .panel{transform:none}
+  .p-head{display:flex;align-items:flex-start;gap:14px;padding:clamp(14px,2.4vh,22px) clamp(16px,2.4vw,26px) clamp(10px,1.6vh,14px);border-bottom:1px solid var(--line)}
+  .p-crumb{flex:1;min-width:0}
+  .p-crumb nav{font-size:.74em;color:var(--muted);display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px}
+  .p-crumb nav button{color:var(--forest);font-weight:600}
+  .p-crumb nav button:hover{text-decoration:underline}
+  .p-crumb nav span.sep{color:var(--faint)}
+  .p-crumb h3{font-size:clamp(17px,2.7vh,25px);line-height:1.12}
+  .p-crumb .p-sub{color:var(--muted);font-size:.84em;margin-top:4px;line-height:1.4}
+  .p-nav{display:flex;gap:6px}
+  .p-nav button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;font-size:16px}
+  .p-nav button:hover{border-color:var(--forest-2);background:color-mix(in srgb,var(--forest) 8%,transparent)}
+  .p-body{padding:clamp(14px,2.2vh,20px) clamp(16px,2.4vw,26px) clamp(18px,2.6vh,26px);overflow:auto}
+
+  .p-body h4{font-size:1.05em;margin:18px 0 8px}
+  .p-body h4:first-child{margin-top:0}
+  .p-body p{margin:0 0 10px;color:var(--muted);line-height:1.6}
+  .p-body p.lead{color:var(--ink);font-size:1.02em}
+  .p-body ul{margin:0 0 12px;padding-left:20px;color:var(--muted);line-height:1.55}
+  .p-body li{margin:3px 0}
+  .p-body strong{color:var(--ink)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  @media(max-width:720px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+
+  .box{border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px 15px;background:var(--card)}
+  .box b.n{font-family:var(--serif);font-size:1.7em;color:var(--forest);line-height:1;display:block}
+  .box .cap{font-size:.82em;color:var(--muted);margin-top:4px;line-height:1.35}
+  .box.click{cursor:pointer;transition:transform .14s,border-color .14s,box-shadow .14s}
+  .box.click:hover{transform:translateY(-2px);border-color:var(--forest-2);box-shadow:var(--shadow-sm)}
+  .box .tag{font-size:.68em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink)}
+
+  table.t{width:100%;border-collapse:collapse;font-size:.86em;margin:4px 0 14px}
+  table.t th,table.t td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  table.t th{font-size:.82em;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  table.t td.num,table.t th.num{text-align:right;font-variant-numeric:tabular-nums}
+  table.t tr:last-child td{border-bottom:0}
+  table.t tr.sum td{font-weight:700;color:var(--ink);border-top:2px solid var(--line);background:color-mix(in srgb,var(--forest) 6%,transparent)}
+  .t-wrap{overflow-x:auto}
+
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .tabs button{padding:7px 13px;border:1px solid var(--line);border-radius:9px;background:var(--card);font-size:.86em;font-weight:600}
+  .tabs button.on{background:var(--forest);border-color:var(--forest);color:#fff}
+
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:720px){.flow{grid-template-columns:1fr 1fr}}
+  .fstep{position:relative;border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px;background:var(--card)}
+  .fstep .fno{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:color-mix(in srgb,var(--forest) 12%,transparent);color:var(--forest);font-family:var(--serif);margin-bottom:9px}
+  .fstep b{display:block;font-size:.96em;margin-bottom:5px}
+  .fstep span{font-size:.8em;color:var(--muted);line-height:1.4}
+
+  .cyc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:720px){.cyc{grid-template-columns:1fr}}
+  .cnode{border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px 13px;background:var(--card)}
+  .cnode b{font-size:.92em;display:flex;gap:8px;align-items:baseline}
+  .cnode b i{font-family:var(--serif);font-style:normal;color:var(--blue);font-size:.9em}
+  .cnode span{display:block;margin-top:4px;font-size:.79em;color:var(--muted);line-height:1.4}
+
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8em;color:var(--muted);margin:2px 0 10px}
+  .legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}
+
+  .barrow{display:grid;grid-template-columns:minmax(120px,34%) 1fr auto;gap:10px;align-items:center;margin:5px 0;font-size:.86em}
+  .barrow .track{background:color-mix(in srgb,var(--forest) 9%,transparent);border-radius:6px;height:15px;overflow:hidden}
+  .barrow .fill{height:100%;border-radius:6px;background:var(--forest-2)}
+  .barrow .v{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+
+  .note{font-size:.8em;color:var(--muted);border-left:3px solid var(--gold);padding:6px 0 6px 12px;margin:8px 0;line-height:1.5}
+  .pill-list{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}
+  .pill-list span{font-size:.8em;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--muted)}
+
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.88em;margin:6px 0 12px}
+  .kv dt{color:var(--muted)}
+  .kv dd{margin:0}
+
+  .hidden{display:none!important}
+  :focus-visible{outline:2px solid var(--forest-2);outline-offset:2px;border-radius:6px}
+
+  /* ---------- responsive / compact fallback ---------- */
+  @media (max-width:960px), (max-height:520px){
+    body{overflow:auto}
+    .app{height:auto;min-height:100dvh}
+    .board{grid-template-columns:1fr}
+    .zone-body{overflow:visible}
+    .arrow{display:none}
+    .strip{grid-template-columns:1fr 1fr}
+    .strip .src{grid-column:1/-1;text-align:left;max-width:none}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ================= TOP BAR ================= -->
+  <header class="topbar">
+    <div class="tb-main">
+      <div class="eyebrow">Lapduming ke-1 · s.d. Minggu ke-2</div>
+      <h1>Pemeriksaan Pendahuluan Kepatuhan atas Pengukuhan &amp; Pengelolaan Kawasan Hutan Konservasi 2021&ndash;2025</h1>
+      <div class="tb-meta">
+        <span>No. 01/LP3P-DM/72/T/ST/ANGGOTA-IV/PPN.03/08/2026</span>
+        <span>Periode 18&ndash;28 Agustus 2026</span>
+        <span>Kemenhut &amp; instansi terkait &middot; 5 provinsi</span>
+      </div>
+    </div>
+    <div class="tb-prog" title="Persentase penyelesaian pekerjaan">
+      <div class="ring"><span>23%</span></div>
+      <small>Penyelesaian</small>
+    </div>
+  </header>
+
+  <!-- ================= BOARD ================= -->
+  <main class="board">
+
+    <!-- ZONE 1 : TUJUAN -->
+    <section class="zone" id="z1">
+      <div class="zone-head" data-view="tujuan" role="button" tabindex="0">
+        <div class="z-step"><b>1</b> Tujuan pemeriksaan</div>
+        <h2>Menilai efektivitas SPI &amp; risiko sebagai dasar pemeriksaan terinci</h2>
+        <p>Pemeriksaan pendahuluan kepatuhan atas pengukuhan dan pengelolaan kawasan hutan konservasi TA 2021&ndash;2025.</p>
+      </div>
+      <div class="zone-body">
+        <div class="zgrow">
+          <div>
+            <div class="mini-h">9 rangkaian kegiatan perencanaan</div>
+            <div class="statline" id="kegChips"></div>
+          </div>
+          <div class="kfig">
+            <div><b>2</b><span>ranah kriteria: pengukuhan &amp; pengelolaan</span></div>
+            <div><b>5</b><span>provinsi uji petik</span></div>
+            <div><b>3</b><span>kelompok entitas diperiksa</span></div>
+            <div><b>2021&ndash;25</b><span>periode kegiatan yang diperiksa</span></div>
+          </div>
+        </div>
+        <div class="zbottom">
+          <button class="item mini" data-view="tujuan/alasan">
+            <b>Mengapa diperiksa? &mdash; 7 alasan pemeriksaan</b><span class="go">&rarr;</span>
+          </button>
+          <button class="zbtn" data-view="tujuan">Rincian tujuan, lingkup &amp; sasaran &rarr;</button>
+        </div>
+      </div>
+      <div class="zone-foot">Sumber: Program Pemeriksaan (P2) Pendahuluan Konservasi</div>
+    </section>
+
+    <!-- ZONE 2 : YANG TELAH DILAKUKAN -->
+    <section class="zone" id="z2">
+      <div class="zone-head" data-view="dilakukan" role="button" tabindex="0">
+        <div class="z-step"><b>2</b> Yang telah dilakukan</div>
+        <h2>Tiga lini pekerjaan pada dua minggu pertama</h2>
+        <p>Menerjemahkan tujuan menjadi identifikasi kriteria, pemahaman entitas, dan pemahaman SPI.</p>
+      </div>
+      <div class="zone-body">
+        <div class="zgrow">
+          <button class="item" data-view="dilakukan/kriteria">
+            <span class="ic">A1</span><span class="tx"><b>Identifikasi &amp; kumpulkan sumber kriteria</b><span>Kriteria yang masih berlaku atas pengukuhan &amp; pengelolaan</span></span><span class="go">&rarr;</span>
+          </button>
+          <button class="item" data-view="dilakukan/entitas">
+            <span class="ic">A2</span><span class="tx"><b>Pemahaman entitas pemeriksaan</b><span>Studi peraturan, kebijakan &amp; laporan kinerja entitas/satker</span></span><span class="go">&rarr;</span>
+          </button>
+          <button class="item" data-view="dilakukan/spi">
+            <span class="ic">A3</span><span class="tx"><b>Pemahaman sistem pengendalian intern</b><span>Analisis data proses bisnis pengukuhan &amp; pengelolaan</span></span><span class="go">&rarr;</span>
+          </button>
+        </div>
+        <div class="zbottom">
+          <div class="mini-h">Fokus tahap tujuan yang sedang dikerjakan</div>
+          <div class="statline"><span class="chip on">c · Identifikasi kriteria</span><span class="chip on">d · Pemahaman entitas</span><span class="chip on">e · Pemahaman SPI</span></div>
+          <button class="item mini" data-view="dilakukan/hambatan">
+            <b>Hambatan, upaya &amp; rencana pekerjaan berikutnya</b><span class="go">&rarr;</span>
+          </button>
+        </div>
+      </div>
+      <div class="zone-foot">Sumber: Lapduming ke-1, huruf A, C, D, F</div>
+    </section>
+
+    <!-- ZONE 3 : HASIL -->
+    <section class="zone" id="z3">
+      <div class="zone-head" data-view="hasil" role="button" tabindex="0">
+        <div class="z-step"><b>3</b> Hasil yang diperoleh</div>
+        <h2>Kriteria tersusun, entitas terpetakan, indikasi risiko teridentifikasi</h2>
+        <p>Termasuk indikasi awal kelemahan pengendalian dari analisis data geospasial lintas sumber.</p>
+      </div>
+      <div class="zone-body">
+        <div class="zgrow">
+          <button class="item" data-view="hasil/kriteria">
+            <span class="ic">B1</span><span class="tx"><b>Kriteria pemeriksaan &mdash; 2 ranah</b><span>Hierarki kriteria pengukuhan &amp; pengelolaan</span></span><span class="go">&rarr;</span>
+          </button>
+          <button class="item" data-view="hasil/data">
+            <span class="ic">B2</span><span class="tx"><b>Pemahaman entitas &amp; data kunci</b><span>94% kawasan ditetapkan &middot; 17,41% rencana belum disusun</span></span><span class="go">&rarr;</span>
+          </button>
+          <button class="item" data-view="hasil/analisis">
+            <span class="ic">B3</span><span class="tx"><b>Analisis data &mdash; 6 indikasi kelemahan</b><span>Pengurangan/penambahan kawasan, bidang tanah, tutupan lahan&hellip;</span></span><span class="go">&rarr;</span>
+          </button>
+          <div class="kfig">
+            <div class="click" data-view="hasil/data"><b>94%</b><span>kawasan konservasi telah ditetapkan (26,04 juta ha)</span></div>
+            <div class="click" data-view="hasil/data"><b>17,41%</b><span>rencana pengelolaan KSA/KPA belum disusun</span></div>
+            <div class="click" data-view="hasil/analisis/pengurangan"><b>7.738 ha</b><span>25 fitur kawasan terindikasi berpindah ke APL</span></div>
+            <div class="click" data-view="hasil/analisis/tutupan"><b>230.797 ha</b><span>5.122 poligon indikasi aktivitas manusia</span></div>
+          </div>
+        </div>
+        <div class="zbottom">
+          <button class="item mini" data-view="hasil/indikasi">
+            <b>2 indikasi permasalahan utama (huruf E)</b><span class="go">&rarr;</span>
+          </button>
+        </div>
+      </div>
+      <div class="zone-foot">Sumber: Lapduming ke-1, huruf B &amp; E</div>
+    </section>
+  </main>
+
+  <!-- ================= STRIP ================= -->
+  <footer class="strip">
+    <button class="sc" data-view="hasil/indikasi">
+      <span class="lab bad">&#9679; Indikasi E.1</span>
+      <span class="tt">Pengukuhan belum sepenuhnya sesuai ketentuan</span>
+    </button>
+    <button class="sc" data-view="hasil/indikasi">
+      <span class="lab bad">&#9679; Indikasi E.2</span>
+      <span class="tt">Pengelolaan belum sepenuhnya sesuai ketentuan</span>
+    </button>
+    <button class="sc" data-view="dilakukan/hambatan">
+      <span class="lab">&rarr; Rencana minggu berikutnya</span>
+      <span class="tt">Lanjut identifikasi kriteria/entitas/SPI &middot; pemeriksaan fisik Bogor &middot; konfirmasi KKP 8 kawasan</span>
+    </button>
+    <span class="src">Disusun oleh Pengendali Teknis &middot; Jakarta, 31 Agustus 2026 &middot; Indeks B.7.5.1.1</span>
+  </footer>
+</div>
+
+<!-- ================= OVERLAY / PANEL ================= -->
+<div class="overlay" id="overlay" aria-hidden="true">
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="pTitle">
+    <div class="p-head">
+      <div class="p-crumb">
+        <nav id="pCrumb"></nav>
+        <h3 id="pTitle"></h3>
+        <div class="p-sub" id="pSub"></div>
+      </div>
+      <div class="p-nav">
+        <button id="pBack" title="Kembali" aria-label="Kembali">&larr;</button>
+        <button id="pClose" title="Tutup" aria-label="Tutup">&times;</button>
+      </div>
+    </div>
+    <div class="p-body" id="pBody"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   DATA  —  seluruh angka & teks diambil langsung dari:
+   (1) Lapduming ke-1.docx   (2) P2 Pendahuluan Konservasi.docx
+   Murni statis, tanpa basis data.
+========================================================================= */
+const D = {
+  kegiatan:[
+    ["a","Identifikasi pengguna hasil pemeriksaan & pihak yang bertanggung jawab","done"],
+    ["b","Penentuan hal pokok, tujuan, dan lingkup pemeriksaan","done"],
+    ["c","Identifikasi kriteria","active"],
+    ["d","Pemahaman entitas dan lingkungannya","active"],
+    ["e","Pemahaman SPI","active"],
+    ["f","Penentuan materialitas","next"],
+    ["g","Penilaian risiko","next"],
+    ["h","Penentuan uji petik","next"],
+    ["i","Penyusunan strategi & rencana pemeriksaan (P2)","next"]
+  ],
+  provinsi:["DKI Jakarta","Nusa Tenggara Barat","Kalimantan Selatan","Jawa Timur","Jawa Barat"],
+  entitas:["Kementerian Kehutanan","Pemerintah Daerah Provinsi/Kabupaten/Kota","Instansi terkait lainnya"],
+  sasaran:[
+    "Peraturan perundang-undangan di bidang kehutanan",
+    "Peraturan perundang-undangan terkait pengukuhan kawasan hutan konservasi",
+    "Peraturan perundang-undangan di bidang konservasi sumber daya alam dan ekosistem",
+    "Peraturan perundang-undangan terkait pencegahan & pemberantasan perusakan hutan konservasi",
+    "Peraturan perundang-undangan relevan lainnya"
+  ],
+  alasan:[
+    ["LHP DTT Pengelolaan Kawasan Konservasi TA 2012","10 permasalahan, antara lain:",[
+      "Penetapan Zonasi TN Meru Betiri tanpa berdasarkan penataan batas",
+      "±876,03 ha kawasan hutan di TN Gunung Gede Pangrango belum ditunjuk sebagai kawasan konservasi",
+      "Kebijakan perubahan fungsi kawasan hutan tidak berdasarkan pertimbangan yang matang",
+      "Pemanfaatan panas bumi (geothermal) di kawasan konservasi tanpa izin Menteri Kehutanan",
+      "Proses tukar-menukar kawasan hutan tidak jelas; penyerobotan ±256,77 ha untuk permukiman & vila",
+      "Tanah bersertifikat ±119,52 ha berlokasi di dalam kawasan hutan konservasi",
+      "Proses perizinan & pelaksanaan pemanfaatan kawasan konservasi tidak sesuai ketentuan",
+      "Pemanfaatan air dari dalam kawasan konservasi tidak sesuai ketentuan",
+      "Perambahan hutan konservasi untuk lahan pertanian dan lapangan golf",
+      "CA Leuwung Sancang menjadi lokasi peledakan amunisi afkir"
+    ]],
+    ["LHP LK Kementerian Kehutanan TA 2025","3 permasalahan:",[
+      "Pengelolaan kerja sama dalam negeri pada Ditjen KSDAE belum memadai",
+      "Hilangnya potensi PNBP PHU-PSWA dari 19 PB-PSWA yang belum menyampaikan laporan keuangan teraudit KAP",
+      "Hilangnya potensi PNBP PHU-PSWA karena penghitungan pungutan berdasarkan laba bersih (net profit)"
+    ]],
+    ["PermenLHK No. 14 Tahun 2023","Terbitnya aturan penyelesaian usaha/kegiatan terbangun di KSA, KPA, dan Taman Buru menunjukkan adanya kegiatan terbangun yang harus diselesaikan melalui inventarisasi, skema penyelesaian, monitoring, evaluasi, pembinaan, dan pengendalian.",[]],
+    ["Laporan KSDAE Tahun 2024","Kawasan konservasi rentan terhadap ancaman perburuan dan penggunaan lahan lain yang tidak sesuai aturan; terdapat kawasan yang rusak dan memerlukan restorasi/rehabilitasi.",[]],
+    ["Kinerja PNBP & devisa TSL","2023: PNBP jasa lingkungan & pemanfaatan TSL terealisasi Rp185,75 miliar (80,76% dari target Rp230 miliar); nilai ekspor TSL 80,56% dari target. 2025: penekanan optimalisasi devisa/PNBP, cashless payment, e-ticketing, SOP, dan sarana pengamanan.",[]],
+    ["Renstra KSDAE 2025&ndash;2029","Kawasan konservasi memiliki potensi besar jasa lingkungan (wisata, air, energi air, panas bumi, karbon), yang bernilai ekonomi sekaligus menimbulkan risiko izin, tarif, PNBP, dampak ekologis, bagi hasil/kompensasi, dan pengamanan kawasan.",[]],
+    ["Hasil desk analisis data spasial (uji petik)","QGIS, Google Hybrid, dan peta interaktif bhumi.atrbpn.go.id menunjukkan:",[
+      "Pelepasan CA Teluk Kelumpang&ndash;Selat Laut&ndash;Selat Sebuku (Kalsel) menjadi APL ±930 ha, tidak tercantum dalam IGT Pelepasan Kawasan Hutan",
+      "Areal pertambangan PT Dian Unggul Baratama di dalam CA Teluk Kelumpang&ndash;Selat Laut&ndash;Selat Sebuku",
+      "Jetty SBT (Satui Bara Tama) di Batulicin",
+      "Areal PT Jhonlin Marine Lines, PT Jhonlin Baratama, PT Anugerah Barokah Energi Baru, PT Arutmin Indonesia",
+      "Sertipikat Hak Milik dalam TN Gunung Halimun Salak di Desa Sobang, Kec. Sobang, Kab. Lebak, Banten"
+    ]]
+  ],
+  dasarHukum:["UU No. 15 Tahun 2004 tentang Pemeriksaan Pengelolaan dan Tanggung Jawab Keuangan Negara","UU No. 15 Tahun 2006 tentang Badan Pemeriksa Keuangan"],
+  standar:"Peraturan BPK No. 1 Tahun 2017 tentang Standar Pemeriksaan Keuangan Negara (SPKN)",
+
+  kriteriaRanah:[
+    ["Pengukuhan kawasan hutan konservasi","Memastikan kepastian hukum atas status, fungsi, letak, batas, dan luas kawasan melalui tahapan penunjukan, penataan batas, pemetaan, serta penetapan."],
+    ["Pengelolaan kawasan konservasi","Menilai kesinambungan inventarisasi potensi, penataan zona/blok, perencanaan, perlindungan, pengawetan dan pemulihan, pemanfaatan lestari, serta evaluasi kesesuaian fungsi."]
+  ],
+  peraturanKunci:[
+    "UU 5/1990 jo. UU 32/2024 — Konservasi Sumber Daya Alam Hayati dan Ekosistemnya",
+    "UU 41/1999 jo. UU 19/2004 jo. UU 6/2023 — Kehutanan",
+    "UU 32/2009 jo. UU 6/2023 — Perlindungan dan Pengelolaan Lingkungan Hidup",
+    "UU 18/2013 jo. UU 6/2023 — Pencegahan dan Pemberantasan Perusakan Hutan",
+    "PP 7/1999 — Pengawetan Jenis Tumbuhan dan Satwa",
+    "PP 8/1999 — Pemanfaatan Jenis Tumbuhan dan Satwa Liar",
+    "PP 28/2011 jo. PP 108/2015 — Pengelolaan KSA dan KPA",
+    "Permenhut P.81/2014 — Inventarisasi Potensi pada KSA dan KPA",
+    "PermenLHK P.76/2015 — Kriteria Zona/Blok Pengelolaan KSA, SM, Tahura, dan TWA",
+    "PermenLHK P.43/2017 — Pemberdayaan Masyarakat di Sekitar KSA dan KPA",
+    "PermenLHK P.44/2017 — Kerja Sama Penyelenggaraan KSA dan KPA",
+    "PermenLHK P.8/2019 — Pengusahaan Pariwisata Alam di SM, TN, Tahura, dan TWA",
+    "PermenLHK P.18/2019 — Pemanfaatan Air dan Energi di SM, TN, Tahura, dan TWA",
+    "PermenLHK 14/2023 — Penyelesaian Usaha/Kegiatan Terbangun di KSA, KPA, dan Taman Buru",
+    "Permenhut 4/2025 — Organisasi dan Tata Kerja UPT Ditjen KSDAE",
+    "Permenhut 27/2025 — Pemanfaatan Jasa Lingkungan pada KSA, KPA, dan Taman Buru",
+    "Perdirjen KSDAE P.10/2016 — Pedoman Inventarisasi Potensi KSA dan KPA",
+    "Perdirjen KSDAE P.11/2016 — Juknis Penyusunan Rancangan Zona/Blok Pengelolaan",
+    "Perdirjen KSDAE P.12/2016 — Tata Cara Penilaian Dokumen Zona/Blok Pengelolaan",
+    "Perdirjen KSDAE P.13/2016 — Juknis Penandaan Batas Zona/Blok Pengelolaan"
+  ],
+
+  orgPengelola:[["8","Balai Besar Taman Nasional (BBTN)"],["40","Balai Taman Nasional (BTN)"],["8","Balai Besar KSDA (BBKSDA)"],["18","Balai KSDA (BKSDA)"]],
+  orgPengukuhan:"Direktorat Pengukuhan Kawasan Hutan pada Ditjen Planologi Kehutanan merumuskan dan melaksanakan kebijakan pengukuhan, didukung 22 Balai Pemantapan Kawasan Hutan (BPKH) untuk penataan batas, pemetaan, verifikasi penguasaan tanah, pengelolaan informasi geospasial, dan pemantauan penggunaan kawasan.",
+
+  tahapPengukuhan:[
+    ["Penunjukan","Penetapan awal wilayah sebagai kawasan hutan berdasarkan inventarisasi, kebijakan tata ruang, serta pertimbangan teknis dan geospasial. Produk: keputusan Menteri + peta lampiran. Belum merupakan penetapan akhir."],
+    ["Penataan Batas","Membuktikan dan menegaskan batas di lapangan: trayek batas, pemancangan & pengumuman batas sementara, inventarisasi & penyelesaian hak pihak ketiga, pengukuran, pal definitif, peta hasil tata batas. Produk: Berita Acara Tata Batas + peta tata batas (Panitia Tata Batas)."],
+    ["Pemetaan","Mendokumentasikan hasil pengukuhan dalam informasi geospasial (posisi, bentuk, batas, luas) yang konsisten dengan koordinat, dokumen tata batas, dan kondisi lapangan."],
+    ["Penetapan","Tahap akhir oleh Menteri berdasarkan BATB dan peta hasil tata batas yang telah temu gelang. Produk: keputusan Menteri penetapan kawasan hutan + peta lampiran + nomor register."]
+  ],
+  siklusPengelolaan:[
+    ["Inventarisasi Potensi Kawasan","Memperoleh data ekosistem, tutupan lahan, tumbuhan/satwa, habitat penting, sumber air, jasa lingkungan, kondisi sosial ekonomi, ancaman, aksesibilitas, sarana, dan potensi wisata. Dasar seluruh keputusan pengelolaan berikutnya."],
+    ["Penyusunan Rencana Pengelolaan","Rencana jangka panjang dan tahunan memuat target ekologis, perlindungan, pemulihan, pemanfaatan, pemberdayaan, dan indikator evaluasi. Dasar program, anggaran, personel, sarana, kemitraan, perizinan, pengawasan."],
+    ["Penataan Zona dan Blok Pengelolaan","Zonasi pada taman nasional; blok pengelolaan pada CA, SM, Tahura, dan TWA. Menentukan kegiatan yang diperbolehkan, lokasi pemanfaatan, akses tradisional, area pemulihan, intensitas patroli, dan bagian yang dilindungi ketat."],
+    ["Perlindungan dan Pengamanan Kawasan","Patroli, pengamanan batas, pencegahan perambahan, pengendalian kebakaran, pencegahan perburuan & perdagangan ilegal, penanganan konflik manusia&ndash;satwa, pengawasan perizinan, penegakan hukum — berbasis pemetaan ancaman dan risiko."],
+    ["Pengawetan Keanekaragaman Hayati","In-situ (perlindungan spesies di habitat alami) dan ex-situ (lembaga konservasi, penangkaran, kebun botani, penyelamatan sumber daya genetik), termasuk perlindungan habitat, kesehatan satwa, surveilans, dan pengendalian jenis invasif."],
+    ["Pemulihan Ekosistem","Terhadap kawasan yang terbakar, dirambah, ditebang, berubah tutupan lahan, rusak habitat, terinvasi spesies asing, atau terganggu hidrologi. Metode: pemulihan alami, rehabilitasi, restorasi, pengayaan jenis, pengendalian invasif, penutupan sementara."],
+    ["Pemanfaatan Secara Lestari","Wisata alam, penelitian, pendidikan, air & energi air, panas bumi, energi angin, karbon, jasa keanekaragaman hayati, pemanfaatan tradisional tertentu, dan perburuan terkendali di taman buru — sesuai fungsi, perizinan, zonasi/blok, dan daya dukung."],
+    ["Pemberdayaan dan Kemitraan Masyarakat","Kemitraan konservasi, usaha ekonomi produktif, wisata berbasis masyarakat, pemanfaatan tradisional, patroli, pemulihan ekosistem, peningkatan kapasitas, dan penyelesaian konflik — memperhatikan wilayah adat, lahan garapan, sumber air, situs budaya, jalur tradisional, kearifan lokal."],
+    ["Pemantauan dan Evaluasi","Berdasarkan kondisi ekologis, pelaksanaan rencana, kepatuhan perizinan, efektivitas perlindungan, kemajuan pemulihan, dan dampak pemanfaatan. Hasilnya menyesuaikan rencana, zona/blok, prioritas kegiatan, anggaran, dan bentuk intervensi."]
+  ],
+
+  spiSumber:[
+    ["Kawasan hutan konservasi","IGT kawasan hutan 2021&ndash;2025","Menguji perubahan luas, fungsi, dan posisi kawasan antarperiode"],
+    ["Pelepasan kawasan hutan","Data pelepasan kawasan hutan","Menguji apakah pengurangan kawasan telah didukung prosedur pelepasan"],
+    ["Bidang tanah","BHUMI ATR/BPN dan HGU 15 provinsi","Mengidentifikasi bidang bersertipikat atau hak atas tanah di dalam kawasan"],
+    ["Tutupan lahan","Digitasi citra Google Earth / Google Hybrid","Mengidentifikasi permukiman, perkebunan, pertambangan, dan area terbuka"],
+    ["Infrastruktur","Jaringan jalan BIG dan jaringan listrik ESDM","Menguji keberadaan kerja sama, perizinan, dan pengendalian dampak"],
+    ["Pertambangan","Wilayah izin usaha pertambangan","Mengidentifikasi potensi tumpang tindih izin dengan kawasan konservasi"]
+  ],
+
+  hambatan:[
+    "Pengumpulan data bidang tanah dari bhumi.atrbpn.go.id membutuhkan waktu lama, koneksi internet yang kuat, serta bergantung pada kestabilan server Kementerian ATR/BPN.",
+    "Kemampuan tim dalam menganalisa data spasial menggunakan QGIS, Google Earth, dan aplikasi berbasis spasial lainnya masih perlu ditingkatkan."
+  ],
+  upaya:[
+    "Memanfaatkan Visual Studio Code yang dikombinasikan dengan Codex (ChatGPT) untuk menghasilkan script Python yang mendigitasi bidang tanah secara otomatis.",
+    "Melakukan pembelajaran bersama di sela-sela penugasan."
+  ],
+  rencana:[
+    "Melanjutkan identifikasi kriteria, pemahaman entitas, dan pemahaman SPI dengan Dit. Perencanaan Kawasan dan Dit. Pemanfaatan Jasa Lingkungan.",
+    "Melakukan pemeriksaan fisik di Kabupaten/Kota Bogor.",
+    "Konfirmasi ke KKP terkait pengelolaan 8 kawasan hutan konservasi yang diserahterimakan oleh Kemenhut."
+  ],
+
+  indikasi:[
+    ["E.1 — Indikasi Pengukuhan Kawasan Hutan Konservasi Belum Sepenuhnya Sesuai Ketentuan","Mencakup ketidaksesuaian data mengenai status, fungsi, batas, luas, peta, dan kondisi kawasan pada tahap penunjukan, penataan batas, pemetaan, dan penetapan. Diperlukan pendalaman bukti lebih lanjut."],
+    ["E.2 — Indikasi Pengelolaan Kawasan Hutan Konservasi Belum Sepenuhnya Sesuai Ketentuan","Mencakup penguasaan tanah, perubahan tutupan lahan, pemanfaatan kawasan, serta keberadaan jalan dan jaringan listrik yang perlu dipastikan kesesuaiannya dengan izin, kerja sama, rencana pengelolaan, zona atau blok, dan ketentuan perlindungan kawasan."]
+  ],
+
+  /* ---- data kunci entitas (B2) ---- */
+  kawasan:{ditetapkan:26.04, penunjukan:27.6, belum:1.6, persen:94},
+  perencanaan:[
+    ["Belum menyusun",101,17.41],
+    ["Pengesahan Direktur Jenderal",3,0.52],
+    ["Penilaian direktur teknis",8,1.38],
+    ["Penyerahan dokumen kepada UPT",376,64.83],
+    ["Perbaikan UPT",89,15.34],
+    ["Proses telaah",3,0.52]
+  ],
+  perencanaanTotal:580,
+  pemanfaatan:{
+    ringkas:[
+      ["Penangkaran tumbuhan & satwa","535 unit","30 provinsi","Aves & mamalia mencakup 79,44% unit"],
+      ["Peragaan satwa","12 unit usaha","8 provinsi","Enam unit memperagakan kombinasi aves, mamalia, dan reptil"],
+      ["Lembaga konservasi umum","85 lembaga","21 provinsi","Taman satwa mencakup 76,47% lembaga"],
+      ["PBPSWA","114 pelaku usaha","32 UPT","Empat UPT terbesar mencakup 40,35% izin"]
+    ],
+    penangkaran:[["Aves",242,45.23],["Mamalia",183,34.21],["Reptil",63,11.78],["Taksa/kombinasi lainnya",47,8.79]],
+    lembaga:[["Taman satwa",65,76.47],["Bentuk lainnya",20,23.53]],
+    pbpswa:[["4 UPT terbesar (BKSDA NTB, BBKSDA Jabar, BTN G. Halimun Salak, BBTN G. Gede Pangrango)",46,40.35],["28 UPT lainnya",68,59.65]]
+  },
+  openedArea:{total:"± 1.289.649,35 ha", sebaran:"tujuh kawasan pulau", digitasi:"± 249.125,87 ha", link:"https://bpk.id/OpnArea"},
+
+  /* ---- analisis data (B3) ---- */
+  analisisIkhtisar:[
+    ["pengurangan","Pengurangan kawasan","25 fitur","7.738,77 ha","Terindikasi berubah menjadi APL tanpa terhubung dengan data pelepasan."],
+    ["penambahan","Penambahan kawasan","71 unit/fitur","247.979,06 ha","Penambahan luas pada data tahun 2025; perlu rekonsiliasi keputusan, peta, register, dan basis data."],
+    ["bidang","Bidang tanah","3.974 bidang","51.792.080,29 ha*","Luas digitasi sangat material — perlu validasi geometri, satuan, duplikasi, dan status hak."],
+    ["tutupan","Perubahan tutupan lahan","5.122 poligon","230.797,29 ha","Terindikasi sebagai area aktivitas manusia; tindak lanjut lapangan & pemulihan belum diyakini."],
+    ["listrik","Jaringan listrik","95 unit/segmen","± 351,22 km","Perlu dicocokkan dengan persetujuan, kerja sama, kewajiban, dan pengendalian dampak."],
+    ["jalan","Jaringan jalan","49 UPT/UPTD Tahura","± 803,38 km","Perlu kejelasan status jalan, dasar penggunaan kawasan, pemeliharaan, dan pengendalian akses."]
+  ],
+  luasKawasan:[
+    ["Cagar Alam",12,"4.067,62",17,"6.692,01"],
+    ["Cagar Alam Laut","-","-",1,"114.681,38"],
+    ["Suaka Margasatwa",1,"172,20",4,"6.695,45"],
+    ["Taman Hutan Raya","-","-",17,"35.658,84"],
+    ["Taman Nasional",7,"1.632,29",26,"76.945,27"],
+    ["Taman Nasional Laut","-","-",3,"6.570,71"],
+    ["Taman Wisata Alam/Hutan Wisata",2,"217,35",2,"378,55"],
+    ["TWA/Hutan Wisata Perairan","-","-",1,"356,85"],
+    ["Hutan Suaka Alam",1,"305,10","-","-"],
+    ["KSA/KPA",2,"1.344,21","-","-"]
+  ],
+  luasKawasanSum:[25,"7.738,77",71,"247.979,06"],
+  bidangTanah:[
+    ["Hak Guna Bangunan",440,"874.752,41"],
+    ["Hak Guna Usaha",22,"35.023.449,10"],
+    ["Hak Milik",3491,"14.205.259,10"],
+    ["Hak Pakai",20,"1.687.682,70"],
+    ["Hak Wakaf",1,"936,98"]
+  ],
+  bidangTanahSum:[3974,"51.792.080,29"],
+  tutupanLahan:[
+    ["Cagar Alam",1850,"79.843,45"],
+    ["KSA/KPA",1,"1.734,43"],
+    ["Suaka Margasatwa",448,"58.750,06"],
+    ["Taman Hutan Raya",56,"15.488,82"],
+    ["Taman Buru",66,"227,18"],
+    ["Taman Nasional",2468,"73.213,05"],
+    ["Taman Nasional Laut",9,"307,87"],
+    ["TWA/Hutan Wisata Perairan",224,"1.232,43"]
+  ],
+  tutupanLahanSum:[5122,"230.797,29"],
+  listrik:[
+    ["SUTT 70 kV",12,"26.961,27","Bagian dari jaringan listrik tegangan tinggi"],
+    ["SUTT 150 kV",72,"282.632,41","Komponen terbesar jaringan listrik"],
+    ["SUTET 500 kV",6,"8.849,70","Perlu pencocokan dasar legal dan kewajiban"],
+    ["SUTET 275 kV",5,"32.774,50","Perlu pencocokan dasar legal dan kewajiban"]
+  ],
+  listrikSum:[95,"351.217,88"],
+  jalan:"803.382,32 m (± 803,38 km) tersebar pada 49 UPT/UPTD Tahura.",
+
+  tipologi:[
+    ["Permasalahan umum","Pemanfaatan dalam kawasan; pembukaan atau pengaktifan kembali ladang; tanah timbul yang diklaim bukan bagian kawasan","Evaluasi fungsi, usulan penetapan ulang fungsi pokok, penyempurnaan kebijakan IP4T, dan usulan penunjukan kawasan","Pengukuhan: penunjukan/penataan batas; Pengelolaan: perlindungan, pemanfaatan, pemberdayaan"],
+    ["Kawasan tidak tergambar dalam peta","Belum tersedia SHP atau kawasan tidak tergambar karena sangat kecil, perbedaan garis pantai, atau perbedaan delineasi","Penelusuran dokumen, pengecekan basis data lapangan, penetapan ulang peta, dan penyesuaian dengan RBI terbaru","Pengukuhan: pemetaan dan penetapan"],
+    ["Status fungsi pokok kawasan","Perubahan fungsi berdasarkan evaluasi kesesuaian fungsi belum terakomodasi dalam peta penunjukan provinsi","Penyampaian hasil evaluasi dan usulan penetapan fungsi kepada Ditjen PKTL","Pengukuhan: penunjukan/penetapan; Pengelolaan: evaluasi kesesuaian fungsi"],
+    ["Ketidaksesuaian keputusan dan kondisi lapangan","Pal batas atau BATB tidak ditemukan; koordinat lapangan berbeda dari peta keputusan; kondisi faktual tidak sesuai penunjukan","Rekonstruksi batas, pengecekan lapangan bersama, evaluasi fungsi, dan penataan batas","Pengukuhan: penataan batas, pemetaan, dan penetapan"],
+    ["Perbedaan poligon dan fungsi antar-tahap","Perbedaan luas, nama, fungsi, dan delineasi antara penunjukan, tata batas, penetapan, data KSDAE/PKTL, RTRK, dan citra","Penghitungan dan pemetaan ulang, revisi keputusan, konfirmasi nama/fungsi, serta penggunaan dokumen tata batas","Pengukuhan: penunjukan, penataan batas, pemetaan, dan penetapan"]
+  ],
+  matriks:[
+    ["Penunjukan, pemetaan, dan penetapan","Rekonsiliasi IGT, keputusan, pelepasan, peta, fungsi, nama, luas, dan register belum dapat diyakini","Perubahan kawasan tidak sah atau tidak tercatat konsisten","Telusuri 25 fitur pengurangan, sampel penambahan, dan tipologi masalah entitas ke dokumen sumber dan konfirmasi ke unit terkait"],
+    ["Penataan batas","BATB/pal tidak ditemukan atau koordinat lapangan berbeda dari peta keputusan","Batas tidak pasti dan konflik dengan hak pihak lain","Penelusuran BATB, rekonstruksi batas, dan pengecekan lapangan bersama"],
+    ["Pemetaan dan inventarisasi","Validasi geometri, proyeksi, satuan, versi, dan duplikasi belum dapat diyakini","Luas atau lokasi hasil analisis keliru","Uji metadata, sistem koordinat, topologi, dan hitung ulang luasan"],
+    ["Perlindungan, pemulihan, dan evaluasi","Deteksi perubahan tutupan belum terhubung penuh dengan verifikasi, PIC, tenggat, dan rencana pemulihan","Kerusakan berlangsung tanpa respons tepat waktu","Prioritaskan verifikasi berdasarkan luas, fungsi, dan tingkat risiko; pantau penyelesaiannya"],
+    ["Pemanfaatan lestari dan zona/blok","Jaringan jalan/listrik dan pemanfaatan belum sepenuhnya dicocokkan dengan izin, kerja sama, dan kewajiban","Penggunaan kawasan tanpa dasar legal atau melampaui daya dukung","Cocokkan segmen dengan register izin, kerja sama, zonasi/blok, dan dokumen lingkungan"],
+    ["Pemberdayaan/kemitraan dan penyelesaian tenurial","Data kehutanan dan pertanahan belum terintegrasi untuk penyelesaian kasus","Konflik tenurial dan ketidakpastian status hak berlarut","Rekonsiliasi dengan ATR/BPN dan susun status penyelesaian per bidang"],
+    ["Pemantauan dan evaluasi","Belum terlihat register kasus terpadu yang memuat status, tenggat, bukti, dan hasil penyelesaian","Masalah berulang dan progres sulit dipantau","Bangun register kasus spasial dengan PIC, target waktu, bukti, dan eskalasi"]
+  ],
+  kesimpulan:"Analisis dua minggu pertama dan himpunan permasalahan internal Ditjen Planologi&ndash;Ditjen KSDAE menunjukkan bahwa risiko telah muncul pada beberapa sub proses bisnis sekaligus. Dalam siklus pengukuhan, risiko terutama berada pada penunjukan, penataan batas, pemetaan, dan penetapan. Dalam siklus pengelolaan, risiko terutama berada pada inventarisasi, penataan zona/blok, perlindungan, pemulihan, pemanfaatan lestari, penyelesaian tenurial, serta pemantauan dan evaluasi. Oleh karena itu, pengujian pengendalian perlu diarahkan pada kemampuan setiap tahapan untuk mencegah atau mendeteksi ketidaksesuaian, merekonsiliasi data dan dokumen legal, menetapkan penanggung jawab, serta memastikan penyelesaian dan pemulihan dapat dipantau sampai tuntas."
+};
+
+/* =========================================================================
+   Helpers
+========================================================================= */
+const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const el = h => { const t=document.createElement('template'); t.innerHTML=h.trim(); return t.content.firstElementChild; };
+
+function hbars(rows,{unit="",max=null}={}){
+  const m = max ?? Math.max(...rows.map(r=>+r[1]));
+  return `<div>${rows.map(r=>{
+    const pct = m? (+r[1]/m*100):0;
+    const val = r[2]!=null ? `${fmt(r[1])} · ${r[2]}%` : `${fmt(r[1])}${unit}`;
+    return `<div class="barrow"><span>${esc(r[0])}</span><span class="track"><span class="fill" style="width:${pct.toFixed(1)}%"></span></span><span class="v">${val}</span></div>`;
+  }).join('')}</div>`;
+}
+const fmt = n => typeof n==='number' ? n.toLocaleString('id-ID') : n;
+
+function donut(pct,labelIn,labelSub){
+  const r=52, c=2*Math.PI*r, on=c*pct/100;
+  return `<svg viewBox="0 0 140 140" width="150" height="150" role="img" aria-label="${pct}%">
+    <circle cx="70" cy="70" r="${r}" fill="none" stroke="color-mix(in srgb,var(--forest) 14%,transparent)" stroke-width="16"/>
+    <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--forest-2)" stroke-width="16" stroke-linecap="round"
+      stroke-dasharray="${on} ${c-on}" transform="rotate(-90 70 70)"/>
+    <text x="70" y="66" text-anchor="middle" font-family="Georgia,serif" font-size="27" fill="var(--forest)">${labelIn}</text>
+    <text x="70" y="86" text-anchor="middle" font-size="10" fill="var(--muted)">${esc(labelSub||'')}</text>
+  </svg>`;
+}
+
+function tbl(head,rows,sum){
+  return `<div class="t-wrap"><table class="t"><thead><tr>${head.map((h,i)=>`<th class="${i?'num':''}">${esc(h)}</th>`).join('')}</tr></thead>
+  <tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td class="${i?'num':''}">${esc(fmt(c))}</td>`).join('')}</tr>`).join('')}
+  ${sum?`<tr class="sum">${sum.map((c,i)=>`<td class="${i?'num':''}">${esc(fmt(c))}</td>`).join('')}</tr>`:''}</tbody></table></div>`;
+}
+
+/* =========================================================================
+   VIEW REGISTRY
+========================================================================= */
+const V = {};
+
+V['tujuan'] = {
+  title:'Tujuan, lingkup & sasaran pemeriksaan',
+  sub:'Program Pemeriksaan (P2) Pendahuluan Kepatuhan atas Pengukuhan & Pengelolaan Kawasan Hutan Konservasi',
+  body(){
+    return `
+    <p class="lead">Tujuan pemeriksaan pendahuluan adalah <strong>memberikan penilaian atas efektivitas sistem pengendalian intern (SPI) dan penilaian risiko</strong> sebagai dasar pelaksanaan pemeriksaan terinci.</p>
+    <h4>Rangkaian kegiatan (a&ndash;i)</h4>
+    <div class="grid2">${D.kegiatan.map(k=>`<div class="box"><span class="tag">${k[0].toUpperCase()} · ${({done:'selesai/awal',active:'sedang berjalan',next:'tahap berikutnya'})[k[2]]}</span><div style="margin-top:4px">${esc(k[1])}</div></div>`).join('')}</div>
+    <div class="grid2">
+      <div><h4>Lingkup pemeriksaan</h4><p>Kegiatan pengukuhan dan pengelolaan kawasan hutan konservasi oleh Kementerian Kehutanan dan instansi terkait lainnya, <strong>Tahun 2021 s.d. 2025</strong>.</p>
+      <h4>Entitas yang diperiksa</h4><div class="pill-list">${D.entitas.map(e=>`<span>${esc(e)}</span>`).join('')}</div>
+      <h4>Provinsi uji petik</h4><div class="pill-list">${D.provinsi.map(p=>`<span>${esc(p)}</span>`).join('')}</div>
+      <p class="note">Judul Lapduming menyebut Kalimantan Selatan; dokumen P2 pada satu bagian menyebut Sulawesi Tenggara.</p></div>
+      <div><h4>Sasaran pemeriksaan</h4><p>Pemahaman SPI dan penilaian risiko atas penetapan kawasan hutan konservasi dan kegiatan pengelolaan KSDAE, untuk menilai tingkat ketaatan UPT pengelola atas ketentuan dalam:</p>
+      <ul>${D.sasaran.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
+      <h4>Dasar hukum &amp; standar</h4><ul>${D.dasarHukum.map(s=>`<li>${esc(s)}</li>`).join('')}<li>${esc(D.standar)}</li></ul></div>
+    </div>
+    <button class="item" data-view="tujuan/alasan"><span class="ic">?</span><span class="tx"><b>Mengapa pemeriksaan ini dilakukan</b><span>Tujuh alasan pemeriksaan</span></span><span class="go">&rarr;</span></button>`;
+  }
+};
+
+V['tujuan/alasan'] = {
+  title:'Alasan pemeriksaan',
+  sub:'Tujuh pertimbangan yang mendasari pelaksanaan pemeriksaan pendahuluan',
+  body(){
+    return D.alasan.map((a,i)=>`
+      <h4>${i+1}. ${a[0]}</h4>
+      <p>${a[1]}</p>
+      ${a[2].length?`<ul>${a[2].map(x=>`<li>${x}</li>`).join('')}</ul>`:''}`).join('');
+  }
+};
+
+V['dilakukan'] = {
+  title:'Pekerjaan yang telah dilaksanakan',
+  sub:'Tanggal 18 s.d. 28 Agustus 2026 — dua minggu pertama',
+  body(){
+    return `
+    <p class="lead">Tiga lini pekerjaan diselaraskan langsung dengan tahap tujuan (identifikasi kriteria, pemahaman entitas, pemahaman SPI). Persentase penyelesaian pekerjaan <strong>23%</strong>.</p>
+    <div class="grid3">
+      <div class="box click" data-view="dilakukan/kriteria"><span class="tag">A.1</span><b class="n" style="font-size:1.1em">Kriteria</b><div class="cap">Mengidentifikasi & mengumpulkan sumber kriteria yang masih berlaku terkait pengukuhan & pengelolaan kawasan hutan konservasi.</div></div>
+      <div class="box click" data-view="dilakukan/entitas"><span class="tag">A.2</span><b class="n" style="font-size:1.1em">Entitas</b><div class="cap">Pemahaman entitas melalui studi peraturan, kebijakan, dan dokumen/laporan kinerja entitas & satker terkait.</div></div>
+      <div class="box click" data-view="dilakukan/spi"><span class="tag">A.3</span><b class="n" style="font-size:1.1em">SPI</b><div class="cap">Pemahaman sistem pengendalian intern proses bisnis pengukuhan & pengelolaan kawasan hutan konservasi.</div></div>
+    </div>
+    <button class="item" data-view="dilakukan/hambatan"><span class="ic">!</span><span class="tx"><b>Hambatan, upaya & rencana pekerjaan berikutnya</b><span>Lapduming huruf C, D, F</span></span><span class="go">&rarr;</span></button>`;
+  }
+};
+
+V['dilakukan/kriteria'] = {
+  title:'A.1 — Identifikasi & pengumpulan kriteria',
+  sub:'Hasil: kriteria pemeriksaan mencakup dua ranah yang saling berkaitan',
+  body(){
+    return `
+    <div class="grid2">${D.kriteriaRanah.map(r=>`<div class="box"><b style="display:block;margin-bottom:5px">${esc(r[0])}</b><div class="cap">${esc(r[1])}</div></div>`).join('')}</div>
+    <button class="item" data-view="hasil/kriteria"><span class="ic">B1</span><span class="tx"><b>Lihat hierarki kriteria pemeriksaan (hasil B.1)</b><span></span></span><span class="go">&rarr;</span></button>
+    <h4>Peraturan kunci yang diidentifikasi</h4>
+    <ul>${D.peraturanKunci.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>`;
+  }
+};
+
+V['dilakukan/entitas'] = {
+  title:'A.2 — Pemahaman entitas',
+  sub:'Struktur organisasi, proses bisnis, dan data terkait pengukuhan & pengelolaan konservasi',
+  body(){
+    return `
+    <h4>Struktur organisasi pengelola (74 UPT Ditjen KSDAE)</h4>
+    <div class="grid4">${D.orgPengelola.map(o=>`<div class="box"><b class="n">${o[0]}</b><div class="cap">${esc(o[1])}</div></div>`).join('')}</div>
+    <p>UPT taman nasional mengelola kawasan taman nasional; UPT KSDA mengelola cagar alam, suaka margasatwa, taman wisata alam, dan taman buru, serta menangani konservasi keanekaragaman hayati di luar kawasan dan koordinasi teknis pembinaan taman hutan raya.</p>
+    <h4>Pelaksana pengukuhan</h4><p>${esc(D.orgPengukuhan)}</p>
+    <h4>Proses bisnis</h4>
+    <div class="grid2">
+      <button class="item" data-view="dilakukan/entitas/pengukuhan"><span class="ic">4</span><span class="tx"><b>Pengukuhan kawasan hutan konservasi</b><span>Penunjukan &rarr; penataan batas &rarr; pemetaan &rarr; penetapan</span></span><span class="go">&rarr;</span></button>
+      <button class="item" data-view="dilakukan/entitas/pengelolaan"><span class="ic">9</span><span class="tx"><b>Siklus pengelolaan kawasan konservasi</b><span>Inventarisasi &rarr; &hellip; &rarr; pemantauan & evaluasi</span></span><span class="go">&rarr;</span></button>
+    </div>
+    <h4>Data terkait pengukuhan & pengelolaan</h4>
+    <button class="item" data-view="hasil/data"><span class="ic">B2</span><span class="tx"><b>Buka data kunci (kawasan, perencanaan, pemanfaatan, opened area)</b><span>Hasil B.2 huruf c</span></span><span class="go">&rarr;</span></button>`;
+  }
+};
+
+V['dilakukan/entitas/pengukuhan'] = {
+  title:'Proses bisnis pengukuhan kawasan hutan',
+  sub:'Rangkaian kegiatan untuk memberikan kepastian hukum atas status, fungsi, letak, batas, dan luas kawasan',
+  body(){
+    return `<div class="flow">${D.tahapPengukuhan.map((t,i)=>`<div class="fstep"><div class="fno">${i+1}</div><b>${esc(t[0])}</b><span>${esc(t[1])}</span></div>`).join('')}</div>
+    <p class="note">Hasil akhir: kawasan hutan dengan kepastian administratif, yuridis, dan spasial — konsisten antara keputusan penetapan, berita acara tata batas, koordinat, peta, luas, fungsi, nomor register, dan kondisi lapangan.</p>`;
+  }
+};
+
+V['dilakukan/entitas/pengelolaan'] = {
+  title:'Siklus proses bisnis pengelolaan konservasi',
+  sub:'Siklus berkelanjutan — hasil evaluasi menjadi masukan untuk memperbaiki inventarisasi & rencana periode berikutnya',
+  body(){
+    return `<div class="cyc">${D.siklusPengelolaan.map((s,i)=>`<div class="cnode"><b><i>${String(i+1).padStart(2,'0')}</i> ${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join('')}</div>`;
+  }
+};
+
+V['dilakukan/spi'] = {
+  title:'A.3 — Pemahaman sistem pengendalian intern',
+  sub:'Analisis data geospasial lintas sumber untuk mengidentifikasi ketidaksesuaian awal',
+  body(){
+    return `
+    <p>Data geospasial digunakan untuk mengidentifikasi ketidaksesuaian awal antara batas dan fungsi kawasan, penguasaan tanah, perubahan tutupan lahan, serta keberadaan infrastruktur di dalam kawasan. Hasilnya merupakan indikasi awal yang masih memerlukan validasi data, konfirmasi, dan pengujian dokumen pendukung.</p>
+    <h4>Ringkasan data dan tujuan analisis</h4>
+    ${tbl(['Kelompok data','Sumber / periode','Tujuan analisis'],D.spiSumber)}
+    <button class="item" data-view="hasil/analisis"><span class="ic">B3</span><span class="tx"><b>Lihat hasil analisis data (6 indikasi)</b><span>Hasil B.3</span></span><span class="go">&rarr;</span></button>`;
+  }
+};
+
+V['dilakukan/hambatan'] = {
+  title:'Hambatan, upaya & rencana berikutnya',
+  sub:'Lapduming ke-1 — huruf C, D, dan F',
+  body(){
+    return `
+    <div class="grid2">
+      <div><h4>C. Hambatan yang terjadi</h4><ul>${D.hambatan.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div><h4>D. Upaya mengatasi hambatan</h4><ul>${D.upaya.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+    </div>
+    <h4>F. Rencana pekerjaan berikutnya</h4><ul>${D.rencana.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+  }
+};
+
+V['hasil'] = {
+  title:'Hasil yang telah diperoleh',
+  sub:'Lapduming ke-1 — huruf B (hasil) dan huruf E (indikasi permasalahan)',
+  body(){
+    return `
+    <div class="grid3">
+      <div class="box click" data-view="hasil/kriteria"><span class="tag">B.1</span><b style="display:block;margin:4px 0">Kriteria pemeriksaan</b><div class="cap">Dua ranah — pengukuhan & pengelolaan — beserta hierarki kriteria.</div></div>
+      <div class="box click" data-view="hasil/data"><span class="tag">B.2</span><b style="display:block;margin:4px 0">Pemahaman entitas & data</b><div class="cap">Struktur organisasi, proses bisnis, dan empat kelompok data kunci.</div></div>
+      <div class="box click" data-view="hasil/analisis"><span class="tag">B.3</span><b style="display:block;margin:4px 0">Analisis data / SPI</b><div class="cap">Enam indikasi kelemahan pengendalian, tipologi entitas, dan matriks tindak lanjut.</div></div>
+    </div>
+    <button class="item" data-view="hasil/indikasi"><span class="ic">E</span><span class="tx"><b>Dua indikasi permasalahan utama</b><span>Pengukuhan & pengelolaan belum sepenuhnya sesuai ketentuan</span></span><span class="go">&rarr;</span></button>`;
+  }
+};
+
+V['hasil/kriteria'] = {
+  title:'B.1 — Kriteria pemeriksaan',
+  sub:'Kriteria mencakup dua ranah yang saling berkaitan',
+  body(){
+    return `
+    <div class="grid2">${D.kriteriaRanah.map(r=>`<div class="box"><b style="display:block;margin-bottom:5px">${esc(r[0])}</b><div class="cap">${esc(r[1])}</div></div>`).join('')}</div>
+    <h4>Hierarki kriteria</h4>
+    <p>Kriteria disusun berjenjang dari undang-undang, peraturan pemerintah, peraturan menteri, hingga peraturan direktur jenderal / petunjuk teknis di tingkat tapak.</p>
+    <div class="flow" style="grid-template-columns:repeat(4,1fr)">
+      <div class="fstep"><div class="fno">UU</div><b>Undang-Undang</b><span>UU 5/1990 jo. 32/2024 · UU 41/1999 jo. 6/2023 · UU 32/2009 · UU 18/2013</span></div>
+      <div class="fstep"><div class="fno">PP</div><b>Peraturan Pemerintah</b><span>PP 7/1999 · PP 8/1999 · PP 28/2011 jo. PP 108/2015</span></div>
+      <div class="fstep"><div class="fno">PM</div><b>Peraturan Menteri</b><span>P.81/2014 · P.76/2015 · P.43 & P.44/2017 · P.8 & P.18/2019 · 14/2023 · 4 & 27/2025</span></div>
+      <div class="fstep"><div class="fno">PD</div><b>Perdirjen / Juknis</b><span>Perdirjen KSDAE P.10, P.11, P.12, P.13 Tahun 2016</span></div>
+    </div>
+    <button class="item" data-view="dilakukan/kriteria"><span class="ic">A1</span><span class="tx"><b>Daftar lengkap peraturan kunci</b><span></span></span><span class="go">&rarr;</span></button>`;
+  }
+};
+
+V['hasil/data'] = {
+  title:'B.2 — Pemahaman entitas: data kunci',
+  sub:'Empat kelompok data yang diperoleh sampai minggu kedua pemeriksaan',
+  tabs:['Kawasan','Perencanaan','Pemanfaatan','Opened area'],
+  body(tab='Kawasan'){
+    const T = this.tabs.map(t=>`<button class="${t===tab?'on':''}" data-tab="${t}">${t}</button>`).join('');
+    let c='';
+    if(tab==='Kawasan'){
+      c=`<div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+        ${donut(D.kawasan.persen,'94%','ditetapkan')}
+        <div><dl class="kv">
+          <dt>Kawasan ditetapkan (s.d. Juni 2026)</dt><dd><strong>26,04 juta ha</strong></dd>
+          <dt>Total penunjukan</dt><dd>27,6 juta ha</dd>
+          <dt>Belum ditetapkan</dt><dd><strong>1,6 juta ha</strong></dd>
+        </dl><p>Kawasan hutan konservasi yang ditetapkan mencapai <strong>94%</strong> dari total penunjukan.</p></div></div>`;
+    }
+    if(tab==='Perencanaan'){
+      c=`<p>Rencana pengelolaan jangka panjang atas <strong>${D.perencanaanTotal} unit kawasan</strong> KSA & KPA. Sebanyak 101 unit (17,41%) belum menyusun dokumen; 479 unit (82,59%) berada pada berbagai tahap penyusunan.</p>
+      ${hbars(D.perencanaan.map(r=>[r[0],r[1],r[2]]),{max:D.perencanaanTotal})}
+      ${tbl(['Status / progres dokumen','Unit kawasan','Persentase'],D.perencanaan.map(r=>[r[0],r[1],r[2]+'%']),['Jumlah',D.perencanaanTotal,'100,00%'])}`;
+    }
+    if(tab==='Pemanfaatan'){
+      c=`${tbl(['Bentuk pemanfaatan','Jumlah','Sebaran','Karakteristik utama'],D.pemanfaatan.ringkas)}
+      <div class="grid3">
+        <div><h4>Komposisi penangkaran</h4>${hbars(D.pemanfaatan.penangkaran)}</div>
+        <div><h4>Lembaga konservasi</h4>${hbars(D.pemanfaatan.lembaga)}</div>
+        <div><h4>Sebaran PBPSWA</h4>${hbars(D.pemanfaatan.pbpswa)}</div>
+      </div>`;
+    }
+    if(tab==='Opened area'){
+      c=`<div class="grid2">
+        <div class="box"><b class="n">${esc(D.openedArea.total)}</b><div class="cap">Opened area (atribut digitasi) di KSA, KPA, dan TB — hasil Pokja Inventarisasi Subdit Perencanaan & Evaluasi Fungsi KSA/KPA/TB, Dit. Perencanaan Konservasi. Tersebar di ${esc(D.openedArea.sebaran)}.</div></div>
+        <div class="box"><b class="n">${esc(D.openedArea.digitasi)}</b><div class="cap">Digitasi mandiri tim atas kawasan yang diindikasikan terdapat kegiatan non-kehutanan, telah disampaikan kepada masing-masing UPT/UPTD Tahura (Lampiran 6).</div></div>
+      </div>
+      <p>Data spasial dapat diakses melalui <a href="${D.openedArea.link}" target="_blank" rel="noopener">${D.openedArea.link}</a>.</p>`;
+    }
+    return `<div class="tabs">${T}</div>${c}`;
+  }
+};
+
+V['hasil/analisis'] = {
+  title:'B.3 — Analisis data & identifikasi pengendalian intern',
+  sub:'Indikasi awal — masih memerlukan validasi, konfirmasi, dan pengujian dokumen pendukung',
+  body(){
+    return `
+    <h4>Ikhtisar hasil analisis</h4>
+    <div class="grid3">${D.analisisIkhtisar.map(a=>`
+      <div class="box click" data-view="hasil/analisis/${a[0]}"><span class="tag">${esc(a[1])}</span>
+      <b class="n" style="font-size:1.15em">${esc(a[2])}</b><div class="cap"><strong>${esc(a[3])}</strong> — ${esc(a[4])}</div></div>`).join('')}</div>
+    <p class="note">* Nilai luas bidang tanah (51,79 juta ha) sangat material dibandingkan cakupan kawasan yang dianalisis dan perlu diuji kembali (geometri, satuan, duplikasi).</p>
+    <div class="grid3">
+      <button class="item" data-view="hasil/analisis/tipologi"><span class="ic">T</span><span class="tx"><b>Tipologi permasalahan entitas</b><span>Ditjen Planologi &amp; KSDAE</span></span><span class="go">&rarr;</span></button>
+      <button class="item" data-view="hasil/analisis/matriks"><span class="ic">M</span><span class="tx"><b>Matriks kelemahan & tindak lanjut</b><span>7 proses bisnis</span></span><span class="go">&rarr;</span></button>
+      <button class="item" data-view="hasil/analisis/kesimpulan"><span class="ic">K</span><span class="tx"><b>Kesimpulan sementara</b><span></span></span><span class="go">&rarr;</span></button>
+    </div>`;
+  }
+};
+
+const luasHead=['Jenis kawasan','Pengurangan: unit','Pengurangan (ha)','Penambahan: unit','Penambahan (ha)'];
+V['hasil/analisis/pengurangan'] = {
+  title:'Pengurangan kawasan — 25 fitur / 7.738,77 ha',
+  sub:'Kawasan konservasi 2021 yang pada data 2025 berada di Area Penggunaan Lain (APL) dan terindikasi belum terhubung prosedur pelepasan',
+  body(){
+    return `<p>Perbandingan IGT kawasan hutan 2021&ndash;2025 dengan data pelepasan mengidentifikasi <strong>25 fitur seluas 7.738,77 ha</strong> yang berpindah ke APL tanpa jejak prosedur pelepasan, serta penambahan pada 71 unit/fitur seluas 247.979,06 ha. Perbedaan perlu direkonsiliasi dengan keputusan perubahan fungsi/peruntukan, peta resmi, nomor register, dan riwayat pembaruan basis data.</p>
+    ${tbl(luasHead,D.luasKawasan,['Jumlah',...D.luasKawasanSum])}`;
+  }
+};
+V['hasil/analisis/penambahan'] = {
+  title:'Penambahan kawasan — 71 unit / 247.979,06 ha',
+  sub:'Penambahan luas kawasan konservasi pada data tahun 2025',
+  body(){
+    return `<p>Analisis mengidentifikasi penambahan kawasan konservasi pada <strong>71 unit/fitur seluas 247.979,06 ha</strong> — didominasi Cagar Alam Laut (114.681,38 ha), Taman Nasional (76.945,27 ha), dan Taman Hutan Raya (35.658,84 ha). Perlu rekonsiliasi sumber perubahan, keputusan, peta, register, dan pembaruan basis data.</p>
+    ${tbl(luasHead,D.luasKawasan,['Jumlah',...D.luasKawasanSum])}`;
+  }
+};
+V['hasil/analisis/bidang'] = {
+  title:'Bidang tanah dalam kawasan konservasi — 3.974 bidang',
+  sub:'Hak Milik, HGB, HGU, Hak Pakai, dan Hak Wakaf hasil digitasi',
+  body(){
+    return `<p>Digitasi data bidang tanah mengidentifikasi <strong>3.974 bidang</strong>. Nilai luas digitasi dalam laporan mencapai 51.792.080,29 ha dan perlu diuji kembali karena skalanya sangat material dibandingkan cakupan kawasan yang dianalisis — mencakup validitas geometri, sistem koordinat, satuan luas, potensi tumpang tindih/duplikasi, tanggal penerbitan hak, serta status penyelesaian penguasaan tanah.</p>
+    ${tbl(['Jenis hak','Jumlah bidang','Luas digitasi menurut laporan (ha)'],D.bidangTanah,['Jumlah',...D.bidangTanahSum])}`;
+  }
+};
+V['hasil/analisis/tutupan'] = {
+  title:'Indikasi perubahan tutupan lahan — 5.122 poligon / 230.797,29 ha',
+  sub:'Permukiman, perkebunan, pertambangan, atau area terbuka akibat aktivitas manusia',
+  body(){
+    return `<p>Digitasi citra mengidentifikasi <strong>5.122 poligon seluas 230.797,29 ha</strong> yang secara visual menunjukkan aktivitas manusia. Indikasi terbesar berada pada Cagar Alam, Taman Nasional, dan Suaka Margasatwa. Perlu diverifikasi dengan data resmi tutupan lahan, pemeriksaan lapangan, status legal kegiatan, identitas pihak, waktu perubahan, dan rencana pemulihan.</p>
+    ${tbl(['Jenis kawasan','Poligon','Luas (ha)'],D.tutupanLahan,['Jumlah',...D.tutupanLahanSum])}`;
+  }
+};
+V['hasil/analisis/listrik'] = {
+  title:'Jaringan listrik dalam kawasan — 95 segmen / ± 351,22 km',
+  sub:'Jaringan listrik tegangan tinggi di dalam kawasan konservasi',
+  body(){
+    return `<p>Keberadaan infrastruktur belum dengan sendirinya menunjukkan pelanggaran, tetapi perlu dibandingkan dengan daftar kerja sama, persetujuan/perizinan penggunaan kawasan, dokumen lingkungan, kewajiban pembayaran, pengamanan koridor, dan pemulihan dampak.</p>
+    ${tbl(['Jenis','Unit/segmen','Panjang (m)','Keterangan'],D.listrik,['Jumlah jaringan listrik',...D.listrikSum,'&nbsp;'])}`;
+  }
+};
+V['hasil/analisis/jalan'] = {
+  title:'Jaringan jalan dalam kawasan — ± 803,38 km',
+  sub:'Jaringan jalan di dalam kawasan konservasi pada 49 UPT/UPTD Tahura',
+  body(){
+    return `<p>${esc(D.jalan)}</p>
+    <p>Perlu kejelasan status jalan, dasar penggunaan kawasan, pemeliharaan, dan pengendalian akses — dicocokkan dengan register kerja sama/perizinan dan zonasi/blok.</p>
+    <div class="box"><b class="n">803,38 km</b><div class="cap">Total panjang jaringan jalan terindikasi · 49 UPT/UPTD Tahura</div></div>`;
+  }
+};
+V['hasil/analisis/tipologi'] = {
+  title:'Tipologi permasalahan yang diidentifikasi entitas',
+  sub:'Hasil pembahasan percepatan penyelesaian permasalahan kawasan konservasi — Ditjen Planologi & Ditjen KSDAE',
+  body(){
+    return tbl(['Tipologi','Inti permasalahan','Upaya penyelesaian','Proses bisnis terkait'],D.tipologi);
+  }
+};
+V['hasil/analisis/matriks'] = {
+  title:'Matriks indikasi kelemahan pengendalian & tindak lanjut',
+  sub:'Pengendalian dinilai pada titik tempat risiko timbul dalam siklus proses bisnis',
+  body(){
+    return tbl(['Proses bisnis','Indikasi kelemahan','Risiko','Tindak lanjut prioritas'],D.matriks);
+  }
+};
+V['hasil/analisis/kesimpulan'] = {
+  title:'Kesimpulan sementara',
+  sub:'Analisis dua minggu pertama & himpunan permasalahan internal Ditjen Planologi–Ditjen KSDAE',
+  body(){ return `<p class="lead">${D.kesimpulan}</p>`; }
+};
+
+V['hasil/indikasi'] = {
+  title:'Indikasi permasalahan utama',
+  sub:'Lapduming ke-1 — huruf E: hasil identifikasi permasalahan',
+  body(){
+    return D.indikasi.map(x=>`<div class="box" style="margin-bottom:12px"><b style="display:block;margin-bottom:6px">${x[0]}</b><div class="cap">${x[1]}</div></div>`).join('') +
+    `<h4>Tindak lanjut</h4><p>Kedua indikasi memerlukan pendalaman bukti pada pemeriksaan terinci — penelusuran dokumen sumber, konfirmasi ke unit terkait, rekonstruksi batas & pemeriksaan lapangan, serta rekonsiliasi data kehutanan dengan pertanahan.</p>
+    <div class="grid2">
+      <button class="item" data-view="hasil/analisis/matriks"><span class="ic">M</span><span class="tx"><b>Matriks tindak lanjut prioritas</b><span></span></span><span class="go">&rarr;</span></button>
+      <button class="item" data-view="dilakukan/hambatan"><span class="ic">F</span><span class="tx"><b>Rencana pekerjaan berikutnya</b><span></span></span><span class="go">&rarr;</span></button>
+    </div>`;
+  }
+};
+
+/* =========================================================================
+   Navigation
+========================================================================= */
+const overlay=document.getElementById('overlay');
+const pBody=document.getElementById('pBody');
+const pTitle=document.getElementById('pTitle');
+const pSub=document.getElementById('pSub');
+const pCrumb=document.getElementById('pCrumb');
+let stack=[];
+let lastFocus=null;
+
+const LABEL={
+  'tujuan':'Tujuan','tujuan/alasan':'Alasan pemeriksaan',
+  'dilakukan':'Yang dilakukan','dilakukan/kriteria':'Kriteria','dilakukan/entitas':'Entitas',
+  'dilakukan/entitas/pengukuhan':'Proses pengukuhan','dilakukan/entitas/pengelolaan':'Siklus pengelolaan',
+  'dilakukan/spi':'SPI','dilakukan/hambatan':'Hambatan & rencana',
+  'hasil':'Hasil','hasil/kriteria':'Kriteria','hasil/data':'Data kunci','hasil/analisis':'Analisis data',
+  'hasil/analisis/pengurangan':'Pengurangan kawasan','hasil/analisis/penambahan':'Penambahan kawasan',
+  'hasil/analisis/bidang':'Bidang tanah','hasil/analisis/tutupan':'Tutupan lahan',
+  'hasil/analisis/listrik':'Jaringan listrik','hasil/analisis/jalan':'Jaringan jalan',
+  'hasil/analisis/tipologi':'Tipologi entitas','hasil/analisis/matriks':'Matriks tindak lanjut',
+  'hasil/analisis/kesimpulan':'Kesimpulan sementara','hasil/indikasi':'Indikasi permasalahan'
+};
+
+function render(){
+  const id=stack[stack.length-1];
+  const view=V[id]; if(!view) return;
+  const state=stack.__tab||undefined;
+  pTitle.innerHTML=view.title;
+  pSub.innerHTML=view.sub||'';
+  pBody.innerHTML=view.body(state);
+  // breadcrumb
+  const parts=[`<button data-crumb="__home">Dashboard</button>`];
+  stack.forEach((s,i)=>{
+    parts.push(`<span class="sep">/</span>`);
+    parts.push(i===stack.length-1
+      ? `<span>${esc(LABEL[s]||s)}</span>`
+      : `<button data-crumb="${i}">${esc(LABEL[s]||s)}</button>`);
+  });
+  pCrumb.innerHTML=parts.join('');
+  document.getElementById('pBack').style.visibility = stack.length>1 ? 'visible':'hidden';
+  pBody.scrollTop=0;
+  history.replaceState(null,'', '#!/'+stack.join('/'));
+}
+
+function open(id,{push=true}={}){
+  if(!V[id]) return;
+  if(!overlay.classList.contains('open')){
+    lastFocus=document.activeElement;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+  }
+  if(push) stack.push(id); else stack=[id];
+  stack.__tab=null;
+  render();
+  document.getElementById('pClose').focus();
+}
+function back(){
+  if(stack.length>1){ stack.pop(); stack.__tab=null; render(); }
+  else close();
+}
+function close(){
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden','true');
+  stack=[];
+  history.replaceState(null,'','#');
+  if(lastFocus) lastFocus.focus();
+}
+
+/* delegated clicks */
+document.addEventListener('click',e=>{
+  const nav=e.target.closest('[data-view]');
+  if(nav){ e.preventDefault();
+    const id=nav.getAttribute('data-view');
+    if(!overlay.classList.contains('open')){ openChain(id); }
+    else open(id);
+    return;
+  }
+  const tab=e.target.closest('[data-tab]');
+  if(tab && overlay.classList.contains('open')){ stack.__tab=tab.getAttribute('data-tab'); render(); return; }
+  const cr=e.target.closest('[data-crumb]');
+  if(cr){
+    const v=cr.getAttribute('data-crumb');
+    if(v==='__home') close();
+    else { stack=stack.slice(0,+v+1); stack.__tab=null; render(); }
+    return;
+  }
+  if(e.target===overlay) close();
+});
+document.getElementById('pClose').onclick=close;
+document.getElementById('pBack').onclick=back;
+document.addEventListener('keydown',e=>{
+  if(!overlay.classList.contains('open')) return;
+  if(e.key==='Escape') close();
+  if(e.key==='Backspace' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){ e.preventDefault(); back(); }
+});
+// keyboard access for zone headers
+document.querySelectorAll('.zone-head[role=button]').forEach(z=>{
+  z.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openChain(z.getAttribute('data-view')); }});
+});
+
+/* build a breadcrumb chain from a slash path so deep links have history */
+function openChain(id){
+  const seg=id.split('/'); let acc=[];
+  overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false');
+  lastFocus=document.activeElement;
+  stack=[];
+  seg.forEach(s=>{ acc.push(s); const key=acc.join('/'); if(V[key]) stack.push(key); });
+  if(!stack.length) return;
+  stack.__tab=null; render();
+  document.getElementById('pClose').focus();
+}
+
+/* zone 1 — kegiatan chips */
+const KEG_ABBR=['Pengguna & PJ','Hal pokok & lingkup','Kriteria','Entitas','SPI','Materialitas','Penilaian risiko','Uji petik','Strategi & P2'];
+document.getElementById('kegChips').innerHTML = D.kegiatan.map((k,i)=>{
+  const cls = k[2]==='active' ? 'chip on' : 'chip';
+  const t = k[2]==='active' ? ' — sedang berjalan' : '';
+  return `<span class="${cls}" title="${esc(k[1])}${t}"><b>${k[0]}</b> ${esc(KEG_ABBR[i])}</span>`;
+}).join('');
+document.getElementById('kegChips').style.cursor='pointer';
+document.getElementById('kegChips').addEventListener('click',()=>openChain('tujuan'));
+
+/* deep link on load */
+window.addEventListener('DOMContentLoaded',()=>{
+  const m=location.hash.match(/^#!\/(.+)$/);
+  if(m){ const id=m[1].replace(/\/+$/,''); if(V[id]) openChain(id); }
+});
+</script>
+</body>
+</html>
