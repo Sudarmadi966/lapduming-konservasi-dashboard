@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dashboard Lapduming ke-1 — Pemeriksaan Pendahuluan Konservasi</title>
 <meta name="description" content="Dashboard infografis interaktif Laporan Perkembangan Pelaksanaan Pemeriksaan Pendahuluan (Lapduming) ke-1: tujuan pemeriksaan, pekerjaan yang telah dilakukan, dan hasil yang diperoleh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#19362f; --muted:#5d726b; --faint:#8496905c;
@@ -17,8 +20,10 @@
     --shadow:0 18px 48px rgba(24,54,47,.13);
     --shadow-sm:0 6px 18px rgba(24,54,47,.09);
     --radius:16px; --radius-sm:11px;
-    --serif:Georgia,"Times New Roman",serif;
-    --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --display:"Oswald","Archivo","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+    --serif:"Oswald","Archivo",ui-sans-serif,system-ui,sans-serif;
+    --sans:"Archivo",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --navy:#123a55;
   }
   @media (prefers-color-scheme:dark){
     :root{
@@ -26,7 +31,7 @@
       --paper:#10201b; --paper-2:#132620; --panel:#182f28; --card:#1c352d;
       --forest:#5bbd93; --forest-2:#7cc9a8; --forest-3:#9ad7bd;
       --lime:#b7cc67; --gold:#e5b25c; --gold-ink:#e5b25c;
-      --blue:#6fb2c2; --rust:#e08a68; --plum:#c79ab8;
+      --blue:#6fb2c2; --rust:#e08a68; --plum:#c79ab8; --navy:#7fb3d5;
       --line:#2c463d; --line-2:#26403700;
       --shadow:0 18px 48px rgba(0,0,0,.4);
       --shadow-sm:0 6px 18px rgba(0,0,0,.3);
@@ -44,8 +49,12 @@
     overflow:hidden;
   }
   button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
-  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;margin:0}
+  h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:.01em;margin:0;text-transform:uppercase}
+  h4{font-family:var(--display);font-weight:600;letter-spacing:.02em;margin:0;text-transform:uppercase}
   a{color:var(--forest);font-weight:600}
+  /* gold divider with center dot — signature of the source infographics */
+  .rule{position:relative;height:3px;background:var(--gold);border-radius:2px;margin:10px 0 16px;opacity:.9}
+  .rule:before{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;border-radius:50%;background:var(--gold);transform:translate(-50%,-50%)}
 
   /* ---------- app shell ---------- */
   .app{height:100dvh;max-width:1680px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(8px,1.4vh,16px);padding:clamp(10px,1.8vh,20px) clamp(12px,2vw,26px)}
@@ -57,27 +66,29 @@
   .topbar:after{content:"";position:absolute;right:-70px;top:-90px;width:220px;height:220px;border:44px solid rgba(183,204,103,.16);border-radius:50%}
   .topbar{min-width:0}
   .tb-main{min-width:0}
-  .eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:.72em;letter-spacing:.13em;text-transform:uppercase;opacity:.85;margin-bottom:5px}
+  .eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:.72em;letter-spacing:.18em;text-transform:uppercase;opacity:.9;margin-bottom:5px;font-family:var(--display);font-weight:500}
   .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime)}
-  .topbar h1{font-size:clamp(15px,2.3vh,23px);line-height:1.14;color:#fff;max-width:44ch}
+  .topbar h1{font-size:clamp(16px,2.5vh,25px);line-height:1.1;color:#fff;max-width:50ch;font-weight:600;letter-spacing:.005em}
   .tb-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
   .tb-meta span{font-size:.72em;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.12);overflow-wrap:anywhere}
   .tb-prog{display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1}
   .ring{--p:23;width:clamp(52px,7vh,74px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
     background:conic-gradient(var(--lime) calc(var(--p)*1%),rgba(255,255,255,.16) 0)}
-  .ring span{width:76%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#124633;font-family:var(--serif);font-size:clamp(14px,2vh,20px);color:#fff}
-  .tb-prog small{font-size:.68em;opacity:.82;letter-spacing:.06em;text-transform:uppercase}
+  .ring span{width:76%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#124633;font-family:var(--display);font-weight:600;font-size:clamp(14px,2vh,20px);color:#fff}
+  .tb-prog small{font-size:.68em;opacity:.82;letter-spacing:.1em;text-transform:uppercase;font-family:var(--display)}
 
   /* ---------- board ---------- */
   .board{display:grid;grid-template-columns:1fr 1fr 1.06fr;gap:clamp(9px,1.3vw,16px);min-height:0;min-width:0}
   .zone{display:flex;flex-direction:column;min-height:0;min-width:0;background:var(--panel);border:1px solid var(--line);
     border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;position:relative}
-  .zone-head{padding:clamp(10px,1.7vh,16px) clamp(12px,1.4vw,18px) clamp(6px,1vh,10px);cursor:pointer;transition:background .16s}
+  .zone-head{padding:clamp(9px,1.4vh,14px) clamp(12px,1.4vw,18px) clamp(6px,1vh,10px);cursor:pointer;transition:background .16s}
   .zone-head:hover{background:color-mix(in srgb,var(--forest) 7%,transparent)}
-  .z-step{display:flex;align-items:center;gap:8px;font-size:.7em;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-ink)}
-  .z-step b{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--gold);color:#402c07;font-family:var(--serif)}
-  .zone-head h2{font-size:clamp(15px,2.15vh,21px);margin:6px 0 4px;line-height:1.1}
-  .zone-head p{margin:0;color:var(--muted);font-size:.82em;line-height:1.45}
+  .z-step{display:flex;align-items:center;gap:9px;padding:6px 12px 6px 6px;border-radius:99px;
+    background:linear-gradient(100deg,#0b3728,#175c43);color:#fff;font-family:var(--display);font-weight:600;
+    font-size:.74em;letter-spacing:.11em;text-transform:uppercase;width:fit-content;box-shadow:var(--shadow-sm)}
+  .z-step b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#fff;color:var(--forest);font-family:var(--display);font-weight:700;font-size:.9em}
+  .zone-head h2{font-size:clamp(14px,1.95vh,19px);margin:8px 0 5px;line-height:1.12;font-weight:500;letter-spacing:.015em;color:var(--forest)}
+  .zone-head p{margin:0;color:var(--muted);font-size:.82em;line-height:1.45;text-transform:none;font-family:var(--sans)}
   .zone-body{flex:1;min-height:0;overflow:hidden;padding:clamp(4px,.8vh,8px) clamp(12px,1.4vw,18px) clamp(10px,1.6vh,16px);display:flex;flex-direction:column;gap:clamp(6px,.9vh,9px)}
   .zgrow{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(8px,1.6vh,18px)}
   .zgrow>*{flex:0 0 auto}
@@ -109,11 +120,11 @@
   .kfig div{border:1px solid var(--line);border-radius:var(--radius-sm);padding:7px 9px;background:var(--card)}
   .kfig div.click{cursor:pointer;transition:transform .14s,border-color .14s}
   .kfig div.click:hover{transform:translateY(-2px);border-color:var(--forest-2)}
-  .kfig b{display:block;font-family:var(--serif);font-size:clamp(14px,2vh,19px);color:var(--forest);line-height:1}
+  .kfig b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(15px,2.1vh,20px);color:var(--forest);line-height:1}
   .kfig span{font-size:.72em;color:var(--muted);line-height:1.25;display:block;margin-top:3px}
-  .mini-h{font-size:.66em;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .mini-h{font-family:var(--display);font-size:.68em;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:5px}
 
-  .zbtn{margin-top:auto;align-self:flex-start;font-size:.76em;font-weight:700;color:var(--forest);display:inline-flex;gap:5px;align-items:center;padding:5px 2px}
+  .zbtn{margin-top:auto;align-self:flex-start;font-family:var(--display);font-size:.8em;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--forest);display:inline-flex;gap:5px;align-items:center;padding:5px 2px}
   .zbtn:hover{gap:8px}
 
   /* ---------- strip ---------- */
@@ -121,7 +132,7 @@
     padding:clamp(8px,1.3vh,13px) clamp(12px,1.5vw,18px);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
   .strip button.sc{text-align:left;display:flex;flex-direction:column;gap:2px;padding:4px 8px;border-radius:9px;transition:background .15s}
   .strip button.sc:hover{background:color-mix(in srgb,var(--forest) 7%,transparent)}
-  .strip .lab{font-size:.66em;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);display:flex;align-items:center;gap:6px}
+  .strip .lab{font-family:var(--display);font-size:.68em;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);display:flex;align-items:center;gap:6px}
   .strip .lab.bad{color:var(--bad)}
   .strip .tt{font-size:.82em;line-height:1.3;color:var(--ink)}
   .strip .src{font-size:.68em;color:var(--muted);align-self:center;text-align:right;max-width:22ch}
@@ -140,14 +151,16 @@
   .p-crumb nav button{color:var(--forest);font-weight:600}
   .p-crumb nav button:hover{text-decoration:underline}
   .p-crumb nav span.sep{color:var(--faint)}
-  .p-crumb h3{font-size:clamp(17px,2.7vh,25px);line-height:1.12}
-  .p-crumb .p-sub{color:var(--muted);font-size:.84em;margin-top:4px;line-height:1.4}
+  .p-crumb h3{font-size:clamp(18px,2.9vh,27px);line-height:1.08;font-weight:700;color:var(--forest)}
+  .p-crumb h3:after{content:"";display:block;width:64px;height:3px;background:var(--gold);border-radius:2px;margin-top:8px}
+  .p-crumb .p-sub{color:var(--muted);font-size:.84em;margin-top:8px;line-height:1.4}
   .p-nav{display:flex;gap:6px}
   .p-nav button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;font-size:16px}
   .p-nav button:hover{border-color:var(--forest-2);background:color-mix(in srgb,var(--forest) 8%,transparent)}
   .p-body{padding:clamp(14px,2.2vh,20px) clamp(16px,2.4vw,26px) clamp(18px,2.6vh,26px);overflow:auto}
 
-  .p-body h4{font-size:1.05em;margin:18px 0 8px}
+  .p-body h4{font-size:1.02em;margin:20px 0 9px;color:var(--forest);letter-spacing:.03em;
+    padding-left:11px;border-left:4px solid var(--gold)}
   .p-body h4:first-child{margin-top:0}
   .p-body p{margin:0 0 10px;color:var(--muted);line-height:1.6}
   .p-body p.lead{color:var(--ink);font-size:1.02em}
@@ -161,15 +174,30 @@
   @media(max-width:720px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
 
   .box{border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px 15px;background:var(--card)}
-  .box b.n{font-family:var(--serif);font-size:1.7em;color:var(--forest);line-height:1;display:block}
+  .box b.n{font-family:var(--display);font-weight:700;font-size:1.8em;color:var(--forest);line-height:1;display:block}
   .box .cap{font-size:.82em;color:var(--muted);margin-top:4px;line-height:1.35}
   .box.click{cursor:pointer;transition:transform .14s,border-color .14s,box-shadow .14s}
   .box.click:hover{transform:translateY(-2px);border-color:var(--forest-2);box-shadow:var(--shadow-sm)}
-  .box .tag{font-size:.68em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink)}
+  .box .tag{font-family:var(--display);font-size:.72em;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-ink)}
+
+  /* ---------- figure / embedded infographic ---------- */
+  figure.fig{margin:12px 0 16px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:var(--card)}
+  figure.fig button.fig-img{display:block;width:100%;padding:0;line-height:0;background:#f5f4ec;text-align:center}
+  figure.fig img{max-width:100%;max-height:58vh;width:auto;height:auto;display:inline-block;vertical-align:top;transition:opacity .15s}
+  figure.fig button.fig-img:hover img{opacity:.9}
+  figure.fig figcaption{padding:8px 13px;font-size:.78em;color:var(--muted);display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:1px solid var(--line)}
+  figure.fig figcaption b{font-family:var(--display);font-weight:600;color:var(--forest);text-transform:uppercase;letter-spacing:.04em;font-size:.95em}
+  figure.fig figcaption .zoom{white-space:nowrap}
+  .lightbox{position:fixed;inset:0;z-index:80;display:none;place-items:center;padding:24px;background:rgba(8,24,18,.9)}
+  .lightbox.open{display:grid}
+  .lightbox img{max-width:96vw;max-height:92vh;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .lightbox button.lb-close{position:absolute;top:16px;right:20px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px}
+  .lightbox button.lb-close:hover{background:rgba(255,255,255,.26)}
 
   table.t{width:100%;border-collapse:collapse;font-size:.86em;margin:4px 0 14px}
   table.t th,table.t td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line)}
-  table.t th{font-size:.82em;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  table.t th{font-family:var(--display);font-size:.82em;letter-spacing:.05em;text-transform:uppercase;color:var(--forest);font-weight:600}
+  table.t thead tr{border-bottom:2px solid color-mix(in srgb,var(--forest) 30%,transparent)}
   table.t td.num,table.t th.num{text-align:right;font-variant-numeric:tabular-nums}
   table.t tr:last-child td{border-bottom:0}
   table.t tr.sum td{font-weight:700;color:var(--ink);border-top:2px solid var(--line);background:color-mix(in srgb,var(--forest) 6%,transparent)}
@@ -179,18 +207,21 @@
   .tabs button{padding:7px 13px;border:1px solid var(--line);border-radius:9px;background:var(--card);font-size:.86em;font-weight:600}
   .tabs button.on{background:var(--forest);border-color:var(--forest);color:#fff}
 
-  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   @media(max-width:720px){.flow{grid-template-columns:1fr 1fr}}
-  .fstep{position:relative;border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px;background:var(--card)}
-  .fstep .fno{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:color-mix(in srgb,var(--forest) 12%,transparent);color:var(--forest);font-family:var(--serif);margin-bottom:9px}
-  .fstep b{display:block;font-size:.96em;margin-bottom:5px}
+  .fstep{position:relative;border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 13px;background:var(--card)}
+  .fstep:not(:nth-child(4n)):after{content:"";position:absolute;right:-14px;top:26px;width:0;height:0;
+    border:6px solid transparent;border-left-color:var(--gold);z-index:2}
+  @media(max-width:720px){.fstep:after{display:none!important}}
+  .fstep .fno{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--forest);color:#fff;font-family:var(--display);font-weight:700;margin-bottom:9px}
+  .fstep b{display:block;font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.03em;font-size:.98em;margin-bottom:5px;color:var(--forest)}
   .fstep span{font-size:.8em;color:var(--muted);line-height:1.4}
 
   .cyc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   @media(max-width:720px){.cyc{grid-template-columns:1fr}}
-  .cnode{border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px 13px;background:var(--card)}
-  .cnode b{font-size:.92em;display:flex;gap:8px;align-items:baseline}
-  .cnode b i{font-family:var(--serif);font-style:normal;color:var(--blue);font-size:.9em}
+  .cnode{border:1px solid var(--line);border-left:4px solid var(--forest-3);border-radius:var(--radius-sm);padding:11px 13px;background:var(--card)}
+  .cnode b{font-size:.92em;display:flex;gap:8px;align-items:baseline;font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.02em}
+  .cnode b i{font-family:var(--display);font-style:normal;font-weight:700;color:var(--gold);font-size:1em}
   .cnode span{display:block;margin-top:4px;font-size:.79em;color:var(--muted);line-height:1.4}
 
   .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8em;color:var(--muted);margin:2px 0 10px}
@@ -208,6 +239,15 @@
   .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.88em;margin:6px 0 12px}
   .kv dt{color:var(--muted)}
   .kv dd{margin:0}
+
+  details.det{margin:12px 0;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--card)}
+  details.det>summary{cursor:pointer;padding:10px 14px;font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:.86em;color:var(--forest);list-style:none}
+  details.det>summary::-webkit-details-marker{display:none}
+  details.det>summary:before{content:"▸ ";color:var(--gold)}
+  details.det[open]>summary:before{content:"▾ "}
+  details.det[open]>summary{border-bottom:1px solid var(--line)}
+  details.det>*:not(summary){margin-left:14px;margin-right:14px}
+  details.det>h4:first-of-type{margin-top:12px}
 
   .hidden{display:none!important}
   :focus-visible{outline:2px solid var(--forest-2);outline-offset:2px;border-radius:6px}
@@ -387,6 +427,11 @@
   </div>
 </div>
 
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="Tutup gambar">&times;</button>
+  <img id="lbImg" alt="">
+</div>
+
 <script>
 /* =========================================================================
    DATA  —  seluruh angka & teks diambil langsung dari:
@@ -535,6 +580,39 @@ const D = {
 
   /* ---- data kunci entitas (B2) ---- */
   kawasan:{ditetapkan:26.04, penunjukan:27.6, belum:1.6, persen:94},
+  kawasanRinci:{
+    total:"27.662.848", sudah:"26.045.818", belum:"1.617.030", persen:94, catatan:"Luasan dihitung secara digital (ArcGIS) mengacu IGT Kawasan Hutan periode Juni 2026.",
+    perairan:[
+      ["Hutan Suaka Alam/Wisata (Perairan)","172.762","-","0%","172.762"],
+      ["Cagar Alam (Perairan)","334.762","208.743","62%","126.018"],
+      ["Suaka Margasatwa (Perairan)","231.222","193.375","84%","37.847"],
+      ["Taman Nasional (Perairan)","4.286.232","4.150.030","97%","136.202"],
+      ["TWA/Hutan Wisata (Perairan)","512.650","328.760","64%","183.890"]
+    ],
+    perairanSum:["5.537.628","4.880.909","88%","656.719"],
+    darat:[
+      ["KSA/KPA","7.428","1.637","22%","5.791"],
+      ["Hutan Suaka Alam (HSA)","14.858","13.096","88%","1.762"],
+      ["Cagar Alam","3.986.217","3.825.085","96%","161.132"],
+      ["Suaka Margasatwa","3.423.449","3.174.263","93%","249.186"],
+      ["Taman Buru","138.118","129.573","94%","8.545"],
+      ["Taman Nasional","13.705.997","13.284.409","97%","421.588"],
+      ["TWA/Hutan Wisata (TWA)","368.423","330.495","90%","37.928"],
+      ["Taman Hutan Raya","480.730","406.350","85%","74.381"]
+    ],
+    daratSum:["22.125.220","21.164.909","96%","960.311"],
+    totalSum:["27.662.848","26.045.818","94%","1.617.030"]
+  },
+  openedAreaPulau:[
+    ["Bali Nusra","49.750,03",55],
+    ["Jawa","42.422,55",99],
+    ["Kalimantan","234.862,03",60],
+    ["Maluku","15.740,38",21],
+    ["Papua","211.643,20",42],
+    ["Sulawesi","123.552,91",74],
+    ["Sumatera","611.678,24",133]
+  ],
+  openedAreaPulauSum:["1.289.649,35",485],
   perencanaan:[
     ["Belum menyusun",101,17.41],
     ["Pengesahan Direktur Jenderal",3,0.52],
@@ -672,6 +750,14 @@ function tbl(head,rows,sum){
   ${sum?`<tr class="sum">${sum.map((c,i)=>cell(c,i)).join('')}</tr>`:''}</tbody></table></div>`;
 }
 
+/* embedded infographic (hasil imagegen dari laporan) — klik untuk perbesar */
+function fig(src,title,note){
+  return `<figure class="fig">
+    <button class="fig-img" data-lb="assets/${src}" aria-label="Perbesar ${esc(title)}"><img src="assets/${src}" alt="${esc(title)}" loading="lazy"></button>
+    <figcaption><b>${esc(title)}</b><span class="zoom">${esc(note||'Infografis dari Lapduming ke-1')} &middot; klik untuk perbesar &#128269;</span></figcaption>
+  </figure>`;
+}
+
 /* =========================================================================
    VIEW REGISTRY
 ========================================================================= */
@@ -730,7 +816,8 @@ V['dilakukan/kriteria'] = {
   body(){
     return `
     <div class="grid2">${D.kriteriaRanah.map(r=>`<div class="box"><b style="display:block;margin-bottom:5px">${esc(r[0])}</b><div class="cap">${esc(r[1])}</div></div>`).join('')}</div>
-    <button class="item" data-view="hasil/kriteria"><span class="ic">B1</span><span class="tx"><b>Lihat hierarki kriteria pemeriksaan (hasil B.1)</b><span></span></span><span class="go">&rarr;</span></button>
+    <h4>Hierarki kriteria pemeriksaan</h4>
+    ${fig('hierarki-kriteria.jpg','Hierarki Kriteria Pemeriksaan','Pengukuhan & pengelolaan kawasan hutan konservasi')}
     <h4>Peraturan kunci yang diidentifikasi</h4>
     <ul>${D.peraturanKunci.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>`;
   }
@@ -741,13 +828,16 @@ V['dilakukan/entitas'] = {
   sub:'Struktur organisasi, proses bisnis, dan data terkait pengukuhan & pengelolaan konservasi',
   body(){
     return `
+    <h4>Struktur organisasi terkait</h4>
+    ${fig('struktur-organisasi.jpg','Struktur Organisasi Terkait','Pengukuhan & pengelolaan kawasan hutan konservasi')}
     <h4>Struktur organisasi pengelola (74 UPT Ditjen KSDAE)</h4>
     <div class="grid4">${D.orgPengelola.map(o=>`<div class="box"><b class="n">${o[0]}</b><div class="cap">${esc(o[1])}</div></div>`).join('')}</div>
     <p>UPT taman nasional mengelola kawasan taman nasional; UPT KSDA mengelola cagar alam, suaka margasatwa, taman wisata alam, dan taman buru, serta menangani konservasi keanekaragaman hayati di luar kawasan dan koordinasi teknis pembinaan taman hutan raya.</p>
     <h4>Ruang lingkup kawasan hutan konservasi</h4>
     ${tbl(['Kelompok','Jenis kawasan','Fungsi & karakter utama'],D.jenisKawasan)}
     <h4>Pelaksana pengukuhan</h4><p>${esc(D.orgPengukuhan)}</p>
-    <h4>Proses bisnis</h4>
+    <h4>Proses bisnis pengukuhan & pengelolaan</h4>
+    ${fig('proses-bisnis.jpg','Proses Bisnis Pengukuhan & Pengelolaan','Dari kepastian kawasan hingga konservasi lestari')}
     <div class="grid2">
       <button class="item" data-view="dilakukan/entitas/pengukuhan"><span class="ic">4</span><span class="tx"><b>Pengukuhan kawasan hutan konservasi</b><span>Penunjukan &rarr; penataan batas &rarr; pemetaan &rarr; penetapan</span></span><span class="go">&rarr;</span></button>
       <button class="item" data-view="dilakukan/entitas/pengelolaan"><span class="ic">9</span><span class="tx"><b>Siklus pengelolaan kawasan konservasi</b><span>Inventarisasi &rarr; &hellip; &rarr; pemantauan & evaluasi</span></span><span class="go">&rarr;</span></button>
@@ -823,6 +913,7 @@ V['hasil/kriteria'] = {
     <div class="grid2">${D.kriteriaRanah.map(r=>`<div class="box"><b style="display:block;margin-bottom:5px">${esc(r[0])}</b><div class="cap">${esc(r[1])}</div></div>`).join('')}</div>
     <h4>Hierarki kriteria</h4>
     <p>Kriteria disusun berjenjang dari undang-undang, peraturan pemerintah, peraturan menteri, hingga peraturan direktur jenderal / petunjuk teknis di tingkat tapak.</p>
+    ${fig('hierarki-kriteria.jpg','Hierarki Kriteria Pemeriksaan','Pengukuhan & pengelolaan kawasan hutan konservasi')}
     <div class="flow" style="grid-template-columns:repeat(4,1fr)">
       <div class="fstep"><div class="fno">UU</div><b>Undang-Undang</b><span>UU 5/1990 jo. 32/2024 · UU 41/1999 jo. 6/2023 · UU 32/2009 · UU 18/2013</span></div>
       <div class="fstep"><div class="fno">PP</div><b>Peraturan Pemerintah</b><span>PP 7/1999 · PP 8/1999 · PP 28/2011 jo. PP 108/2015</span></div>
@@ -841,13 +932,28 @@ V['hasil/data'] = {
     const T = this.tabs.map(t=>`<button class="${t===tab?'on':''}" data-tab="${t}">${t}</button>`).join('');
     let c='';
     if(tab==='Kawasan'){
+      const kr=D.kawasanRinci;
       c=`<div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
         ${donut(D.kawasan.persen,'94%','ditetapkan')}
         <div><dl class="kv">
-          <dt>Kawasan ditetapkan (s.d. Juni 2026)</dt><dd><strong>26,04 juta ha</strong></dd>
-          <dt>Total penunjukan</dt><dd>27,6 juta ha</dd>
-          <dt>Belum ditetapkan</dt><dd><strong>1,6 juta ha</strong></dd>
-        </dl><p>Kawasan hutan konservasi yang ditetapkan mencapai <strong>94%</strong> dari total penunjukan.</p></div></div>`;
+          <dt>Kawasan ditetapkan (s.d. Juni 2026)</dt><dd><strong>26,04 juta ha</strong> (26.045.818 ha)</dd>
+          <dt>Total penunjukan</dt><dd>27,6 juta ha (27.662.848 ha)</dd>
+          <dt>Belum ditetapkan</dt><dd><strong>1,6 juta ha</strong> (1.617.030 ha)</dd>
+        </dl><p>Kawasan hutan konservasi yang ditetapkan mencapai <strong>94%</strong> dari total penunjukan.</p></div></div>
+      ${fig('progres-penetapan.jpg','Progres Penetapan Kawasan Konservasi Indonesia','Rincian per fungsi kawasan — perairan & darat')}
+      <div class="grid4">
+        <div class="box"><span class="tag">Total luas</span><b class="n">27.662.848</b><div class="cap">ha</div></div>
+        <div class="box"><span class="tag">Sudah penetapan</span><b class="n">26.045.818</b><div class="cap">ha</div></div>
+        <div class="box"><span class="tag">Prosen tap</span><b class="n">94%</b><div class="cap">dari total kawasan</div></div>
+        <div class="box"><span class="tag">Belum penetapan</span><b class="n">1.617.030</b><div class="cap">ha</div></div>
+      </div>
+      <details class="det"><summary>Rincian per fungsi kawasan (tabel)</summary>
+        <p class="note">${esc(kr.catatan)}</p>
+        <h4>Kawasan konservasi perairan</h4>
+        ${tbl(['Fungsi','Luas (ha)','Sudah penetapan','Prosen tap','Belum penetapan'],kr.perairan,['Jumlah KK Perairan',...kr.perairanSum])}
+        <h4>Kawasan konservasi darat</h4>
+        ${tbl(['Fungsi','Luas (ha)','Sudah penetapan','Prosen tap','Belum penetapan'],kr.darat,['Jumlah KK Darat',...kr.daratSum])}
+      </details>`;
     }
     if(tab==='Perencanaan'){
       c=`<p>Rencana pengelolaan jangka panjang atas <strong>${D.perencanaanTotal} unit kawasan</strong> KSA & KPA. Sebanyak 101 unit (17,41%) belum menyusun dokumen; 479 unit (82,59%) berada pada berbagai tahap penyusunan.</p>
@@ -867,7 +973,9 @@ V['hasil/data'] = {
         <div class="box"><b class="n">${esc(D.openedArea.total)}</b><div class="cap">Opened area (atribut digitasi) di KSA, KPA, dan TB — hasil Pokja Inventarisasi Subdit Perencanaan & Evaluasi Fungsi KSA/KPA/TB, Dit. Perencanaan Konservasi. Tersebar di ${esc(D.openedArea.sebaran)}.</div></div>
         <div class="box"><b class="n">${esc(D.openedArea.digitasi)}</b><div class="cap">Digitasi mandiri tim atas kawasan yang diindikasikan terdapat kegiatan non-kehutanan, telah disampaikan kepada masing-masing UPT/UPTD Tahura (Lampiran 6).</div></div>
       </div>
-      <p>Data spasial dapat diakses melalui <a href="${D.openedArea.link}" target="_blank" rel="noopener">${D.openedArea.link}</a>.</p>`;
+      <p>Data spasial dapat diakses melalui <a href="${D.openedArea.link}" target="_blank" rel="noopener">${D.openedArea.link}</a>.</p>
+      <h4>Sebaran opened area per kawasan pulau</h4>
+      ${tbl(['Nama pulau','Luas opened area (ha)','Jumlah unit KSA/KPA/TB/Tahura'],D.openedAreaPulau,['Jumlah',...D.openedAreaPulauSum])}`;
     }
     return `<div class="tabs">${T}</div>${c}`;
   }
@@ -1056,7 +1164,17 @@ function close(){
 }
 
 /* delegated clicks */
+/* ---- lightbox for embedded infographics ---- */
+const lightbox=document.getElementById('lightbox');
+const lbImg=document.getElementById('lbImg');
+function openLightbox(src){ lbImg.src=src; lightbox.classList.add('open'); }
+function closeLightbox(){ lightbox.classList.remove('open'); lbImg.src=''; }
+document.getElementById('lbClose').onclick=closeLightbox;
+lightbox.addEventListener('click',e=>{ if(e.target===lightbox) closeLightbox(); });
+
 document.addEventListener('click',e=>{
+  const lb=e.target.closest('[data-lb]');
+  if(lb){ openLightbox(lb.getAttribute('data-lb')); return; }
   const nav=e.target.closest('[data-view]');
   if(nav){ e.preventDefault();
     const id=nav.getAttribute('data-view');
@@ -1078,6 +1196,7 @@ document.addEventListener('click',e=>{
 document.getElementById('pClose').onclick=close;
 document.getElementById('pBack').onclick=back;
 document.addEventListener('keydown',e=>{
+  if(e.key==='Escape' && lightbox.classList.contains('open')){ closeLightbox(); return; }
   if(!overlay.classList.contains('open')) return;
   if(e.key==='Escape') close();
   if(e.key==='Backspace' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){ e.preventDefault(); back(); }

@@ -20,10 +20,14 @@ misalnya `#!/hasil/analisis/pengurangan`.
 
 ## Teknis
 
-- Satu berkas `index.html`, tanpa basis data, tanpa dependensi eksternal.
+- Satu berkas `index.html` + folder `assets/` (infografis dari laporan). Tanpa basis data.
+  Satu-satunya dependensi eksternal: Google Fonts (Oswald + Archivo).
 - Seluruh angka & teks statis dalam objek `D` di dalam berkas — bersumber langsung dari
   `Lapduming ke-1.docx` dan `P2 Pendahuluan Konservasi.docx`.
 - Grafik dibuat sebagai SVG inline.
+- `assets/*.jpg` adalah infografis hasil imagegen yang ditempel pada Lapduming ke-1
+  (hierarki kriteria, struktur organisasi, proses bisnis, progres penetapan). Ditampilkan
+  pada panel terkait dan dapat diperbesar (lightbox). Sumber PNG asli: `output/infografis/`.
 - Dioptimalkan untuk layar 16:9 (1920×1080) dan laptop; layar kecil beralih ke mode kompak.
 - Mendukung mode terang & gelap mengikuti preferensi sistem.
 
