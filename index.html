@@ -476,6 +476,16 @@ const D = {
 
   orgPengelola:[["8","Balai Besar Taman Nasional (BBTN)"],["40","Balai Taman Nasional (BTN)"],["8","Balai Besar KSDA (BBKSDA)"],["18","Balai KSDA (BKSDA)"]],
   orgPengukuhan:"Direktorat Pengukuhan Kawasan Hutan pada Ditjen Planologi Kehutanan merumuskan dan melaksanakan kebijakan pengukuhan, didukung 22 Balai Pemantapan Kawasan Hutan (BPKH) untuk penataan batas, pemetaan, verifikasi penguasaan tanah, pengelolaan informasi geospasial, dan pemantauan penggunaan kawasan.",
+  jenisKawasan:[
+    ["KSA","Cagar Alam (CA)","Melindungi kekhasan tumbuhan, satwa, dan ekosistem yang perkembangannya dibiarkan berlangsung secara alami. Pemanfaatan sangat terbatas: penelitian, ilmu pengetahuan, pendidikan, dan kegiatan yang tidak mengubah keutuhan kawasan."],
+    ["KSA","Suaka Margasatwa (SM)","Melindungi keanekaragaman atau keunikan jenis satwa beserta habitatnya. Intervensi pengelolaan habitat dapat dilakukan bila diperlukan untuk menjamin kelangsungan hidup satwa."],
+    ["KPA","Taman Nasional (TN)","Memiliki ekosistem asli, dikelola dengan sistem zonasi, dapat dimanfaatkan secara terkendali untuk penelitian, pendidikan, penunjang budi daya, wisata alam, dan rekreasi."],
+    ["KPA","Taman Hutan Raya (Tahura)","Untuk koleksi tumbuhan dan/atau satwa, alami maupun bukan alami, bagi penelitian, pendidikan, budaya, pariwisata, dan rekreasi."],
+    ["KPA","Taman Wisata Alam (TWA)","Terutama untuk pariwisata dan rekreasi alam dengan tetap menjaga daya dukung dan fungsi ekologisnya."],
+    ["Lainnya","Taman Buru (TB)","Ditetapkan untuk kegiatan perburuan secara teratur berdasarkan pengaturan populasi, musim, jenis, dan jumlah satwa buru."]
+  ],
+  dasarPengukuhan:"Pengukuhan dilaksanakan berdasarkan UU No. 41 Tahun 1999 tentang Kehutanan beserta perubahannya dan PP No. 23 Tahun 2021 tentang Penyelenggaraan Kehutanan, meliputi penunjukan, penataan batas, pemetaan, dan penetapan kawasan hutan, serta memperhatikan rencana tata ruang dan hak pihak lain.",
+  ukuranKeberhasilan:"Keberhasilan pengelolaan tidak cukup dinilai dari jumlah dokumen, izin, kegiatan, atau kerja sama. Ukuran utamanya: terjaganya habitat dan populasi spesies penting, terkendalinya gangguan dan okupasi, pulihnya ekosistem yang rusak, terpeliharanya konektivitas ekologis, serta terlaksananya pemanfaatan yang tidak melampaui daya dukung kawasan.",
 
   tahapPengukuhan:[
     ["Penunjukan","Penetapan awal wilayah sebagai kawasan hutan berdasarkan inventarisasi, kebijakan tata ruang, serta pertimbangan teknis dan geospasial. Produk: keputusan Menteri + peta lampiran. Belum merupakan penetapan akhir."],
@@ -604,6 +614,15 @@ const D = {
     ["Ketidaksesuaian keputusan dan kondisi lapangan","Pal batas atau BATB tidak ditemukan; koordinat lapangan berbeda dari peta keputusan; kondisi faktual tidak sesuai penunjukan","Rekonstruksi batas, pengecekan lapangan bersama, evaluasi fungsi, dan penataan batas","Pengukuhan: penataan batas, pemetaan, dan penetapan"],
     ["Perbedaan poligon dan fungsi antar-tahap","Perbedaan luas, nama, fungsi, dan delineasi antara penunjukan, tata batas, penetapan, data KSDAE/PKTL, RTRK, dan citra","Penghitungan dan pemetaan ulang, revisi keputusan, konfirmasi nama/fungsi, serta penggunaan dokumen tata batas","Pengukuhan: penunjukan, penataan batas, pemetaan, dan penetapan"]
   ],
+  keterkaitan:[
+    ["Pengurangan dan penambahan luas","Pengukuhan","Penunjukan, pemetaan, dan penetapan","Menjamin setiap perubahan didukung keputusan, peta, register, dan jejak persetujuan yang konsisten"],
+    ["Perbedaan peta, batas, luas, nama, dan fungsi","Pengukuhan","Penataan batas, pemetaan, dan penetapan","Menjamin kesesuaian kondisi lapangan, BATB, koordinat, peta, dan keputusan"],
+    ["Bidang tanah dan hak pihak ketiga","Pengukuhan dan pengelolaan","Penataan batas; perlindungan; pemberdayaan/kemitraan","Mengidentifikasi, mencatat, dan menyelesaikan hak atau penguasaan tanah secara sah"],
+    ["Perubahan tutupan lahan","Pengelolaan","Inventarisasi; perlindungan/pengamanan; pemulihan; pemantauan/evaluasi","Mendeteksi gangguan, menetapkan respons, dan memulihkan fungsi kawasan tepat waktu"],
+    ["Jaringan jalan dan listrik","Pengelolaan","Penataan zona/blok; pemanfaatan lestari; perlindungan; pemantauan/evaluasi","Menjamin dasar legal, kesesuaian lokasi, pemenuhan kewajiban, dan pengendalian dampak"],
+    ["Perubahan fungsi pokok","Pengukuhan dan pengelolaan","Penunjukan/penetapan; evaluasi kesesuaian fungsi","Menjamin hasil evaluasi ditindaklanjuti dalam keputusan dan peta resmi"],
+    ["Kualitas dan rekonsiliasi data","Kedua siklus","Pemetaan; inventarisasi; perencanaan; pemantauan/evaluasi","Menjamin satu sumber data yang andal, mutakhir, konsisten, dan dapat ditelusuri"]
+  ],
   matriks:[
     ["Penunjukan, pemetaan, dan penetapan","Rekonsiliasi IGT, keputusan, pelepasan, peta, fungsi, nama, luas, dan register belum dapat diyakini","Perubahan kawasan tidak sah atau tidak tercatat konsisten","Telusuri 25 fitur pengurangan, sampel penambahan, dan tipologi masalah entitas ke dokumen sumber dan konfirmasi ke unit terkait"],
     ["Penataan batas","BATB/pal tidak ditemukan atau koordinat lapangan berbeda dari peta keputusan","Batas tidak pasti dan konflik dengan hak pihak lain","Penelusuran BATB, rekonstruksi batas, dan pengecekan lapangan bersama"],
@@ -643,10 +662,14 @@ function donut(pct,labelIn,labelSub){
   </svg>`;
 }
 
+const isNum = v => typeof v==='number' || /^[-–]$|^[\d.,]+\s*%?$/.test(String(v).trim());
 function tbl(head,rows,sum){
-  return `<div class="t-wrap"><table class="t"><thead><tr>${head.map((h,i)=>`<th class="${i?'num':''}">${esc(h)}</th>`).join('')}</tr></thead>
-  <tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td class="${i?'num':''}">${esc(fmt(c))}</td>`).join('')}</tr>`).join('')}
-  ${sum?`<tr class="sum">${sum.map((c,i)=>`<td class="${i?'num':''}">${esc(fmt(c))}</td>`).join('')}</tr>`:''}</tbody></table></div>`;
+  // a column is numeric only if every body cell in it looks numeric
+  const numCol = head.map((_,i)=> i>0 && rows.every(r=>isNum(r[i])));
+  const cell = (c,i,tag='td')=>`<${tag} class="${numCol[i]?'num':''}">${esc(fmt(c))}</${tag}>`;
+  return `<div class="t-wrap"><table class="t"><thead><tr>${head.map((h,i)=>cell(h,i,'th')).join('')}</tr></thead>
+  <tbody>${rows.map(r=>`<tr>${r.map((c,i)=>cell(c,i)).join('')}</tr>`).join('')}
+  ${sum?`<tr class="sum">${sum.map((c,i)=>cell(c,i)).join('')}</tr>`:''}</tbody></table></div>`;
 }
 
 /* =========================================================================
@@ -721,6 +744,8 @@ V['dilakukan/entitas'] = {
     <h4>Struktur organisasi pengelola (74 UPT Ditjen KSDAE)</h4>
     <div class="grid4">${D.orgPengelola.map(o=>`<div class="box"><b class="n">${o[0]}</b><div class="cap">${esc(o[1])}</div></div>`).join('')}</div>
     <p>UPT taman nasional mengelola kawasan taman nasional; UPT KSDA mengelola cagar alam, suaka margasatwa, taman wisata alam, dan taman buru, serta menangani konservasi keanekaragaman hayati di luar kawasan dan koordinasi teknis pembinaan taman hutan raya.</p>
+    <h4>Ruang lingkup kawasan hutan konservasi</h4>
+    ${tbl(['Kelompok','Jenis kawasan','Fungsi & karakter utama'],D.jenisKawasan)}
     <h4>Pelaksana pengukuhan</h4><p>${esc(D.orgPengukuhan)}</p>
     <h4>Proses bisnis</h4>
     <div class="grid2">
@@ -736,7 +761,8 @@ V['dilakukan/entitas/pengukuhan'] = {
   title:'Proses bisnis pengukuhan kawasan hutan',
   sub:'Rangkaian kegiatan untuk memberikan kepastian hukum atas status, fungsi, letak, batas, dan luas kawasan',
   body(){
-    return `<div class="flow">${D.tahapPengukuhan.map((t,i)=>`<div class="fstep"><div class="fno">${i+1}</div><b>${esc(t[0])}</b><span>${esc(t[1])}</span></div>`).join('')}</div>
+    return `<p>${esc(D.dasarPengukuhan)}</p>
+    <div class="flow">${D.tahapPengukuhan.map((t,i)=>`<div class="fstep"><div class="fno">${i+1}</div><b>${esc(t[0])}</b><span>${esc(t[1])}</span></div>`).join('')}</div>
     <p class="note">Hasil akhir: kawasan hutan dengan kepastian administratif, yuridis, dan spasial — konsisten antara keputusan penetapan, berita acara tata batas, koordinat, peta, luas, fungsi, nomor register, dan kondisi lapangan.</p>`;
   }
 };
@@ -745,7 +771,8 @@ V['dilakukan/entitas/pengelolaan'] = {
   title:'Siklus proses bisnis pengelolaan konservasi',
   sub:'Siklus berkelanjutan — hasil evaluasi menjadi masukan untuk memperbaiki inventarisasi & rencana periode berikutnya',
   body(){
-    return `<div class="cyc">${D.siklusPengelolaan.map((s,i)=>`<div class="cnode"><b><i>${String(i+1).padStart(2,'0')}</i> ${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join('')}</div>`;
+    return `<div class="cyc">${D.siklusPengelolaan.map((s,i)=>`<div class="cnode"><b><i>${String(i+1).padStart(2,'0')}</i> ${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join('')}</div>
+    <p class="note">${esc(D.ukuranKeberhasilan)}</p>`;
   }
 };
 
@@ -856,10 +883,12 @@ V['hasil/analisis'] = {
       <div class="box click" data-view="hasil/analisis/${a[0]}"><span class="tag">${esc(a[1])}</span>
       <b class="n" style="font-size:1.15em">${esc(a[2])}</b><div class="cap"><strong>${esc(a[3])}</strong> — ${esc(a[4])}</div></div>`).join('')}</div>
     <p class="note">* Nilai luas bidang tanah (51,79 juta ha) sangat material dibandingkan cakupan kawasan yang dianalisis dan perlu diuji kembali (geometri, satuan, duplikasi).</p>
-    <div class="grid3">
+    <h4>Identifikasi awal kelemahan pengendalian</h4>
+    <div class="grid2">
+      <button class="item" data-view="hasil/analisis/keterkaitan"><span class="ic">S</span><span class="tx"><b>Keterkaitan analisis dengan siklus proses bisnis</b><span>7 hasil analisis · siklus & tujuan pengendalian</span></span><span class="go">&rarr;</span></button>
       <button class="item" data-view="hasil/analisis/tipologi"><span class="ic">T</span><span class="tx"><b>Tipologi permasalahan entitas</b><span>Ditjen Planologi &amp; KSDAE</span></span><span class="go">&rarr;</span></button>
       <button class="item" data-view="hasil/analisis/matriks"><span class="ic">M</span><span class="tx"><b>Matriks kelemahan & tindak lanjut</b><span>7 proses bisnis</span></span><span class="go">&rarr;</span></button>
-      <button class="item" data-view="hasil/analisis/kesimpulan"><span class="ic">K</span><span class="tx"><b>Kesimpulan sementara</b><span></span></span><span class="go">&rarr;</span></button>
+      <button class="item" data-view="hasil/analisis/kesimpulan"><span class="ic">K</span><span class="tx"><b>Kesimpulan sementara</b><span>Ringkasan risiko lintas siklus</span></span><span class="go">&rarr;</span></button>
     </div>`;
   }
 };
@@ -902,7 +931,8 @@ V['hasil/analisis/listrik'] = {
   sub:'Jaringan listrik tegangan tinggi di dalam kawasan konservasi',
   body(){
     return `<p>Keberadaan infrastruktur belum dengan sendirinya menunjukkan pelanggaran, tetapi perlu dibandingkan dengan daftar kerja sama, persetujuan/perizinan penggunaan kawasan, dokumen lingkungan, kewajiban pembayaran, pengamanan koridor, dan pemulihan dampak.</p>
-    ${tbl(['Jenis','Unit/segmen','Panjang (m)','Keterangan'],D.listrik,['Jumlah jaringan listrik',...D.listrikSum,'&nbsp;'])}`;
+    ${tbl(['Jenis','Unit/segmen','Panjang (m)','Keterangan'],D.listrik,['Jumlah jaringan listrik',...D.listrikSum,'≈ 351,22 km'])}
+    <p>Jaringan jalan: <strong>803.382,32 m (± 803,38 km)</strong> pada 49 UPT/UPTD Tahura.</p>`;
   }
 };
 V['hasil/analisis/jalan'] = {
@@ -912,6 +942,14 @@ V['hasil/analisis/jalan'] = {
     return `<p>${esc(D.jalan)}</p>
     <p>Perlu kejelasan status jalan, dasar penggunaan kawasan, pemeliharaan, dan pengendalian akses — dicocokkan dengan register kerja sama/perizinan dan zonasi/blok.</p>
     <div class="box"><b class="n">803,38 km</b><div class="cap">Total panjang jaringan jalan terindikasi · 49 UPT/UPTD Tahura</div></div>`;
+  }
+};
+V['hasil/analisis/keterkaitan'] = {
+  title:'Keterkaitan analisis dengan siklus proses bisnis',
+  sub:'Pengendalian dinilai pada titik tempat risiko timbul dalam siklus proses bisnis, bukan sebagai kegiatan yang berdiri sendiri',
+  body(){
+    return `<p>Pada siklus pengukuhan, pengendalian melekat pada penunjukan, penataan batas, pemetaan, dan penetapan. Pada siklus pengelolaan, pengendalian melekat pada inventarisasi, perencanaan, penataan zona/blok, perlindungan dan pengamanan, pengawetan, pemulihan, pemanfaatan lestari, pemberdayaan/kemitraan, serta pemantauan dan evaluasi.</p>
+    ${tbl(['Hasil analisis','Siklus utama','Sub proses bisnis terkait','Tujuan pengendalian'],D.keterkaitan)}`;
   }
 };
 V['hasil/analisis/tipologi'] = {
@@ -966,6 +1004,7 @@ const LABEL={
   'hasil':'Hasil','hasil/kriteria':'Kriteria','hasil/data':'Data kunci','hasil/analisis':'Analisis data',
   'hasil/analisis/pengurangan':'Pengurangan kawasan','hasil/analisis/penambahan':'Penambahan kawasan',
   'hasil/analisis/bidang':'Bidang tanah','hasil/analisis/tutupan':'Tutupan lahan',
+  'hasil/analisis/keterkaitan':'Keterkaitan siklus',
   'hasil/analisis/listrik':'Jaringan listrik','hasil/analisis/jalan':'Jaringan jalan',
   'hasil/analisis/tipologi':'Tipologi entitas','hasil/analisis/matriks':'Matriks tindak lanjut',
   'hasil/analisis/kesimpulan':'Kesimpulan sementara','hasil/indikasi':'Indikasi permasalahan'
