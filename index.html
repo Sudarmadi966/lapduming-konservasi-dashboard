@@ -288,7 +288,7 @@ html,body{height:auto;min-height:100%;scroll-behavior:smooth} body{overflow:auto
 .landing-main{display:grid;grid-template-columns:minmax(0,.9fr) minmax(520px,1.1fr);min-height:680px}
 .landing-copy{padding:clamp(56px,9vw,132px) clamp(28px,7vw,110px);display:flex;flex-direction:column;justify-content:center}
 .landing-kicker,.report-kicker{color:var(--forest);font-family:var(--display);font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
-.landing h1{font-size:clamp(3rem,6vw,6.8rem);line-height:.91;letter-spacing:-.055em;text-transform:none;margin:22px 0 28px;max-width:8ch}
+.landing h1{font-size:clamp(3rem,6vw,6.8rem);line-height:.91;letter-spacing:-.055em;text-transform:none;margin:22px 0 28px;max-width:12ch}
 .landing-lead{font-size:clamp(1rem,1.4vw,1.25rem);line-height:1.7;color:var(--muted);max-width:54ch;margin:0}
 .report-pick{margin-top:48px;padding:0;text-align:left;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:var(--shadow-sm);overflow:hidden;transition:.25s ease;width:min(100%,610px)}
 .report-pick:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:#fb923c}.report-pick:focus-visible{outline:4px solid #fdba74;outline-offset:4px}
@@ -319,13 +319,13 @@ body.report-mode .landing{display:none} body.report-mode .app{display:grid}
   <main class="landing-main">
     <div class="landing-copy">
       <div class="landing-kicker">Laporan perkembangan pemeriksaan</div>
-      <h1 id="landingTitle">Pilih laporan. Tangkap intinya.</h1>
-      <p class="landing-lead">Ringkasan eksekutif untuk membantu pimpinan memahami kemajuan, risiko awal, dan tindak lanjut pemeriksaan secara cepat—dengan detail tersedia saat dibutuhkan.</p>
+      <h1 id="landingTitle">Ringkasan Eksekutif</h1>
+      <p class="landing-lead">Perkembangan pelaksanaan pemeriksaan pendahuluan atas pengukuhan dan pengelolaan kawasan hutan konservasi, mencakup kemajuan pekerjaan, indikasi risiko awal, dan rencana tindak lanjut.</p>
       <button class="report-pick" id="openReport">
-        <span class="pick-top"><span class="pick-no">Laporan 01 · tersedia</span><span class="pick-date">31 Agustus 2026</span></span>
+        <span class="pick-top"><span class="pick-no">Laporan 01</span><span class="pick-date">31 Agustus 2026</span></span>
         <h2>Lapduming ke-1 — Dua Minggu Pertama</h2>
         <span class="pick-meta"><span>Progres 23%</span><span>Periode 18–28 Agustus</span><span>Indeks B.7.5.1.1</span></span>
-        <span class="pick-go"><span>Buka ringkasan pimpinan</span><b>→</b></span>
+        <span class="pick-go"><span>Lihat Laporan</span><b>→</b></span>
       </button>
     </div>
     <div class="landing-art" role="img" aria-label="Ilustrasi abstrak kawasan konservasi dan analisis geospasial"></div>
@@ -333,7 +333,7 @@ body.report-mode .landing{display:none} body.report-mode .app{display:grid}
   <footer class="landing-foot"><span>Kementerian Kehutanan serta instansi terkait</span><span>Pengukuhan &amp; pengelolaan kawasan hutan konservasi 2021–2025</span></footer>
 </section>
 <div class="app">
-  <nav class="report-nav"><button class="report-back" id="backToIndex">← Semua laporan</button><span>Lapduming ke-1 / Ringkasan pimpinan</span></nav>
+  <nav class="report-nav"><button class="report-back" id="backToIndex">← Semua laporan</button><span>Lapduming ke-1 / Ringkasan Eksekutif</span></nav>
 
   <!-- ================= TOP BAR ================= -->
   <header class="topbar">
@@ -353,7 +353,7 @@ body.report-mode .landing{display:none} body.report-mode .app{display:grid}
   </header>
 
   <section class="objective-wrap" aria-labelledby="objectiveTitle">
-    <div class="section-intro"><div><div class="report-kicker">Tujuan penugasan</div><h2 id="objectiveTitle">Sembilan keluaran menuju P2 Terinci</h2></div><p>Laporan hanya menetapkan progres total 23%; angka per tujuan belum dirinci dalam dokumen sumber. Status di bawah menunjukkan fokus pekerjaan yang dilaporkan, tanpa mengarang persentase turunan.</p></div>
+    <div class="section-intro"><div><div class="report-kicker">Tujuan penugasan</div><h2 id="objectiveTitle">Sembilan keluaran menuju P2 Terinci</h2></div><p>Laporan menetapkan progres keseluruhan 23%; rincian angka per tujuan belum tercantum dalam dokumen sumber. Status di bawah mencerminkan fokus pekerjaan yang dilaporkan pada periode berjalan.</p></div>
     <div class="objective-grid" id="objectiveGrid"></div>
   </section>
 
@@ -382,7 +382,7 @@ body.report-mode .landing{display:none} body.report-mode .app{display:grid}
         </div>
         <div class="zbottom">
           <button class="item mini" data-view="tujuan/alasan">
-            <b>Mengapa diperiksa? &mdash; 7 alasan pemeriksaan</b><span class="go">&rarr;</span>
+            <b>Dasar pelaksanaan pemeriksaan &mdash; 7 pertimbangan</b><span class="go">&rarr;</span>
           </button>
           <button class="zbtn" data-view="tujuan">Rincian tujuan, lingkup &amp; sasaran &rarr;</button>
         </div>
@@ -395,7 +395,7 @@ body.report-mode .landing{display:none} body.report-mode .app{display:grid}
       <div class="zone-head" data-view="dilakukan" role="button" tabindex="0">
         <div class="z-step"><b>2</b> Yang telah dilakukan</div>
         <h2>Tiga lini pekerjaan pada dua minggu pertama</h2>
-        <p>Menerjemahkan tujuan menjadi identifikasi kriteria, pemahaman entitas, dan pemahaman SPI.</p>
+        <p>Tujuan dijabarkan ke dalam identifikasi kriteria, pemahaman entitas, dan pemahaman SPI.</p>
       </div>
       <div class="zone-body">
         <div class="zgrow">
@@ -852,7 +852,7 @@ V['tujuan'] = {
       <div class="box"><span class="tag">Hasil yang diharapkan</span><p><strong>LHPP dan P2 Terinci</strong>: gambaran umum, indikasi kelemahan SPI/ketidakpatuhan, kriteria, risiko, lingkup, materialitas, uji petik, serta langkah pengujian kepatuhan.</p></div>
     </div>
     <p class="note">Dokumen tujuan dan harapan juga menyebut pemantauan tindak lanjut rekomendasi hasil pemeriksaan tahun sebelumnya.</p>
-    <button class="item" data-view="tujuan/alasan"><span class="ic">?</span><span class="tx"><b>Mengapa pemeriksaan ini dilakukan</b><span>Tujuh alasan pemeriksaan</span></span><span class="go">&rarr;</span></button>`;
+    <button class="item" data-view="tujuan/alasan"><span class="ic">?</span><span class="tx"><b>Dasar pelaksanaan pemeriksaan</b><span>Tujuh pertimbangan</span></span><span class="go">&rarr;</span></button>`;
   }
 };
 
