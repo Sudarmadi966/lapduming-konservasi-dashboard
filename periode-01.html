@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portal Lapduming — Pemeriksaan Pendahuluan Konservasi</title>
+<title>Periode 01 &mdash; Lapduming ke-1 &mdash; Dua Minggu Pertama</title>
 <meta name="description" content="Dashboard infografis interaktif Laporan Perkembangan Pelaksanaan Pemeriksaan Pendahuluan (Lapduming) ke-1: tujuan pemeriksaan, pekerjaan yang telah dilakukan, dan hasil yang diperoleh.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -319,45 +319,7 @@ body.report-mode .landing{display:none} body.report-mode .app{display:grid}
 @media(max-width:650px){.landing h1{font-size:2.4rem}.landing-copy{padding:28px 22px 20px}.landing-foot{display:block}.landing-foot span{display:block;margin:3px 0}.topbar{grid-template-columns:1fr;padding:38px 22px}.tb-prog{align-items:flex-start}.objective-wrap,.board{padding-left:18px;padding-right:18px}.objective-grid{grid-template-columns:1fr 1fr}.strip{margin:0 18px;grid-template-columns:1fr}.report-nav{padding:14px 18px}.report-nav>span{display:none}.p-body{width:calc(100% - 32px)}.report-grid{grid-template-columns:1fr;width:calc(100% - 32px);padding:0}.landing-art{min-height:200px}}
 </style>
 </head>
-<body>
-<section class="landing" id="landing" aria-labelledby="landingTitle">
-  <nav class="landing-nav"><div class="brand"><span class="brand-mark"></span><span>Portal Lapduming</span></div><small>Pemeriksaan Pendahuluan · 2026</small></nav>
-  <main class="landing-main">
-    <div class="landing-copy">
-      <div class="landing-kicker">Laporan perkembangan pemeriksaan</div>
-      <h1 id="landingTitle">Ringkasan Eksekutif</h1>
-      <p class="landing-lead">Perkembangan pelaksanaan pemeriksaan pendahuluan atas pengukuhan dan pengelolaan kawasan hutan konservasi, mencakup kemajuan pekerjaan, indikasi risiko awal, dan rencana tindak lanjut.</p>
-    </div>
-    <div class="landing-art" role="img" aria-label="Ilustrasi abstrak kawasan konservasi dan analisis geospasial"></div>
-  <div class="report-grid">
-    <button class="report-pick" id="openReport">
-      <span class="pick-top"><span class="pick-no">Periode 01</span><span class="pick-date">31 Agustus 2026</span></span>
-      <h2>Lapduming ke-1 &mdash; Dua Minggu Pertama</h2>
-      <span class="pick-meta"><span>Progres 23%</span><span class="meta-br"></span><span>Periode 18&ndash;28 Agustus</span><span>Indeks B.7.5.1.1</span></span>
-      <span class="pick-go"><span>Lihat Laporan</span><b>&rarr;</b></span>
-    </button>
-    <button class="report-pick placeholder" id="openReport2">
-      <span class="pick-top"><span class="pick-no">Periode 02</span><span class="pick-date">&mdash;</span></span>
-      <h2>Lapduming ke-2 &mdash; Minggu Ketiga &amp; Keempat</h2>
-      <span class="pick-meta"><span>Progres &mdash;%</span><span class="meta-br"></span><span>Periode 31 Agustus&ndash;11 September</span><span>Indeks B.7.5.1.2</span></span>
-      <span class="pick-go"><span>Lihat Laporan</span><b>&rarr;</b></span>
-    </button>
-    <button class="report-pick disabled" aria-disabled="true">
-      <span class="pick-top"><span class="pick-no">Periode 03</span><span class="pick-date">Belum tersedia</span></span>
-      <h2>Lapduming ke-3 &mdash; Bulan Kedua</h2>
-      <span class="pick-meta"><span>Periode belum terlampaui</span><span>Data belum diterbitkan</span></span>
-      <span class="pick-go"><span>Segera hadir</span><b>&rarr;</b></span>
-    </button>
-    <button class="report-pick disabled" aria-disabled="true">
-      <span class="pick-top"><span class="pick-no">Periode 04</span><span class="pick-date">Belum tersedia</span></span>
-      <h2>Lapduming ke-4 &mdash; Bulan Kedua</h2>
-      <span class="pick-meta"><span>Periode belum terlampaui</span><span>Data belum diterbitkan</span></span>
-      <span class="pick-go"><span>Segera hadir</span><b>&rarr;</b></span>
-    </button>
-  </div>
-  </main>
-  <footer class="landing-foot"><span>Kementerian Kehutanan serta instansi terkait</span><span>Pengukuhan &amp; pengelolaan kawasan hutan konservasi 2021–2025</span></footer>
-</section>
+<body class="report-mode">
 <div class="app">
   <nav class="report-nav"><button class="report-back" id="backToIndex">← Semua periode</button><span>Lapduming ke-1 / Ringkasan Eksekutif</span></nav>
 
@@ -1332,12 +1294,7 @@ const showReport=()=>{
   if(!location.hash.startsWith('#!/')) history.replaceState(null,'','#!/lapduming-1');
   window.scrollTo({top:0,behavior:'smooth'});
 };
-const showIndex=()=>{
-  if(overlay.classList.contains('open')) close();
-  document.body.classList.remove('report-mode');
-  history.replaceState(null,'','#');
-  window.scrollTo({top:0,behavior:'smooth'});
-};
+const showIndex=()=>{ location.href='index.html'; };
 const openReportEl=document.getElementById('openReport');
 if(openReportEl) openReportEl.addEventListener('click',()=>{ location.href='periode-01.html'; });
 const r2=document.getElementById('openReport2');
