@@ -3,156 +3,417 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Periode 01 — Penyusunan P2 Terinci</title>
-<meta name="description" content="Infografis satu layar Lapduming ke-1: tujuan pemeriksaan pendahuluan untuk menyusun Program Pemeriksaan Terinci dan progres pekerjaan.">
+<title>Ringkasan Eksekutif — Laporan Perkembangan Minggu ke-1</title>
+<meta name="description" content="Ringkasan eksekutif Lapduming ke-1: tujuan pemeriksaan pendahuluan, progres pencapaian tujuan dua minggu pertama, indikasi awal yang memerlukan pendalaman, dan langkah berikutnya.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Archivo:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg0:#0b241b; --bg1:#123226; --bg2:#0f2b21;
-    --ink:#f3ead9; --muted:#a9bfae; --faint:#6f8d7d;
-    --gold:#e8b25a; --gold-2:#f5c97c; --orange:#f97316;
-    --lime:#b7cc67; --line:rgba(232,178,90,.22); --line-2:rgba(232,178,90,.12);
-    --serif:"Oswald","Archivo","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+    --navy:#123a5e; --navy-2:#0c2b47; --navy-3:#0a2138;
+    --green:#1c7a41; --green-2:#14602f; --green-bg:#eef6ef; --green-line:#cfe6d3;
+    --blue:#1e6fbf; --blue-2:#164f92; --blue-bg:#eef4fb; --blue-line:#d3e3f4;
+    --gold:#e2a72e; --gold-ink:#a9781a;
+    --plum:#5b3f8c; --plum-2:#4a2f78; --plum-bg:#efeaf7; --plum-line:#ddd2ee;
+    --tan-bg:#fdf4e6; --tan-line:#f0dcbd;
+    --ink:#20302a; --muted:#5b6b63; --faint:#8a978f;
+    --paper:#e9edf1; --card:#ffffff; --line:#dfe4e2;
+    --display:"Oswald","Archivo","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
     --sans:"Archivo",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --script:"Caveat","Segoe Script","Brush Script MT",cursive;
   }
   *{box-sizing:border-box}
-  html,body{height:100%}
-  body{margin:0;color:var(--ink);font-family:var(--sans);overflow:hidden;
-    background:linear-gradient(158deg,var(--bg0),var(--bg1) 46%,var(--bg2));}
-  .doc{height:100dvh;display:grid;grid-template-rows:64px minmax(0,1fr) 40px}
-  .rule{height:1px;background:var(--line);border:0}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:clamp(12px,.86vw,14px);line-height:1.5;
+    background-image:
+      radial-gradient(circle at 92% -6%,rgba(28,122,65,.10),transparent 38rem),
+      radial-gradient(circle at 4% 108%,rgba(30,111,191,.10),transparent 34rem);}
+  h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:600;line-height:1.1}
+  .sheet{max-width:1480px;margin:0 auto;padding:clamp(10px,1.6vw,22px);
+    display:flex;flex-direction:column;gap:clamp(9px,1vw,14px)}
 
-  /* ---------- head ---------- */
-  .g-head{display:flex;align-items:center;justify-content:space-between;gap:18px;
-    padding:0 clamp(20px,3vw,44px)}
-  .g-brand{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-weight:700;
-    letter-spacing:.14em;text-transform:uppercase;font-size:.82rem}
-  .g-brand i{width:20px;height:20px;border-radius:50%;background:linear-gradient(145deg,#7c2d12,#f97316);
-    box-shadow:inset 0 0 0 5px #ffedd5}
-  .g-tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-  .g-tags span{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
-    border:1px solid var(--line-2);padding:5px 11px;border-radius:99px}
-  .g-home{font-family:var(--sans);font-size:.74rem;font-weight:600;color:var(--gold);
-    text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:7px 15px;
-    transition:.18s;white-space:nowrap}
-  .g-home:hover{background:var(--gold);color:#241402}
+  /* ---------------- HEADER ---------------- */
+  .re-head{position:relative;overflow:hidden;border-radius:14px;color:#eaf1f6;
+    background:
+      linear-gradient(105deg,var(--navy-3) 0%,var(--navy-2) 42%,rgba(18,58,94,.62) 66%,rgba(18,58,94,.15) 100%),
+      linear-gradient(#1c5a86,#0d3253);
+    display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:clamp(14px,2vw,30px);
+    padding:clamp(12px,1.7vw,20px) clamp(16px,2.4vw,34px)}
+  .re-head:before{content:"";position:absolute;right:0;top:0;bottom:0;width:46%;z-index:0;
+    background:
+      radial-gradient(120% 80% at 80% 20%,#3a5f7a,transparent 60%),
+      linear-gradient(180deg,#6f93a8 0%,#4c7791 40%,#2f5f5a 66%,#274d33 100%);
+    -webkit-mask:linear-gradient(90deg,transparent,#000 22%);mask:linear-gradient(90deg,transparent,#000 22%);opacity:.9}
+  .re-head:after{content:"";position:absolute;right:0;bottom:0;width:46%;height:52%;z-index:0;
+    background:linear-gradient(120deg,#1f4a2e,#2c6b3f 55%,#357a48);
+    clip-path:polygon(0 62%,14% 40%,26% 58%,40% 30%,55% 52%,70% 24%,84% 46%,100% 20%,100% 100%,0 100%);opacity:.55}
+  .re-head>*{position:relative;z-index:1}
 
-  /* ---------- main ---------- */
-  .g-main{min-height:0;display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(16px,2vw,40px);
-    align-items:center;padding:clamp(8px,2vh,26px) clamp(20px,3vw,52px)}
+  .re-org{display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;width:clamp(96px,9vw,132px)}
+  .re-emblem{flex:0 0 auto;width:clamp(48px,4.6vw,62px);height:clamp(48px,4.6vw,62px);border-radius:50%;
+    display:grid;place-items:center;font-family:var(--display);font-weight:700;color:#5a3d0c;
+    font-size:clamp(15px,1.5vw,20px);letter-spacing:.02em;
+    background:radial-gradient(circle at 38% 32%,#ffe7a4,#e2a72e 60%,#b9821e);
+    box-shadow:0 0 0 3px rgba(255,255,255,.22), inset 0 0 0 3px rgba(120,80,10,.32)}
+  .re-org b{font-family:var(--display);font-weight:700;font-size:clamp(15px,1.5vw,21px);letter-spacing:.04em}
+  .re-org small{font-family:var(--display);font-weight:500;font-size:clamp(7.5px,.62vw,9px);
+    letter-spacing:.06em;line-height:1.25;color:#c7d6e0;text-transform:uppercase}
 
-  .g-left{min-width:0;position:relative;padding-left:26px}
-  .g-left:before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:3px;
-    background:linear-gradient(180deg,var(--orange),var(--gold))}
-  .kicker{color:var(--orange);font-family:var(--serif);font-size:.72rem;font-weight:700;
-    letter-spacing:.22em;text-transform:uppercase;margin-bottom:16px}
-  .g-left h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,4.4vw,3.6rem);
-    line-height:1.02;letter-spacing:-.01em;text-transform:none;margin:0 0 12px;max-width:16ch}
-  .g-left h1 em{font-style:normal;color:var(--gold)}
-  .lead{color:var(--muted);font-size:clamp(.82rem,1.35vh,1rem);line-height:1.6;margin:0 0 26px;max-width:52ch}
+  .re-title{text-align:center;min-width:0}
+  .re-title h1{font-weight:700;font-size:clamp(20px,3vw,42px);letter-spacing:.03em;color:#fff;
+    text-shadow:0 2px 12px rgba(0,0,0,.35)}
+  .re-title h2{font-weight:600;font-size:clamp(11px,1.35vw,19px);letter-spacing:.08em;color:#dbe6ee;margin-top:2px}
+  .re-title .per{display:inline-block;margin:6px 0 8px;font-family:var(--display);font-weight:500;
+    font-size:clamp(9px,.9vw,12px);letter-spacing:.04em;color:#0e2c46;background:var(--gold);
+    padding:2px 12px;border-radius:99px}
+  .re-title p{margin:0 auto;max-width:60ch;font-size:clamp(9.5px,.95vw,13px);line-height:1.5;color:#e7eef3}
 
-  .steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-  .steps li{display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:start;}
-  .steps .no{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--gold);
-    background:rgba(232,178,90,.08);border:1px solid var(--line);border-radius:14px;
-    text-align:center;padding:8px 0}
-  .steps b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(.95rem,1.8vh,1.25rem);
-    letter-spacing:.02em;text-transform:uppercase;line-height:1.2}
-  .steps span{color:var(--muted);font-size:clamp(.72rem,1.2vh,.86rem);line-height:1.5;display:block;margin-top:3px}
+  .re-values{display:flex;align-items:center;gap:clamp(9px,1.1vw,16px);width:clamp(158px,16vw,246px)}
+  .re-tagline{font-family:var(--script);font-size:clamp(14px,1.5vw,22px);line-height:1.05;color:#eef4f8;
+    text-align:right;transform:rotate(-4deg);text-shadow:0 2px 10px rgba(0,0,0,.4)}
+  .re-creed{border-left:5px solid #2f8a4a;padding-left:clamp(8px,1vw,14px);
+    display:flex;flex-direction:column;gap:3px}
+  .re-creed span{font-family:var(--display);font-weight:600;font-size:clamp(8.5px,.85vw,12px);
+    letter-spacing:.11em;text-transform:uppercase;color:#fff;white-space:nowrap}
 
-  /* ---------- right : progress ---------- */
-  .g-right{min-width:0;display:grid;gap:clamp(14px,2.4vh,26px);align-content:center}
-  .prog-hero{display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,34px);align-items:center;
-    background:linear-gradient(120deg,rgba(232,178,90,.1),rgba(232,178,90,.02));
-    border:1px solid var(--line);border-radius:22px;padding:clamp(16px,2.4vh,26px) clamp(18px,2vw,30px)}
-  .ring{--p:23;width:clamp(120px,16vh,172px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
-    background:conic-gradient(var(--gold) calc(var(--p)*1%),rgba(232,178,90,.12) 0)}
-  .ring i{width:78%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
-    background:var(--bg1);font-family:var(--serif);font-style:normal;font-weight:700;color:#fff;
-    font-size:clamp(2.1rem,6.4vh,3.4rem);line-height:1}
-  .ring small{font-size:.38em;color:var(--gold);font-weight:600;margin-left:4px}
-  .hero-tx .hl{font-family:var(--serif);font-weight:600;text-transform:uppercase;letter-spacing:.16em;
-    font-size:.72rem;color:var(--orange);margin-bottom:9px}
-  .hero-tx .num{font-family:var(--serif);font-weight:700;font-size:clamp(1.5rem,3.6vh,2.4rem);line-height:1.05}
-  .hero-tx p{color:var(--muted);font-size:.82rem;line-height:1.55;margin:8px 0 0;max-width:34ch}
+  /* ---------------- SECTION HEADS ---------------- */
+  .sec-head{display:flex;align-items:center;gap:10px;color:#fff;border-radius:10px;
+    padding:8px clamp(10px,1.2vw,16px);font-family:var(--display);font-weight:600;
+    font-size:clamp(12px,1.25vw,17px);letter-spacing:.05em;text-transform:uppercase}
+  .sec-head svg{width:1.5em;height:1.5em;flex:0 0 auto}
+  .sec-head .sh-tail{margin-left:auto;display:flex;align-items:center;gap:7px;font-family:var(--sans);
+    font-weight:600;font-size:.66em;letter-spacing:.02em;text-transform:none;
+    background:rgba(255,255,255,.16);padding:4px 10px;border-radius:99px;white-space:nowrap}
+  .sec-head .sh-tail svg{width:1.2em;height:1.2em}
+  .sh-green{background:linear-gradient(100deg,var(--green-2),var(--green))}
+  .sh-doc{margin-left:auto;opacity:.85}
 
-  .p2{background:rgba(11,36,27,.5);border:1px solid var(--line);border-radius:22px;
-    padding:clamp(16px,2.2vh,24px) clamp(18px,2vw,28px)}
-  .p2-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:16px}
-  .p2-head b{font-family:var(--serif);font-weight:600;font-size:.78rem;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--ink)}
-  .p2-head .tot{font-family:var(--serif);font-weight:700;font-size:1.5rem;color:var(--gold);white-space:nowrap}
-  .p2-head .tot small{font-size:.5em;color:var(--muted);letter-spacing:.08em;font-weight:600;margin-right:3px}
-  .bar-row{display:grid;grid-template-columns:minmax(96px,1.1fr) 1.6fr 42px;gap:12px;align-items:center;margin:12px 0}
-  .bar-row>span{font-size:.78rem;color:var(--muted)}
-  .bar-row>b{font-family:var(--serif);font-weight:700;font-size:1rem;color:var(--ink);text-align:right}
-  .track{background:rgba(232,178,90,.1);height:10px;border-radius:6px;overflow:hidden}
-  .track i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--orange),var(--gold))}
-  .p2 .foot-note{font-size:.66rem;color:var(--faint);margin-top:14px;line-height:1.45}
+  /* ---------------- BODY GRID ---------------- */
+  .re-body{display:grid;grid-template-columns:36fr 64fr;gap:clamp(10px,1.3vw,18px);align-items:start}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    box-shadow:0 10px 30px rgba(18,58,94,.07);padding:clamp(10px,1.2vw,16px)}
+  .re-goals{display:flex;flex-direction:column;gap:clamp(8px,1vw,12px)}
+  .re-goals .intro{font-size:clamp(10px,1vw,13px);color:var(--ink);line-height:1.5}
 
-  /* ---------- foot ---------- */
-  .g-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;
-    padding:0 clamp(20px,3vw,44px);color:var(--faint);font-size:.68rem;letter-spacing:.04em}
-  .g-foot .dot{color:var(--gold)}
+  .gbox{border-radius:12px;padding:clamp(9px,1.05vw,14px);border:1px solid}
+  .gbox.g1{background:var(--green-bg);border-color:var(--green-line)}
+  .gbox.g2{background:var(--blue-bg);border-color:var(--blue-line)}
+  .gbox-head{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+  .gnum{flex:0 0 auto;width:clamp(26px,2.6vw,36px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+    font-family:var(--display);font-weight:700;color:#fff;font-size:clamp(13px,1.35vw,19px)}
+  .g1 .gnum{background:linear-gradient(140deg,var(--green-2),var(--green))}
+  .g2 .gnum{background:linear-gradient(140deg,var(--blue-2),var(--blue))}
+  .gbox-head h3{font-size:clamp(11px,1.15vw,15px);letter-spacing:.02em;text-transform:none}
+  .g1 .gbox-head h3{color:var(--green-2)}
+  .g2 .gbox-head h3{color:var(--blue-2)}
+  .glist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+  .glist li{display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:start;
+    font-size:clamp(9.5px,.95vw,12.5px);line-height:1.4}
+  .glist li svg{width:1.35em;height:1.35em;margin-top:.05em;flex:0 0 auto}
+  .g1 .glist li svg{color:var(--green)}
+  .g2 .glist li svg{color:var(--blue)}
 
-  @media(max-width:980px){
-    .g-main{grid-template-columns:1fr;overflow:auto;align-content:start;gap:22px;padding:18px}
-    .doc{height:100dvh}
-    body{overflow:auto}
+  .note{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;
+    background:var(--blue-bg);border:1px solid var(--blue-line);border-radius:12px;
+    padding:9px clamp(10px,1.1vw,14px);font-size:clamp(9.5px,.95vw,12.5px);line-height:1.45;color:var(--ink)}
+  .note svg{width:1.7em;height:1.7em;color:var(--blue)}
+
+  /* ---------------- PROGRESS ---------------- */
+  .re-prog{display:flex;flex-direction:column;gap:clamp(8px,1vw,12px)}
+  .prog-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(9px,1.1vw,15px);align-items:start}
+  .pcard{border-radius:13px;border:1px solid;padding:clamp(9px,1.05vw,14px);
+    display:flex;flex-direction:column;gap:9px}
+  .pcard.p1{background:var(--green-bg);border-color:var(--green-line)}
+  .pcard.p2{background:var(--blue-bg);border-color:var(--blue-line)}
+  .pc-head{display:flex;align-items:center;gap:10px}
+  .pc-badge{flex:0 0 auto;width:clamp(28px,2.9vw,40px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+    font-family:var(--display);font-weight:700;color:#fff;font-size:clamp(14px,1.5vw,21px);
+    border:2px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.15)}
+  .p1 .pc-badge{background:linear-gradient(140deg,var(--green-2),var(--green))}
+  .p2 .pc-badge{background:linear-gradient(140deg,var(--blue-2),var(--blue))}
+  .pc-head b{display:block;font-family:var(--display);font-weight:600;font-size:clamp(12px,1.2vw,16px)}
+  .pc-head span{display:block;font-size:clamp(9px,.92vw,12px);color:var(--muted);line-height:1.3;margin-top:1px}
+  .p1 .pc-head b{color:var(--green-2)} .p2 .pc-head b{color:var(--blue-2)}
+
+  .pbar{display:flex;align-items:center;gap:10px}
+  .pbar .track{flex:1;height:clamp(12px,1.15vw,16px);border-radius:99px;background:#e2e8e4;overflow:hidden;
+    box-shadow:inset 0 1px 3px rgba(0,0,0,.12)}
+  .pbar .fill{height:100%;border-radius:99px}
+  .p1 .pbar .fill{width:80%;background:linear-gradient(90deg,var(--green-2),#3aa768)}
+  .p2 .pbar .fill{width:20%;background:linear-gradient(90deg,var(--blue-2),#3b8fd8)}
+  .pbar .pct{font-family:var(--display);font-weight:700;font-size:clamp(16px,1.9vw,27px)}
+  .p1 .pbar .pct{color:var(--green-2)} .p2 .pbar .pct{color:var(--blue-2)}
+
+  .pc-sub{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+    background:rgba(255,255,255,.7);border-radius:99px;padding:3px 11px 3px 4px;
+    font-family:var(--display);font-weight:600;font-size:clamp(9px,.92vw,12px);letter-spacing:.02em}
+  .pc-sub .tick{width:1.35em;height:1.35em;border-radius:50%;display:grid;place-items:center;color:#fff}
+  .pc-sub .tick svg{width:.8em;height:.8em}
+  .p1 .pc-sub{color:var(--green-2)} .p1 .pc-sub .tick{background:var(--green)}
+  .p2 .pc-sub{color:var(--blue-2)} .p2 .pc-sub .tick{background:var(--blue)}
+
+  .results{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(7px,.85vw,11px)}
+  .results li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+  .results li>svg{width:clamp(20px,2vw,28px);height:clamp(20px,2vw,28px);flex:0 0 auto;margin-top:1px}
+  .p1 .results li>svg{color:var(--green)} .p2 .results li>svg{color:var(--blue)}
+  .results b{display:block;font-size:clamp(9.5px,.96vw,12.5px);line-height:1.3;font-weight:700}
+  .p1 .results b{color:var(--green-2)} .p2 .results b{color:var(--blue-2)}
+  .results span{display:block;font-size:clamp(9px,.9vw,11.5px);line-height:1.4;color:var(--muted);margin-top:2px}
+
+  .catatan{display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:start;margin-top:auto;
+    background:rgba(255,255,255,.62);border-radius:10px;padding:8px 11px;
+    font-size:clamp(9px,.9vw,11.5px);line-height:1.42;color:var(--muted)}
+  .catatan svg{width:1.5em;height:1.5em;margin-top:.1em}
+  .catatan b{font-weight:700}
+  .p1 .catatan svg,.p1 .catatan b{color:var(--green-2)}
+  .p2 .catatan svg,.p2 .catatan b{color:var(--blue-2)}
+
+  /* ---------------- BOTTOM ---------------- */
+  .re-bottom{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(10px,1.3vw,18px);align-items:stretch}
+
+  .quote-card{background:linear-gradient(180deg,#20476a,#183a30);color:#eef4f0;border-radius:14px;
+    padding:clamp(12px,1.3vw,18px);display:flex;flex-direction:column;justify-content:flex-end;gap:10px;
+    width:clamp(140px,13vw,190px);position:relative;overflow:hidden}
+  .quote-card svg.deer{position:absolute;top:12px;left:12px;width:40%;height:auto;color:rgba(255,255,255,.16)}
+  .quote-card q{font-family:var(--script);font-size:clamp(15px,1.7vw,23px);line-height:1.15;quotes:none}
+  .quote-card q:before{content:"“"} .quote-card q:after{content:"”"}
+
+  .indik{background:var(--tan-bg);border:1px solid var(--tan-line);border-radius:14px;
+    padding:clamp(10px,1.2vw,16px);display:flex;flex-direction:column;gap:10px}
+  .indik-head{display:flex;align-items:center;gap:10px}
+  .indik-head svg{width:clamp(22px,2.1vw,30px);height:clamp(22px,2.1vw,30px);color:var(--gold);flex:0 0 auto}
+  .indik-head h3{font-size:clamp(12px,1.25vw,17px);color:var(--gold-ink);letter-spacing:.04em;text-transform:uppercase}
+  .indik-head span{display:block;font-family:var(--sans);font-weight:500;font-size:clamp(8.5px,.85vw,11px);
+    color:var(--muted);text-transform:none;letter-spacing:0;margin-top:1px}
+  .indik-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(7px,.9vw,12px)}
+  .icell{display:flex;flex-direction:column;gap:4px;background:#fff;border:1px solid var(--tan-line);
+    border-radius:10px;padding:9px 10px}
+  .icell>svg{width:clamp(20px,1.9vw,26px);height:clamp(20px,1.9vw,26px);color:var(--green)}
+  .icell b{font-family:var(--display);font-weight:700;font-size:clamp(10px,1.02vw,13.5px);
+    color:var(--blue-2);line-height:1.15}
+  .icell p{margin:0;font-size:clamp(8px,.82vw,10.5px);line-height:1.35;color:var(--muted)}
+
+  .langkah{background:var(--plum-bg);border:1px solid var(--plum-line);border-radius:14px;
+    padding:clamp(10px,1.2vw,16px);width:clamp(180px,17vw,250px);display:flex;flex-direction:column;gap:9px}
+  .langkah-head{display:flex;align-items:center;gap:9px}
+  .langkah-head svg{width:clamp(20px,1.9vw,26px);height:clamp(20px,1.9vw,26px);color:var(--plum);flex:0 0 auto}
+  .langkah-head h3{font-size:clamp(11px,1.15vw,15px);color:var(--plum-2);letter-spacing:.04em;text-transform:uppercase}
+  .langkah ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+  .langkah li{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;
+    font-size:clamp(9px,.92vw,12px);line-height:1.35}
+  .langkah li svg{width:1.15em;height:1.15em;color:var(--plum);margin-top:.12em;flex:0 0 auto}
+
+  /* ---------------- FOOTER ---------------- */
+  .re-foot{background:linear-gradient(100deg,var(--navy-2),var(--navy));color:#cddae4;
+    border-radius:12px;padding:9px clamp(14px,1.8vw,26px);display:flex;justify-content:space-between;
+    align-items:center;gap:14px;font-size:clamp(8.5px,.85vw,11px);flex-wrap:wrap}
+  .re-foot b{color:#fff;font-family:var(--display);font-weight:600;letter-spacing:.05em}
+  .re-foot .sep{opacity:.4;margin:0 8px}
+  .re-foot i{font-style:italic;font-family:var(--script);font-size:1.5em;color:#dfeae2}
+  .re-foot a{color:#8fc7a6;text-decoration:none;font-weight:600}
+  .re-foot a:hover{text-decoration:underline}
+
+  @media (max-width:1080px){
+    .re-body{grid-template-columns:1fr}
+    .prog-cols{grid-template-columns:1fr}
+    .re-bottom{grid-template-columns:1fr}
+    .quote-card,.langkah{width:auto}
+    .indik-grid{grid-template-columns:repeat(3,1fr)}
+    .re-head{grid-template-columns:1fr;text-align:center;gap:12px}
+    .re-head:before,.re-head:after{display:none}
+    .re-values{width:auto;justify-content:center}
+    .re-tagline{text-align:center}
   }
-  @media(max-width:560px){
-    .g-tags{display:none}
-    .prog-hero{grid-template-columns:1fr;justify-items:start}
+  @media (max-width:560px){
+    .indik-grid{grid-template-columns:1fr 1fr}
+    .re-values{flex-direction:column}
   }
-  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="doc">
-  <header class="g-head">
-    <div class="g-brand"><i></i> Portal Lapduming</div>
-    <div class="g-tags"><span>Periode 01</span><span>Lapduming ke-1 &middot; s.d. Minggu 2</span><span>18&ndash;28 Agustus 2026</span></div>
-    <a class="g-home" href="index.html">&larr; Beranda</a>
+
+<!-- ===== icon sprite ===== -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-garuda" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c.6 1.2.4 2.3-.5 3.2 1.5.2 2.7 1 3.4 2.4.6-.7 1.5-1 2.6-.9-.6.9-.7 1.8-.3 2.7-1 .2-1.9-.1-2.6-.8.3 1 .2 2-.4 3l2.8 1.2-2.6.6c.5.9.5 1.9 0 2.9l2.4 1-2.7.7c.6 1 .5 2-.1 3-1-1.6-2.6-2.6-4.7-2.9v3.2H9.9v-3.2c-2.1.3-3.7 1.3-4.7 2.9-.6-1-.7-2-.1-3L2.4 17l2.4-1c-.5-1-.5-2 0-2.9l-2.6-.6L5 11.3c-.6-1-.7-2-.4-3-.7.7-1.6 1-2.6.8.4-.9.3-1.8-.3-2.7 1.1-.1 2 .2 2.6.9.7-1.4 1.9-2.2 3.4-2.4C8.6 4.3 8.4 3.2 9 2c.7 1 1.9 1.5 3 1.5S11.3 3 12 2Z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 3V1M12 23v-2M3 12H1M23 12h-2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v4h4M9 12h6M9 16h6M9 8h2"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M4 20h16"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 5.5A2.5 2.5 0 0 1 16 11M18 20c0-2.5-1-4.5-2.5-5.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 4l9 5M4 9v9M9 9v9M15 9v9M20 9v9M3 20h18"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V19a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H5a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H12a1.7 1.7 0 0 0 1-1.5V5a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V12a1.7 1.7 0 0 0 1.5 1H19a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5M12 17.5v.5"/></symbol>
+  <symbol id="i-pie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9h-9Z"/><path d="M12 3v9h9A9 9 0 0 0 12 3Z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></symbol>
+  <symbol id="i-doc-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6v20h12V6z"/><path d="M14 2v4h4"/><path d="m8.5 13 2 2 4-4"/></symbol>
+  <symbol id="i-sitemap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="2" y="16" width="6" height="5" rx="1"/><rect x="16" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M5 16v-2h14v2"/></symbol>
+  <symbol id="i-doc-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6v20h6"/><path d="M14 2v4h4"/><circle cx="16" cy="16" r="3.2"/><path d="m21 21-2.6-2.6"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-clip-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h4"/></symbol>
+  <symbol id="i-clip-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4V2h6v2"/><path d="m8.5 13 2 2 4-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4M7 13h3M14 13h3M7 17h3"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 6 12h3l-3 5h12l-3-5h3L12 3Z"/><path d="M12 17v4"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2V6Z"/><path d="M9 4v14M15 6v14"/></symbol>
+  <symbol id="i-trees" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 3 11h2.5L3 16h10l-2.5-5H13L8 3Z"/><path d="M8 16v5"/><path d="M16 8l4 6h-2l1.6 3H14"/></symbol>
+  <symbol id="i-tower" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 22 12 3l5 19M8.5 15h7M9.7 9h4.6M6 8l12 4M18 8 6 12"/></symbol>
+  <symbol id="i-road" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 3 21M16 3l5 18M12 4v3M12 11v3M12 18v3"/></symbol>
+  <symbol id="i-deer" viewBox="0 0 24 24" fill="currentColor"><path d="M6 2c.6 1.4.6 2.8 0 4.2C7 7 7.7 8 8 9.3c.4-1 .4-2 0-3 1 .6 1.6 1.6 1.8 2.9h4.4C14.4 8 15 7 16 6.3c-.4 1-.4 2 0 3 .3-1.3 1-2.3 2-3-.6-1.4-.6-2.8 0-4.2-1.2.8-2 2-2.4 3.5-.5-1-1.3-1.8-2.3-2.3C12.6 3.6 12 3 12 3s-.6.6-1.3.5C9.7 4 8.9 4.8 8.4 5.8 8 4.3 7.2 3.1 6 2.3Zm3 8.5c-.6 2-.6 3.9 0 5.8.3 1 .2 2-.2 3l-1.2 3.2h2l1-2.8c.3-.8 1-1.4 1.9-1.4h1c.9 0 1.6.6 1.9 1.4l1 2.8h2L20 20c-.4-1-.5-2-.2-3 .6-1.9.6-3.8 0-5.8H9Z"/></symbol>
+</svg>
+
+<main class="sheet">
+
+  <!-- ============ HEADER ============ -->
+  <header class="re-head">
+    <div class="re-org">
+      <div class="re-emblem">BPK</div>
+      <b>BPK RI</b>
+      <small>Badan Pemeriksa Keuangan Republik Indonesia</small>
+    </div>
+    <div class="re-title">
+      <h1>RINGKASAN EKSEKUTIF</h1>
+      <h2>LAPORAN PERKEMBANGAN MINGGU KE-1</h2>
+      <div class="per">Periode 18 &ndash; 28 Agustus 2026</div>
+      <p>Pemeriksaan Pendahuluan atas Kepatuhan Pengukuhan dan Pengelolaan Kawasan Hutan Konservasi Tahun 2021 s.d. 2025 pada Kementerian Kehutanan serta Instansi Terkait Lainnya di Provinsi DKI Jakarta, Nusa Tenggara Barat, dan Jawa Barat</p>
+    </div>
+    <div class="re-values">
+      <div class="re-tagline">Untuk Hutan Lestari dan Masa Depan Berkelanjutan</div>
+      <div class="re-creed"><span>Independensi</span><span>Integritas</span><span>Profesionalisme</span></div>
+    </div>
   </header>
 
-  <main class="g-main">
-    <section class="g-left">
-      <div class="kicker">Tujuan pemeriksaan pendahuluan</div>
-      <h1>Penyusunan Program Pemeriksaan <em>Terinci</em></h1>
-      <p class="lead">Pemeriksaan pendahuluan kepatuhan atas pengukuhan dan pengelolaan kawasan hutan konservasi TA 2021&ndash;2025 diarahkan untuk menyiapkan P2 Terinci melalui tiga tahap utama.</p>
-      <ol class="steps">
-        <li><span class="no">01</span><div><b>Identifikasi kriteria</b><span>Menghimpun dan memeriksa ketentuan yang berlaku atas pengukuhan dan pengelolaan kawasan hutan konservasi.</span></div></li>
-        <li><span class="no">02</span><div><b>Pemahaman entitas</b><span>Mempelajari struktur organisasi, proses bisnis, dan data Kementerian Kehutanan serta instansi terkait.</span></div></li>
-        <li><span class="no">03</span><div><b>Penilaian risiko proses bisnis</b><span>Mengidentifikasi kelemahan pengendalian sebagai dasar lingkup dan langkah pengujian kepatuhan.</span></div></li>
-      </ol>
-    </section>
+  <!-- ============ BODY ============ -->
+  <div class="re-body">
 
-    <section class="g-right">
-      <div class="prog-hero">
-        <div class="ring"><i>23<small>%</small></i></div>
-        <div class="hero-tx">
-          <div class="hl">Progres keseluruhan</div>
-          <b class="num">Pekerjaan pendahuluan</b>
-          <p>Mencakup identifikasi kriteria, pemahaman entitas, dan analisis sistem pengendalian intern pada dua minggu pertama.</p>
-        </div>
+    <!-- LEFT : TUJUAN -->
+    <section class="panel re-goals">
+      <div class="sec-head sh-green">
+        <svg><use href="#i-target"/></svg>
+        Tujuan Pemeriksaan Pendahuluan
+        <svg class="sh-doc"><use href="#i-doc"/></svg>
+      </div>
+      <p class="intro">Memperoleh data, informasi, dan pemahaman yang memadai sebagai dasar untuk menyusun Program Pemeriksaan (P2) Terinci, dengan fokus pada:</p>
+
+      <div class="gbox g1">
+        <div class="gbox-head"><span class="gnum">1</span><h3>Menentukan arah dan lingkup pemeriksaan</h3></div>
+        <ul class="glist">
+          <li><svg><use href="#i-users"/></svg><span>Identifikasi pengguna hasil pemeriksaan dan pihak yang bertanggung jawab</span></li>
+          <li><svg><use href="#i-doc"/></svg><span>Penentuan hal pokok, tujuan, dan lingkup pemeriksaan</span></li>
+          <li><svg><use href="#i-search"/></svg><span>Identifikasi kriteria pemeriksaan</span></li>
+        </ul>
       </div>
 
-      <div class="p2">
-        <div class="p2-head"><b>Progres penyusunan P2 Terinci</b><span class="tot"><small>&asymp;</small>28%</span></div>
-        <div class="bar-row"><span>01 &middot; Kriteria</span><div class="track"><i style="width:50%"></i></div><b>50%</b></div>
-        <div class="bar-row"><span>02 &middot; Entitas</span><div class="track"><i style="width:35%"></i></div><b>35%</b></div>
-        <div class="bar-row"><span>03 &middot; Risiko</span><div class="track"><i style="width:0%"></i></div><b>0%</b></div>
-        <div class="foot-note">Indikasi progres pada minggu kedua; persentase akhir akan ditetapkan pada penerbitan Lapduming periode berjalan.</div>
+      <div class="gbox g2">
+        <div class="gbox-head"><span class="gnum">2</span><h3>Menyusun dasar perencanaan pemeriksaan terinci</h3></div>
+        <ul class="glist">
+          <li><svg><use href="#i-bank"/></svg><span>Pemahaman entitas dan lingkungannya</span></li>
+          <li><svg><use href="#i-gear"/></svg><span>Pemahaman Sistem Pengendalian Intern (SPI)</span></li>
+          <li><svg><use href="#i-chart"/></svg><span>Penentuan materialitas</span></li>
+          <li><svg><use href="#i-warn"/></svg><span>Penilaian risiko</span></li>
+          <li><svg><use href="#i-pie"/></svg><span>Penentuan uji petik</span></li>
+          <li><svg><use href="#i-doc"/></svg><span>Penyusunan strategi dan rencana pemeriksaan/Program Pemeriksaan (P2)</span></li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <svg><use href="#i-info"/></svg>
+        <span>Data dan informasi yang diperoleh digunakan sebagai bahan penyusunan Program Pemeriksaan (P2) Terinci.</span>
       </div>
     </section>
-  </main>
 
-  <footer class="g-foot">
-    <span>Ringkasan eksekutif Lapduming ke-1 &mdash; disusun oleh Pengendali Teknis</span>
-    <span><span class="dot">&#9679;</span> Jakarta, 31 Agustus 2026</span>
+    <!-- RIGHT : PROGRES -->
+    <section class="panel re-prog">
+      <div class="sec-head sh-green">
+        <svg><use href="#i-chart"/></svg>
+        Progres Pencapaian Tujuan &ndash; Dua Minggu Pertama
+        <span class="sh-tail"><svg><use href="#i-cal"/></svg>Periode: 18 &ndash; 28 Agustus 2026</span>
+      </div>
+
+      <div class="prog-cols">
+
+        <!-- Tujuan 1 -->
+        <article class="pcard p1">
+          <div class="pc-head">
+            <span class="pc-badge">1</span>
+            <span><b>Progres Tujuan 1</b><span>Menentukan arah dan lingkup pemeriksaan</span></span>
+          </div>
+          <div class="pbar"><div class="track"><div class="fill"></div></div><span class="pct">80%</span></div>
+          <span class="pc-sub"><span class="tick"><svg><use href="#i-check"/></svg></span>Hasil yang telah dicapai:</span>
+          <ul class="results">
+            <li><svg><use href="#i-doc-check"/></svg><div><b>Daftar kriteria pemeriksaan tersedia dan telah dipetakan secara komprehensif</b><span>Mencakup ketentuan pengukuhan dan pengelolaan kawasan hutan konservasi yang masih berlaku.</span></div></li>
+            <li><svg><use href="#i-sitemap"/></svg><div><b>Peta entitas, struktur organisasi, dan kewenangan utama telah tergambar dengan jelas</b><span>Meliputi Ditjen Planologi Kehutanan, Ditjen KSDAE, UPT terkait, serta instansi terkait lainnya.</span></div></li>
+            <li><svg><use href="#i-gear"/></svg><div><b>Proses bisnis utama telah dipahami</b><span>Termasuk alur pengukuhan (penunjukan, penataan batas, pemetaan, penetapan) dan pengelolaan (perencanaan, perlindungan, pemanfaatan, evaluasi, dll).</span></div></li>
+            <li><svg><use href="#i-target"/></svg><div><b>Area dan hal pokok yang menjadi fokus pemeriksaan telah diidentifikasi secara awal</b><span>Sebagai dasar penentuan lingkup pemeriksaan terinci.</span></div></li>
+          </ul>
+          <div class="catatan"><svg><use href="#i-chart"/></svg><span><b>Catatan:</b> Masih diperlukan pendalaman pada beberapa kriteria spesifik dan koordinasi dengan pihak terkait untuk penyempurnaan lingkup.</span></div>
+        </article>
+
+        <!-- Tujuan 2 -->
+        <article class="pcard p2">
+          <div class="pc-head">
+            <span class="pc-badge">2</span>
+            <span><b>Progres Tujuan 2</b><span>Menyusun dasar perencanaan pemeriksaan terinci</span></span>
+          </div>
+          <div class="pbar"><div class="track"><div class="fill"></div></div><span class="pct">20%</span></div>
+          <span class="pc-sub"><span class="tick"><svg><use href="#i-check"/></svg></span>Hasil yang telah dicapai:</span>
+          <ul class="results">
+            <li><svg><use href="#i-doc-search"/></svg><div><b>Pemahaman awal SPI telah diperoleh</b><span>Meliputi lingkungan pengendalian, penilaian risiko, aktivitas pengendalian, informasi dan komunikasi, serta pemantauan pada proses pengukuhan dan pengelolaan.</span></div></li>
+            <li><svg><use href="#i-db"/></svg><div><b>Data dan informasi awal berhasil dihimpun dan dianalisis</b><span>Termasuk data spasial, dokumen perencanaan, laporan kinerja, serta informasi dari instansi terkait.</span></div></li>
+            <li><svg><use href="#i-warn"/></svg><div><b>Titik-titik risiko utama telah teridentifikasi secara awal</b><span>Baik pada proses pengukuhan maupun pengelolaan kawasan konservasi.</span></div></li>
+            <li><svg><use href="#i-clip-list"/></svg><div><b>Isu-isu yang memerlukan validasi dan pengujian lebih lanjut telah disusun</b><span>Sebagai dasar penentuan materialitas, uji petik, strategi pemeriksaan, dan penyusunan P2 Terinci.</span></div></li>
+          </ul>
+          <div class="catatan"><svg><use href="#i-chart"/></svg><span><b>Catatan:</b> Masih pada tahap awal. Hasil yang diperoleh belum merupakan kesimpulan pemeriksaan dan memerlukan validasi, konfirmasi, serta pengujian lebih lanjut.</span></div>
+        </article>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ BOTTOM ============ -->
+  <section class="re-bottom">
+
+    <div class="quote-card">
+      <svg class="deer" aria-hidden="true"><use href="#i-trees"/></svg>
+      <q>Menjaga hari ini, untuk generasi esok</q>
+    </div>
+
+    <div class="indik">
+      <div class="indik-head">
+        <svg><use href="#i-chart"/></svg>
+        <h3>Indikasi Awal yang Memerlukan Pendalaman
+          <span>(Hasil analisis awal, belum merupakan kesimpulan pemeriksaan)</span>
+        </h3>
+      </div>
+      <div class="indik-grid">
+        <div class="icell"><svg><use href="#i-tree"/></svg><b>25 fitur<br>7.738,77 ha</b><p>Terindikasi berubah menjadi APL dan perlu direkonsiliasi.</p></div>
+        <div class="icell"><svg><use href="#i-map"/></svg><b>71 fitur<br>247.979,06 ha</b><p>Penambahan kawasan yang perlu dikaji lebih lanjut.</p></div>
+        <div class="icell"><svg><use href="#i-doc"/></svg><b>3.974<br>bidang tanah</b><p>Dalam kawasan yang masih memerlukan validasi.</p></div>
+        <div class="icell"><svg><use href="#i-trees"/></svg><b>5.122 poligon<br>230.797,29 ha</b><p>Terindikasi perubahan tutupan akibat aktivitas manusia.</p></div>
+        <div class="icell"><svg><use href="#i-tower"/></svg><b>351,22 km<br>jaringan listrik</b><p>Perlu diuji dasar legal dan pengendaliannya.</p></div>
+        <div class="icell"><svg><use href="#i-road"/></svg><b>803,38 km<br>jaringan jalan</b><p>Perlu diuji dasar legal dan pengendaliannya.</p></div>
+      </div>
+    </div>
+
+    <div class="langkah">
+      <div class="langkah-head"><svg><use href="#i-clip-check"/></svg><h3>Langkah Berikutnya</h3></div>
+      <ul>
+        <li><svg><use href="#i-check"/></svg><span>Validasi dan konfirmasi data</span></li>
+        <li><svg><use href="#i-check"/></svg><span>Pendalaman analisis risiko</span></li>
+        <li><svg><use href="#i-check"/></svg><span>Penentuan materialitas dan uji petik</span></li>
+        <li><svg><use href="#i-check"/></svg><span>Penyusunan strategi pemeriksaan</span></li>
+        <li><svg><use href="#i-check"/></svg><span>Penyusunan Program Pemeriksaan (P2) Terinci</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="re-foot">
+    <span><b>BPK RI</b><span class="sep">|</span>Mengawal Pengelolaan Keuangan Negara untuk Mewujudkan Tujuan Negara</span>
+    <span><i>Hutan Terjaga, Kehidupan Berkelanjutan</i><span class="sep">·</span><a href="index.html">&larr; Beranda</a></span>
   </footer>
-</div>
+
+</main>
 </body>
 </html>
