@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ringkasan Eksekutif Lapduming — Portal Periode</title>
+<meta name="description" content="Ringkasan eksekutif Lapduming ke-1: tujuan pemeriksaan pendahuluan dan progres pencapaian tujuan dua minggu pertama.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Archivo:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* warm palette — echoes the index landing (rust / cream / espresso) */
+    --navy:#5a1e0a; --navy-2:#43140a; --navy-3:#331009;
+    --green:#3f7a4e; --green-2:#2f5c3b; --green-bg:#ecf1e6; --green-line:#d0e0c7;
+    --blue:#c2410c; --blue-2:#9a3412; --blue-bg:#fbe8dc; --blue-line:#f3d5bf;
+    --gold:#e0982f; --gold-ink:#8c5410; --gold-2:#f2c879;
+    --plum:#9a5b3b; --plum-2:#7a4227; --plum-bg:#f4ece2; --plum-line:#e7d6c5;
+    --tan-bg:#fdf1e2; --tan-line:#f0dcbd;
+    --ink:#241b17; --muted:#75665e; --faint:#9a8a7e;
+    --paper:#f5efe7; --card:#fffdf8; --line:#e7dccd;
+    --display:"Oswald","Archivo","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+    --sans:"Archivo",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --script:"Caveat","Segoe Script","Brush Script MT",cursive;
+  }
+  *{box-sizing:border-box;min-width:0}
+  html{scroll-behavior:smooth}
+  html{overflow-x:hidden}
+  html,body{height:100%}
+  /* footer "menempel" ke bawah layar seperti header menempel ke atas: .periode yang tampil
+     diregangkan minimal setinggi viewport, .sheet mengisi sisa ruang, footer terdorong ke bawah. */
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;
+    background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:clamp(12px,.86vw,14px);line-height:1.5;
+    background-color:var(--paper);
+    /* latar konten: gambar pegunungan/hutan yang sama seperti di sisi kanan header, ditaruh
+       sekali di kanan-atas area konten lalu "dipudarkan" nyaris ke warna kertas lewat lapisan
+       putih-krem tembus pandang di atasnya — jadi tetap terlihat seperti foto (bukan garis),
+       tapi tetap terang dan tidak ramai supaya kartu di depannya tetap aman terbaca. */
+    background-image:
+      radial-gradient(circle at 92% -6%,rgba(194,65,12,.10),transparent 38rem),
+      radial-gradient(circle at 4% 108%,rgba(224,152,47,.11),transparent 34rem),
+      linear-gradient(to bottom,transparent 0,transparent 300px,var(--paper) 560px),
+      linear-gradient(rgba(245,239,231,.88),rgba(245,239,231,.88)),
+      url('assets/hero-konservasi-orange.png');
+    background-position:0 0, 0 0, top right, top right, top right;
+    background-repeat:no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size:auto, auto, auto, auto, min(900px,80vw) auto;
+}
+  h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:600;line-height:1.1}
+  .sheet{max-width:1480px;margin:0 auto;padding:clamp(10px,1.6vw,22px);width:100%;flex:1;
+    display:flex;flex-direction:column;gap:clamp(9px,1vw,14px)}
+  /* setiap .periode adalah kolom flex penuh tinggi body: header (auto) → .sheet (flex:1,
+     mendorong sisa ruang) → footer (auto, akhirnya menempel ke tepi bawah layar) */
+  .periode{display:flex;flex-direction:column;flex:1;min-width:0}
+
+  /* ---------------- HEADER TOP ROW: Beranda+Periode (kiri) · Judul (rata kiri) · cakupan penugasan (kanan, rata tengah vertikal) ---------------- */
+  .re-top{display:flex;align-items:center;gap:clamp(16px,2.2vw,32px);flex-wrap:wrap}
+  .re-nav{flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-start;gap:7px;
+    margin:-10px 0 0 -16px}
+  .re-desc{flex:1 1 240px;min-width:0;font-family:var(--sans);font-weight:500;font-size:clamp(12.5px,1.15vw,15.5px);
+    line-height:1.5;color:#f2e3d5;text-align:left;
+    text-shadow:0 1px 6px rgba(0,0,0,.55),0 2px 14px rgba(0,0,0,.35)}
+  @media (max-width:640px){
+    /* di layout kolom, flex-basis lebar (240px) akan terbaca sebagai tinggi — reset ke auto */
+    .re-top{flex-direction:column;align-items:flex-start;gap:12px}
+    .re-nav,.re-title,.re-desc{flex:0 0 auto}
+  }
+  .home-fab{display:flex;align-items:center;
+    padding:4px;border-radius:99px;text-decoration:none;overflow:hidden;
+    background:linear-gradient(120deg,rgba(67,20,10,.88),rgba(122,52,20,.82));
+    border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+    color:#fff;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+    box-shadow:0 8px 22px rgba(0,0,0,.32);
+    transition:box-shadow .2s ease,transform .2s ease,background .2s ease}
+  .home-fab .hf-ico{flex:0 0 auto;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;
+    background:var(--gold);color:#3a1a08;transition:transform .25s ease}
+  .home-fab .hf-ico svg{width:15px;height:15px}
+  /* label "Beranda" tersembunyi (lebar 0) — hanya melebar & terlihat saat hover/focus */
+  .home-fab .hf-tx{display:inline-block;max-width:0;white-space:nowrap;overflow:hidden;
+    margin:0;opacity:0;transition:max-width .25s ease,opacity .18s ease,margin .25s ease}
+  .home-fab:hover,.home-fab:focus-visible{transform:translateY(1px);box-shadow:0 12px 30px rgba(0,0,0,.4);
+    background:linear-gradient(120deg,rgba(80,24,10,.96),rgba(150,64,28,.92))}
+  .home-fab:hover .hf-ico,.home-fab:focus-visible .hf-ico{transform:translateX(-2px)}
+  .home-fab:hover .hf-tx,.home-fab:focus-visible .hf-tx{max-width:100px;opacity:1;margin:0 9px 0 2px}
+
+  /* ---------------- HEADER ---------------- */
+  .re-head{position:relative;overflow:hidden;color:#f6ede2;isolation:isolate;
+    background:
+      linear-gradient(103deg,#320f05 0%,#54190a 33%,rgba(122,52,20,.82) 57%,rgba(168,78,32,.58) 80%,rgba(206,116,54,.42) 100%),
+      url('assets/hero-konservasi-orange.png') center right/cover no-repeat,
+      #4a1608;
+    background-blend-mode:normal, luminosity, normal;
+    padding:clamp(18px,2.2vw,26px) clamp(16px,3vw,44px)}
+  /* editorial contour overlay — echoes the landing-page collage */
+  .re-head:before{content:"";position:absolute;inset:0;z-index:0;opacity:.4;mix-blend-mode:soft-light;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='360'%3E%3Cg fill='none' stroke='%23e6f0f8' stroke-width='1.1'%3E%3Cpath d='M-20,52C140,12 300,90 580,34'/%3E%3Cpath d='M-20,96C140,56 290,132 580,76'/%3E%3Cpath d='M-20,146C160,102 310,180 580,118'/%3E%3Cpath d='M-20,204C160,158 290,240 580,176'/%3E%3Cpath d='M-20,260C140,216 310,304 580,238'/%3E%3Cpath d='M-20,314C140,272 290,346 580,294'/%3E%3C/g%3E%3C/svg%3E") right center/600px auto no-repeat}
+  .re-head:after{content:"";position:absolute;right:-70px;top:0px;width:320px;height:120px;z-index:0;border-radius:50%;
+    background:
+      radial-gradient(circle,transparent 60%,rgba(255,255,255,.10) 61%,rgba(255,255,255,.10) 64%,transparent 65%),
+      radial-gradient(circle at 58% 42%,rgba(226,167,46,.16),transparent 62%)}
+  .re-head>*{position:relative;z-index:1}
+
+  .re-title{text-align:left;min-width:0}
+  .re-title h1{font-weight:700;font-size:clamp(17px,2.4vw,32px);letter-spacing:.03em;color:#fff;line-height:1.05;
+    text-shadow:0 2px 12px rgba(0,0,0,.35)}
+  .re-title h2{font-weight:600;font-size:clamp(9.5px,1.05vw,14px);letter-spacing:.08em;color:#ecdccb;margin-top:1px}
+  .re-title .per-row{display:flex;align-items:center;gap:7px;margin-top:7px}
+  .re-title .per{display:inline-block;font-family:var(--display);font-weight:500;
+    font-size:clamp(8.5px,.82vw,11px);letter-spacing:.04em;color:#3a1a08;background:var(--gold);
+    padding:2px 11px;border-radius:99px;white-space:nowrap}
+
+  /* ---------------- PILIH PERIODE: ikon di samping pill tanggal, buka menu popover ---------------- */
+  .per-switch{position:relative}
+  .per-switch-btn{display:grid;place-items:center;width:20px;height:20px;flex:0 0 auto;border-radius:50%;
+    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);color:#fff;padding:0;
+    cursor:pointer;transition:background .15s ease}
+  .per-switch-btn svg{width:11px;height:11px;transition:transform .2s ease}
+  .per-switch-btn:hover,.per-switch-btn:focus-visible{background:rgba(255,255,255,.32)}
+  .per-switch.open .per-switch-btn svg{transform:rotate(180deg)}
+  /* posisi diatur lewat JS (position:fixed, dipindah ke <body>) agar tidak terpotong oleh
+     overflow:hidden pada .re-head — menu popover harus bisa "keluar" dari kotak header */
+  .per-menu{position:fixed;z-index:200;min-width:240px;max-width:calc(100vw - 24px);
+    background:linear-gradient(150deg,var(--navy-3),var(--navy-2) 70%);
+    border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:6px;
+    box-shadow:0 20px 44px rgba(0,0,0,.45);display:flex;flex-direction:column;gap:3px;
+    opacity:0;visibility:hidden;transform:translateY(-6px);pointer-events:none;
+    transition:opacity .16s ease,transform .16s ease,visibility 0s linear .16s}
+  /* .per-menu dipindah jadi anak langsung <body> lewat JS, jadi status "terbuka" ada di
+     dirinya sendiri (.open), bukan lewat leluhur .per-switch.open */
+  .per-menu.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto;
+    transition:opacity .16s ease,transform .16s ease}
+  .per-menu button{display:block;width:100%;text-align:left;font-family:var(--display);font-weight:600;
+    font-size:10.5px;letter-spacing:.02em;color:#efe0d4;background:transparent;border:0;border-radius:8px;
+    padding:8px 10px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    transition:background .13s,color .13s}
+  .per-menu button:hover,.per-menu button:focus-visible{background:rgba(255,255,255,.12);color:#fff}
+  .per-menu button.on{background:var(--gold);color:#3a1a08}
+
+  /* ---------------- SECTION HEADS ---------------- */
+  .sec-head{display:flex;align-items:center;gap:10px;color:#fff;border-radius:10px;flex-wrap:wrap;
+    padding:8px clamp(10px,1.2vw,16px);font-family:var(--display);font-weight:600;
+    font-size:clamp(12px,1.25vw,17px);letter-spacing:.05em;text-transform:uppercase}
+  .sec-head svg{width:1.5em;height:1.5em;flex:0 0 auto}
+  .sec-head .sh-tail{margin-left:auto;display:flex;align-items:center;gap:7px;font-family:var(--sans);
+    font-weight:600;font-size:.66em;letter-spacing:.02em;text-transform:none;
+    background:rgba(255,255,255,.16);padding:4px 10px;border-radius:99px;white-space:nowrap}
+  .sec-head .sh-tail svg{width:1.2em;height:1.2em}
+  .sh-green{background:linear-gradient(100deg,var(--green-2),var(--green))}
+  .sh-doc{margin-left:auto;flex:0 0 auto;display:grid;place-items:center;width:2em;height:2em;padding:0;
+    border-radius:8px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.13);color:#fff;
+    cursor:pointer;transition:background .15s,transform .15s}
+  .sh-doc svg{width:1.15em;height:1.15em}
+  .sh-doc:hover{background:rgba(255,255,255,.26);transform:translateY(-1px)}
+  .sh-doc:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+  /* ---------------- IKHTISAR TUJUAN & PROGRES ---------------- */
+
+  .tp-ph{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:#fff;border-radius:9px;
+    padding:7px clamp(9px,1vw,13px);margin-bottom:clamp(10px,1.3vw,16px);
+    background:linear-gradient(100deg,var(--green-2),var(--green));
+    font-family:var(--display);font-weight:600;font-size:clamp(9px,.98vw,12px);
+    letter-spacing:.05em;text-transform:uppercase}
+  .tp-ph>svg{width:1.35em;height:1.35em;flex:0 0 auto}
+  .tp-ph .tp-ph-tail{margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+    font-family:var(--sans);font-weight:600;font-size:.74em;letter-spacing:.02em;text-transform:none;
+    background:rgba(255,255,255,.18);padding:3px 9px;border-radius:99px;white-space:nowrap}
+  .tp-ph .tp-ph-tail svg{width:1.1em;height:1.1em}
+  .tp-ph .sh-doc{margin-left:6px;flex:0 0 auto;display:grid;place-items:center;width:2em;height:2em;padding:0;
+    border-radius:7px;border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.14);color:#fff;
+    cursor:pointer;transition:background .15s}
+  .tp-ph .sh-doc svg{width:1.1em;height:1.1em}
+  .tp-ph .sh-doc:hover{background:rgba(255,255,255,.28)}
+
+  /* 9 tujuan — tiap baris berisi kartu tujuan (kiri, rata kiri, lebar tetap) + kartu hasil terpisah
+     (kanan, mengisi sisa ruang); satu tone warna sesuai progres (--tc) mengalir dari .tp-row ke keduanya. */
+  .tp-goals{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(8px,1vw,12px)}
+  .tp-row{--tc:#c2410c;display:grid;grid-template-columns:minmax(230px,360px) 1fr;
+    gap:clamp(8px,1vw,12px) clamp(10px,1.2vw,14px);align-items:stretch}
+  /* --tc TIDAK dideklarasikan ulang di sini — kalau di-set langsung pada .tp-g, nilainya akan
+     menimpa (shadow) warisan dari .tp-row untuk semua turunannya (gnum, sep, badge %), sehingga
+     warna per rentang progres yang di-set lewat JS pada .tp-row tidak pernah sampai ke sana. */
+  .tp-g{text-decoration:none;cursor:pointer;border-radius:11px;outline:none;
+    border:1px solid color-mix(in srgb,var(--tc) 30%,#fffdf8);
+    background:color-mix(in srgb,var(--tc) 6%,transparent);
+    padding:clamp(8px,.9vw,12px) clamp(10px,1.1vw,14px);display:flex;align-items:center;gap:clamp(9px,1vw,12px);
+    transition:transform .13s ease,box-shadow .13s ease,border-color .13s ease,background .2s ease}
+  .tp-g .gnum{flex:0 0 auto;width:clamp(22px,2.2vw,28px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+    font-family:var(--display);font-weight:700;color:#fff;font-size:clamp(11px,1.1vw,14px);
+    background:var(--tc)}
+  /* label + pembatas "|" + angka progres, sebaris — pengganti bar progres */
+  .tp-g-tx{flex:1;min-width:0;display:flex;align-items:center;gap:clamp(8px,.9vw,12px)}
+  .tp-g-lbl{flex:1;min-width:0;font-family:var(--display);font-weight:600;font-size:clamp(10.5px,1vw,13px);
+    line-height:1.28;letter-spacing:.012em;color:#2a1a12;transition:color .15s ease}
+  .tp-g-sep{flex:0 0 auto;font-weight:300;font-size:clamp(13px,1.2vw,17px);line-height:1;
+    color:color-mix(in srgb,var(--tc) 40%,#c9b39f)}
+  .tp-g-pct{flex:0 0 auto;font-style:normal;display:inline-flex;align-items:center;justify-content:center;
+    min-width:2.7em;padding:4px 10px;border-radius:99px;
+    font-family:var(--display);font-weight:700;font-size:clamp(10px,.92vw,12.5px);letter-spacing:.02em;
+    color:#fff;background:var(--tc);
+    box-shadow:0 3px 8px color-mix(in srgb,var(--tc) 35%,transparent)}
+  .tp-g:hover,.tp-g:focus-visible{transform:translateY(-2px);
+    background:color-mix(in srgb,var(--tc) 12%,transparent);
+    box-shadow:0 8px 20px color-mix(in srgb,var(--tc) 22%,transparent)}
+
+  /* ---- versi "digabung": tujuan + hasil jadi SATU kartu, bukan dua kartu bersebelahan ----
+     .tp-flow menampung kartu-kartu gabungan sebagai kolom yang mengalir (flex-wrap),
+     lebarnya menyesuaikan isi tiap kartu — bukan lagi baris selebar penuh satu-satu. */
+  .tp-flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:clamp(8px,1vw,12px)}
+  .tp-flow .tp-g--merged{flex:1 1 320px;max-width:540px}
+  @media (max-width:640px){ .tp-flow .tp-g--merged{flex-basis:100%;max-width:100%} }
+  .tp-g--merged{flex-direction:column;align-items:stretch;gap:clamp(10px,1.2vw,16px)}
+  .tp-g-top{display:flex;align-items:center;gap:clamp(9px,1vw,12px)}
+  .tp-g--merged .tp-h-showcase,.tp-g--merged .tp-h-list,.tp-g--merged .tp-h-line{
+    padding-top:clamp(6px,.8vw,10px);border-top:1px dashed color-mix(in srgb,var(--tc) 28%,transparent)}
+  .tp-g--merged .tp-h-list{margin-top:0}
+
+  /* kartu hasil — terpisah dari kartu tujuan, di sebelah kanannya dalam baris yang sama */
+  .tp-h{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0;
+    background:var(--card);border:1px solid var(--line);border-left:3px solid var(--tc,#c2410c);
+    border-radius:11px;padding:clamp(8px,.9vw,12px) clamp(11px,1.2vw,15px)}
+  .tp-h-kick{font-family:var(--display);font-weight:700;font-size:clamp(7px,.68vw,8.5px);
+    letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb,var(--tc,#c2410c) 70%,#2a1206)}
+  .tp-h-tx{font-family:var(--sans);font-weight:500;font-size:clamp(9px,.9vw,11px);line-height:1.42;color:var(--ink)}
+  /* varian kartu hasil tanpa label kicker "HASIL" — langsung isi, boleh beberapa baris
+     berlabel (tp-h-line) atau narasi berpoin (tp-h-list) */
+  .tp-h-line{margin:0;font-family:var(--sans);font-weight:500;font-size:clamp(9px,.9vw,11px);
+    line-height:1.42;color:var(--ink)}
+  .tp-h-line b,.tp-h-list b{font-weight:700;color:#2a1a12}
+  .tp-h-list{margin:0;padding-left:1.15em}
+  .tp-h-list li{font-family:var(--sans);font-weight:500;font-size:clamp(9px,.9vw,11px);
+    line-height:1.42;color:var(--ink)}
+  .tp-h-list li::marker{color:var(--tc,#c2410c)}
+  .tp-h-list li+li{margin-top:4px}
+
+  /* ---- kartu hasil gaya "presentasi": kelompok pihak sebagai chip, bukan paragraf ----
+     dipakai contoh di Tujuan 1: Pengguna LHP (chip datar) & Penanggung Jawab (mini org-chart:
+     induk kementerian → cabang dua Ditjen, disambungkan garis seperti bagan struktur). */
+  /* versi "tanpa card": lepas bingkai/latar/padding milik .tp-h — chip-chip mengambang
+     langsung di atas latar halaman, tidak lagi dibungkus kotak kartu */
+  .tp-h-showcase{display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(16px,2vw,26px);
+    background:none;border:0;border-radius:0;padding:clamp(4px,.6vw,8px) 0}
+  .tp-h-grp{display:flex;flex-direction:column;gap:8px;min-width:0}
+  .tp-h-grp-lbl{display:flex;align-items:center;gap:5px;font-family:var(--display);font-weight:700;
+    font-size:clamp(7.5px,.7vw,9px);letter-spacing:.09em;text-transform:uppercase;
+    color:color-mix(in srgb,var(--tc,#c2410c) 74%,#2a1206)}
+  .tp-h-grp-lbl svg{width:12px;height:12px;flex:0 0 auto}
+  .tp-h-chips{display:flex;flex-wrap:wrap;gap:6px}
+  .tp-h-chip{display:inline-flex;align-items:center;font-family:var(--sans);font-weight:700;
+    font-size:clamp(9px,.88vw,11px);color:#2a1a12;letter-spacing:.005em;white-space:nowrap;
+    background:color-mix(in srgb,var(--tc,#c2410c) 13%,var(--card));
+    border:1px solid color-mix(in srgb,var(--tc,#c2410c) 34%,var(--line));
+    border-radius:8px;padding:4px 10px;transition:transform .15s ease,box-shadow .15s ease}
+  .tp-h-chip:hover{transform:translateY(-1px);box-shadow:0 4px 10px color-mix(in srgb,var(--tc,#c2410c) 28%,transparent)}
+  .tp-h-org{display:flex;flex-direction:column;gap:6px}
+  .tp-h-chip--root{align-self:flex-start;background:var(--tc,#c2410c);border-color:var(--tc,#c2410c);
+    color:#fff;box-shadow:0 3px 9px color-mix(in srgb,var(--tc,#c2410c) 40%,transparent)}
+  .tp-h-cq{margin-left:10px;font-style:italic;font-weight:500;font-size:clamp(8px,.75vw,9.5px);color:var(--muted)}
+  .tp-h-org-branch{margin-left:10px;padding-left:16px;display:flex;flex-direction:column;gap:6px;
+    border-left:2px solid color-mix(in srgb,var(--tc,#c2410c) 38%,transparent)}
+  .tp-h-org-branch .tp-h-chip{position:relative;background:var(--card)}
+  .tp-h-org-branch .tp-h-chip:before{content:"";position:absolute;left:-16px;top:50%;width:12px;height:2px;
+    background:color-mix(in srgb,var(--tc,#c2410c) 38%,transparent)}
+
+  /* alur proses berurutan (mis. tahapan pengukuhan) — chip dipisah tanda panah */
+  .tp-h-flow{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+  .tp-h-flow .tp-h-chip{background:var(--card)}
+  .tp-h-arrow{flex:0 0 auto;font-weight:700;font-size:11px;color:color-mix(in srgb,var(--tc,#c2410c) 45%,#c9b39f)}
+
+  /* chip status tertunda ("belum dikerjakan") — putus-putus & redup, beda dari chip berisi data */
+  .tp-h-chip--pending{background:transparent;border-style:dashed;
+    border-color:color-mix(in srgb,var(--tc,#c2410c) 45%,var(--line));color:var(--muted);font-style:italic}
+
+  /* chip indikasi risiko (kode tebal + label ringkas) */
+  .tp-h-chip--risk b{font-weight:800;margin-right:4px;
+    color:color-mix(in srgb,var(--tc,#c2410c) 80%,#2a1206)}
+
+  /* stat mini: angka besar + label kecil, untuk data kuantitatif */
+  .tp-h-stats{display:flex;flex-wrap:wrap;gap:clamp(12px,1.4vw,18px)}
+  .tp-h-stat{display:flex;flex-direction:column;gap:1px;min-width:0}
+  .tp-h-stat b{font-family:var(--display);font-weight:700;font-size:clamp(14px,1.5vw,18px);
+    color:color-mix(in srgb,var(--tc,#c2410c) 76%,#2a1206);line-height:1.1;white-space:nowrap}
+  .tp-h-stat span{font-family:var(--sans);font-weight:600;font-size:clamp(7.5px,.7vw,9px);
+    letter-spacing:.02em;color:var(--muted);white-space:nowrap}
+
+  @media (max-width:640px){ .tp-row{grid-template-columns:1fr} }
+
+  @keyframes idlgIn{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+
+  /* ---------------- DOCUMENT (PDF) DIALOG ---------------- */
+  .pdlg{border:0;border-radius:16px;padding:0;width:min(1000px,96vw);height:min(90vh,1120px);max-width:96vw;
+    background:var(--card);color:var(--ink);box-shadow:0 40px 100px rgba(40,20,10,.5);overflow:hidden}
+  .pdlg::backdrop{background:rgba(44,22,10,.6);backdrop-filter:blur(3px)}
+  .pdlg[open]{display:flex;flex-direction:column;animation:idlgIn .22s ease}
+  .pdlg-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    padding:clamp(11px,1.6vw,17px) clamp(13px,2vw,24px);color:#f6ede2;
+    background:linear-gradient(115deg,var(--navy-3),var(--navy-2) 60%,#7a3a18)}
+  .pdlg-kick{font-family:var(--display);font-weight:600;font-size:.64rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--gold-2);margin-bottom:3px}
+  .pdlg-head h3{font-family:var(--display);font-weight:600;font-size:clamp(13px,1.7vw,19px);color:#fff}
+  .pdlg-act{display:flex;align-items:center;gap:9px}
+  .pdlg-open{font-family:var(--display);font-weight:600;font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;
+    color:#3a1a08;background:var(--gold);border-radius:99px;padding:7px 14px;text-decoration:none;white-space:nowrap}
+  .pdlg-open:hover{background:var(--gold-2)}
+  .pdlg-x{width:32px;height:32px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;
+    font-size:19px;line-height:1;cursor:pointer;flex:0 0 auto}
+  .pdlg-x:hover{background:rgba(255,255,255,.28)}
+  .pdlg-body{flex:1;min-height:0;background:#3a3d40}
+  .pdlg-body object,.pdlg-body iframe{width:100%;height:100%;border:0;display:block}
+  .pdlg-fallback{display:grid;place-items:center;height:100%;padding:24px;text-align:center;
+    color:#d8ccbe;font-size:13px;line-height:1.7}
+  .pdlg-fallback a{color:var(--gold-2);font-weight:600}
+
+  /* ---------------- FOOTER (full-bleed, menempel kiri/kanan/bawah — pasangan .re-head) ---------------- */
+  .re-foot{flex:0 0 auto;width:100%;background:linear-gradient(100deg,var(--navy-2),var(--navy));color:#e4d3c5;
+    padding:10px clamp(16px,3vw,44px);display:flex;justify-content:space-between;
+    align-items:center;gap:14px;font-size:clamp(8.5px,.85vw,11px);flex-wrap:wrap}
+  .re-foot b{color:#fff;font-family:var(--display);font-weight:600;letter-spacing:.05em}
+  .re-foot .sep{opacity:.4;margin:0 8px}
+  .re-foot i{font-style:italic;font-family:var(--script);font-size:1.5em;color:#efe1d0}
+  .re-foot a{color:#e8b271;text-decoration:none;font-weight:600}
+  .re-foot a:hover{text-decoration:underline}
+  .re-foot .re-sign{text-align:center;color:#f3e7d9}
+  .re-foot .re-sign b{color:var(--gold-2,#f0c674)}
+
+  @media (max-width:640px){
+    .re-head:before,.re-head:after{display:none}
+  }
+
+  .periode[hidden]{display:none!important}
+
+  /* ---------------- PERIODE BELUM TERSEDIA ---------------- */
+  .re-empty{max-width:640px;margin:12vh auto;text-align:center;background:var(--card);border:1px solid var(--line);
+    border-radius:20px;padding:clamp(28px,6vh,54px) clamp(22px,5vw,44px);box-shadow:0 24px 60px rgba(88,35,12,.13)}
+  .re-empty-ic{display:grid;place-items:center;width:54px;height:54px;margin:0 auto 16px;border-radius:16px;
+    background:rgba(226,167,46,.14);color:var(--gold-ink)}
+  .re-empty-ic svg{width:28px;height:28px}
+  .re-empty h3{font-family:var(--display);font-weight:600;font-size:clamp(18px,3vw,26px);color:var(--ink);margin:0 0 10px}
+  .re-empty p{color:var(--muted);font-size:clamp(12px,1.4vw,14px);line-height:1.6;margin:0 auto 22px;max-width:48ch}
+  .re-empty-btn{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:.8rem;
+    border:1px solid var(--gold);color:var(--gold-ink);background:#fff;border-radius:99px;padding:10px 20px;cursor:pointer;transition:.15s}
+  .re-empty-btn:hover{background:var(--gold);color:#241402}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ===== icon sprite ===== -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-garuda" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c.6 1.2.4 2.3-.5 3.2 1.5.2 2.7 1 3.4 2.4.6-.7 1.5-1 2.6-.9-.6.9-.7 1.8-.3 2.7-1 .2-1.9-.1-2.6-.8.3 1 .2 2-.4 3l2.8 1.2-2.6.6c.5.9.5 1.9 0 2.9l2.4 1-2.7.7c.6 1 .5 2-.1 3-1-1.6-2.6-2.6-4.7-2.9v3.2H9.9v-3.2c-2.1.3-3.7 1.3-4.7 2.9-.6-1-.7-2-.1-3L2.4 17l2.4-1c-.5-1-.5-2 0-2.9l-2.6-.6L5 11.3c-.6-1-.7-2-.4-3-.7.7-1.6 1-2.6.8.4-.9.3-1.8-.3-2.7 1.1-.1 2 .2 2.6.9.7-1.4 1.9-2.2 3.4-2.4C8.6 4.3 8.4 3.2 9 2c.7 1 1.9 1.5 3 1.5S11.3 3 12 2Z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 3V1M12 23v-2M3 12H1M23 12h-2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v4h4M9 12h6M9 16h6M9 8h2"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M4 20h16"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 5.5A2.5 2.5 0 0 1 16 11M18 20c0-2.5-1-4.5-2.5-5.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 4l9 5M4 9v9M9 9v9M15 9v9M20 9v9M3 20h18"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V19a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H5a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H12a1.7 1.7 0 0 0 1-1.5V5a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V12a1.7 1.7 0 0 0 1.5 1H19a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5M12 17.5v.5"/></symbol>
+  <symbol id="i-pie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9h-9Z"/><path d="M12 3v9h9A9 9 0 0 0 12 3Z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></symbol>
+  <symbol id="i-doc-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6v20h12V6z"/><path d="M14 2v4h4"/><path d="m8.5 13 2 2 4-4"/></symbol>
+  <symbol id="i-sitemap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="2" y="16" width="6" height="5" rx="1"/><rect x="16" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M5 16v-2h14v2"/></symbol>
+  <symbol id="i-doc-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6v20h6"/><path d="M14 2v4h4"/><circle cx="16" cy="16" r="3.2"/><path d="m21 21-2.6-2.6"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-clip-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h4"/></symbol>
+  <symbol id="i-clip-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4V2h6v2"/><path d="m8.5 13 2 2 4-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4M7 13h3M14 13h3M7 17h3"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 6 12h3l-3 5h12l-3-5h3L12 3Z"/><path d="M12 17v4"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2V6Z"/><path d="M9 4v14M15 6v14"/></symbol>
+  <symbol id="i-trees" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 3 11h2.5L3 16h10l-2.5-5H13L8 3Z"/><path d="M8 16v5"/><path d="M16 8l4 6h-2l1.6 3H14"/></symbol>
+  <symbol id="i-tower" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 22 12 3l5 19M8.5 15h7M9.7 9h4.6M6 8l12 4M18 8 6 12"/></symbol>
+  <symbol id="i-road" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 3 21M16 3l5 18M12 4v3M12 11v3M12 18v3"/></symbol>
+  <symbol id="i-deer" viewBox="0 0 24 24" fill="currentColor"><path d="M6 2c.6 1.4.6 2.8 0 4.2C7 7 7.7 8 8 9.3c.4-1 .4-2 0-3 1 .6 1.6 1.6 1.8 2.9h4.4C14.4 8 15 7 16 6.3c-.4 1-.4 2 0 3 .3-1.3 1-2.3 2-3-.6-1.4-.6-2.8 0-4.2-1.2.8-2 2-2.4 3.5-.5-1-1.3-1.8-2.3-2.3C12.6 3.6 12 3 12 3s-.6.6-1.3.5C9.7 4 8.9 4.8 8.4 5.8 8 4.3 7.2 3.1 6 2.3Zm3 8.5c-.6 2-.6 3.9 0 5.8.3 1 .2 2-.2 3l-1.2 3.2h2l1-2.8c.3-.8 1-1.4 1.9-1.4h1c.9 0 1.6.6 1.9 1.4l1 2.8h2L20 20c-.4-1-.5-2-.2-3 .6-1.9.6-3.8 0-5.8H9Z"/></symbol>
+</svg>
+
+<!-- ================= PERIODE 01 ================= -->
+<div class="periode" data-p="1">
+
+<!-- ============ HEADER (full-bleed): Beranda+Periode (kiri) · Judul (kanan Beranda, rata kiri) · cakupan penugasan ============ -->
+<header class="re-head">
+  <div class="re-top">
+    <div class="re-nav">
+      <a class="home-fab" href="index.html" aria-label="Kembali ke Beranda">
+        <span class="hf-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 17l-5-5 5-5M18 12H8"/></svg></span>
+        <span class="hf-tx">Beranda</span>
+      </a>
+    </div>
+    <div class="re-title">
+      <h1>RINGKASAN EKSEKUTIF</h1>
+      <h2>LAPORAN DUAMINGGUAN KE-1</h2>
+      <div class="per-row">
+        <div class="per">Periode 01: 18 &ndash; 28 Agustus 2026</div>
+        <div class="per-switch">
+          <button type="button" class="per-switch-btn" aria-haspopup="true" aria-expanded="false" aria-label="Pilih periode lain">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="per-menu" role="menu" aria-label="Pilih periode Lapduming">
+            <button type="button" class="on" data-p="1" role="menuitem">Periode 01 &middot; 18&ndash;28 Agustus 2026</button>
+            <button type="button" data-p="2" role="menuitem">Periode 02 &middot; 31 Agustus&ndash;11 September 2026</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="re-desc">Pemeriksaan Pendahuluan atas Kepatuhan Pengukuhan dan Pengelolaan Kawasan Hutan Konservasi Tahun 2021 s.d. 2025 pada Kementerian Kehutanan serta Instansi Terkait Lainnya di Provinsi DKI Jakarta, Nusa Tenggara Barat, Jawa Timur, dan Jawa Barat</div>
+  </div>
+</header>
+
+<main class="sheet">
+
+  <!-- ============ IKHTISAR: TUJUAN, PROGRES & HASIL (klik kartu → detail lengkap) ============ -->
+  <section>
+    <div class="tp-ph">
+      <svg><use href="#i-target"/></svg><span>Tujuan, Progres &amp; Hasil Pemeriksaan Pendahuluan</span>
+      <span class="tp-ph-tail"><svg><use href="#i-check"/></svg>Total 23%</span>
+      <button type="button" class="sh-doc" id="openDoc" title="Lihat dokumen: Tujuan dan Harapan Penugasan (A.5.1)" aria-label="Lihat dokumen Tujuan dan Harapan Penugasan"><svg><use href="#i-doc"/></svg></button>
+    </div>
+    <!-- Ikhtisar untuk pimpinan: 9 tujuan pemeriksaan pendahuluan. Klik kartu → detail
+         langkah KKP A.4 & hasil pengujian di tujuan-N.html. -->
+    <nav class="tp-goals" aria-label="Sembilan tujuan pemeriksaan pendahuluan">
+      <!-- contoh lanjutan "kartu gabungan": Tujuan 1–3 mengalir sebagai kolom (flex-wrap),
+           lebar tiap kartu menyesuaikan isinya sendiri, bukan lagi baris selebar penuh. -->
+      <div class="tp-flow">
+        <a class="tp-g tp-g--merged" href="tujuan-1.html" data-pct="100">
+          <span class="tp-g-top">
+            <span class="gnum">1</span>
+            <span class="tp-g-tx">
+              <span class="tp-g-lbl">Identifikasi pengguna hasil pemeriksaan dan pihak yang bertanggung jawab</span>
+              <span class="tp-g-sep" aria-hidden="true">|</span><i class="tp-g-pct"></i>
+            </span>
+          </span>
+          <div class="tp-h-showcase">
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Pengguna LHP</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip">DPR RI</span>
+                <span class="tp-h-chip">Menteri Kehutanan</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>Penanggung Jawab</span>
+              <div class="tp-h-org">
+                <span class="tp-h-chip tp-h-chip--root">Menteri Kehutanan</span>
+                <span class="tp-h-cq">c.q.</span>
+                <div class="tp-h-org-branch">
+                  <span class="tp-h-chip">Ditjen Planologi Kehutanan</span>
+                  <span class="tp-h-chip">Ditjen KSDAE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="tp-g tp-g--merged" href="tujuan-2.html" data-pct="60">
+          <span class="tp-g-top">
+            <span class="gnum">2</span>
+            <span class="tp-g-tx">
+              <span class="tp-g-lbl">Penentuan hal pokok, tujuan, dan lingkup pemeriksaan</span>
+              <span class="tp-g-sep" aria-hidden="true">|</span><i class="tp-g-pct"></i>
+            </span>
+          </span>
+          <div class="tp-h-showcase">
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-target"/></svg>Sasaran</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip">Efektivitas SPI</span>
+                <span class="tp-h-chip">Penilaian Risiko</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-doc-check"/></svg>Keluaran &amp; Pedoman</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip">LHPP</span>
+                <span class="tp-h-chip">P2 Terinci</span>
+                <span class="tp-h-chip">SPKN No.1/2017</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="tp-g tp-g--merged" href="tujuan-3.html" data-pct="90">
+          <span class="tp-g-top">
+            <span class="gnum">3</span>
+            <span class="tp-g-tx">
+              <span class="tp-g-lbl">Identifikasi kriteria</span>
+              <span class="tp-g-sep" aria-hidden="true">|</span><i class="tp-g-pct"></i>
+            </span>
+          </span>
+          <div class="tp-h-showcase">
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-sitemap"/></svg>Ranah Kriteria</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip">Pengukuhan</span>
+                <span class="tp-h-chip">Pengelolaan</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-doc"/></svg>Sumber Utama</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip">UU 41/1999</span>
+                <span class="tp-h-chip">PP 23/2021</span>
+                <span class="tp-h-chip">UU 5/1990</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="tp-g tp-g--merged" href="tujuan-4.html" data-pct="27">
+          <span class="tp-g-top">
+            <span class="gnum">4</span>
+            <span class="tp-g-tx">
+              <span class="tp-g-lbl">Pemahaman entitas dan lingkungannya</span>
+              <span class="tp-g-sep" aria-hidden="true">|</span><i class="tp-g-pct"></i>
+            </span>
+          </span>
+          <div class="tp-h-showcase">
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-sitemap"/></svg>Entitas Utama</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip">Ditjen Planologi Kehutanan</span>
+                <span class="tp-h-chip">Ditjen KSDAE</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-bank"/></svg>UPT Pelaksana</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip">BBTN</span>
+                <span class="tp-h-chip">BTN</span>
+                <span class="tp-h-chip">BBKSDA</span>
+                <span class="tp-h-chip">BKSDA</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-map"/></svg>Proses Pengukuhan</span>
+              <div class="tp-h-flow">
+                <span class="tp-h-chip">Penunjukan</span>
+                <span class="tp-h-arrow" aria-hidden="true">&rarr;</span>
+                <span class="tp-h-chip">Penataan Batas</span>
+                <span class="tp-h-arrow" aria-hidden="true">&rarr;</span>
+                <span class="tp-h-chip">Pemetaan</span>
+                <span class="tp-h-arrow" aria-hidden="true">&rarr;</span>
+                <span class="tp-h-chip">Penetapan</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="tp-g tp-g--merged" href="tujuan-5.html" data-pct="24">
+          <span class="tp-g-top">
+            <span class="gnum">5</span>
+            <span class="tp-g-tx">
+              <span class="tp-g-lbl">Pemahaman SPI</span>
+              <span class="tp-g-sep" aria-hidden="true">|</span><i class="tp-g-pct"></i>
+            </span>
+          </span>
+          <div class="tp-h-showcase">
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-gear"/></svg>Fokus SPI &middot; COSO</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip tp-h-chip--root">Aktivitas Pengendalian</span>
+                <span class="tp-h-chip">Lingkungan Pengendalian</span>
+                <span class="tp-h-chip">Penaksiran Risiko</span>
+                <span class="tp-h-chip">Informasi &amp; Komunikasi</span>
+                <span class="tp-h-chip">Pemantauan</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-chart"/></svg>Data Pendukung</span>
+              <div class="tp-h-stats">
+                <span class="tp-h-stat"><b>580</b><span>Unit Rencana Pengelolaan</span></span>
+                <span class="tp-h-stat"><b>17,41%</b><span>Belum Disusun</span></span>
+                <span class="tp-h-stat"><b>535</b><span>Unit Penangkaran</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="tp-g tp-g--merged" href="tujuan-6.html" data-pct="21">
+          <span class="tp-g-top">
+            <span class="gnum">6</span>
+            <span class="tp-g-tx">
+              <span class="tp-g-lbl">Penentuan materialitas</span>
+              <span class="tp-g-sep" aria-hidden="true">|</span><i class="tp-g-pct"></i>
+            </span>
+          </span>
+          <div class="tp-h-showcase">
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-info"/></svg>Status</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip tp-h-chip--pending">Menunggu Pematangan SPI &amp; Risiko</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-pie"/></svg>Kandidat Dasar Materialitas</span>
+              <div class="tp-h-stats">
+                <span class="tp-h-stat"><b>25</b><span>Fitur Berkurang</span></span>
+                <span class="tp-h-stat"><b>71</b><span>Fitur Bertambah</span></span>
+                <span class="tp-h-stat"><b>3.974</b><span>Bidang Tanah</span></span>
+                <span class="tp-h-stat"><b>5.122</b><span>Poligon Tutupan</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="tp-g tp-g--merged" href="tujuan-7.html" data-pct="26">
+          <span class="tp-g-top">
+            <span class="gnum">7</span>
+            <span class="tp-g-tx">
+              <span class="tp-g-lbl">Penilaian risiko</span>
+              <span class="tp-g-sep" aria-hidden="true">|</span><i class="tp-g-pct"></i>
+            </span>
+          </span>
+          <div class="tp-h-showcase">
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-warn"/></svg>Indikasi Risiko Utama</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip tp-h-chip--risk"><b>E.1</b>Pengukuhan</span>
+                <span class="tp-h-chip tp-h-chip--risk"><b>E.2</b>Pengelolaan</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-map"/></svg>Data Spasial</span>
+              <div class="tp-h-stats">
+                <span class="tp-h-stat"><b>3.974</b><span>Bidang Tanah</span></span>
+                <span class="tp-h-stat"><b>5.122</b><span>Poligon Tutupan</span></span>
+                <span class="tp-h-stat"><b>351 km</b><span>Jaringan Listrik</span></span>
+                <span class="tp-h-stat"><b>803 km</b><span>Jaringan Jalan</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="tp-g tp-g--merged" href="tujuan-8.html" data-pct="20">
+          <span class="tp-g-top">
+            <span class="gnum">8</span>
+            <span class="tp-g-tx">
+              <span class="tp-g-lbl">Penentuan uji petik</span>
+              <span class="tp-g-sep" aria-hidden="true">|</span><i class="tp-g-pct"></i>
+            </span>
+          </span>
+          <div class="tp-h-showcase">
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-info"/></svg>Status</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip tp-h-chip--pending">Menunggu Penentuan Materialitas</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-search"/></svg>Kriteria Sampel</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip">Luas Kawasan</span>
+                <span class="tp-h-chip">Fungsi Kawasan</span>
+                <span class="tp-h-chip">Tingkat Risiko</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="tp-g tp-g--merged" href="tujuan-9.html" data-pct="22">
+          <span class="tp-g-top">
+            <span class="gnum">9</span>
+            <span class="tp-g-tx">
+              <span class="tp-g-lbl">Penyusunan strategi dan rencana pemeriksaan/Program Pemeriksaan (P2)</span>
+              <span class="tp-g-sep" aria-hidden="true">|</span><i class="tp-g-pct"></i>
+            </span>
+          </span>
+          <div class="tp-h-showcase">
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-doc"/></svg>Dokumen Keluaran</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip tp-h-chip--pending">LHPP</span>
+                <span class="tp-h-chip tp-h-chip--pending">P2 Terinci</span>
+              </div>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-pie"/></svg>Progres Keseluruhan</span>
+              <div class="tp-h-stats">
+                <span class="tp-h-stat"><b>23%</b><span>Seluruh Tujuan</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </nav>
+  </section>
+
+  <!-- ============ DOKUMEN (PDF) DIALOG ============ -->
+  <dialog class="pdlg" id="pdlg" aria-labelledby="pdlgTitle">
+    <div class="pdlg-head">
+      <div>
+        <div class="pdlg-kick">Dokumen perencanaan &middot; A.5.1</div>
+        <h3 id="pdlgTitle">Tujuan dan Harapan Penugasan</h3>
+      </div>
+      <div class="pdlg-act">
+        <a class="pdlg-open" href="assets/A5.1-tujuan-dan-harapan-penugasan.pdf" target="_blank" rel="noopener">Buka di tab baru &nearr;</a>
+        <button type="button" class="pdlg-x" id="pdlgX" aria-label="Tutup">&times;</button>
+      </div>
+    </div>
+    <div class="pdlg-body">
+      <object id="pdlgObj" type="application/pdf" data="" aria-label="Dokumen: Tujuan dan Harapan Penugasan">
+        <div class="pdlg-fallback">Pratinjau PDF tidak dapat ditampilkan di peramban ini.<br><a href="assets/A5.1-tujuan-dan-harapan-penugasan.pdf" target="_blank" rel="noopener">Buka dokumen di tab baru &nearr;</a></div>
+      </object>
+    </div>
+  </dialog>
+
+</main>
+
+<!-- ============ FOOTER (full-bleed, di luar .sheet) ============ -->
+<footer class="re-foot">
+  <span><b>BPK RI</b><span class="sep">|</span>Mengawal Pengelolaan Keuangan Negara untuk Mewujudkan Tujuan Negara</span>
+  <span class="re-sign">Jakarta, 31 Agustus 2026<span class="sep">·</span>Pengendali Teknis<span class="sep">&mdash;</span><b>Sudarmadi</b></span>
+  <span><i>Hutan Terjaga, Kehidupan Berkelanjutan</i></span>
+</footer>
+</div><!-- /periode 01 -->
+
+<!-- ================= PERIODE 02 ================= -->
+<div class="periode" data-p="2" hidden>
+  <header class="re-head">
+    <div class="re-top">
+      <div class="re-nav">
+        <a class="home-fab" href="index.html" aria-label="Kembali ke Beranda">
+          <span class="hf-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 17l-5-5 5-5M18 12H8"/></svg></span>
+          <span class="hf-tx">Beranda</span>
+        </a>
+      </div>
+      <div class="re-title">
+        <h1>RINGKASAN EKSEKUTIF</h1>
+        <h2>LAPORAN DUAMINGGUAN KE-2</h2>
+        <div class="per-row">
+          <div class="per">Periode 02: 31 Agustus &ndash; 11 September 2026</div>
+          <div class="per-switch">
+            <button type="button" class="per-switch-btn" aria-haspopup="true" aria-expanded="false" aria-label="Pilih periode lain">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="per-menu" role="menu" aria-label="Pilih periode Lapduming">
+              <button type="button" data-p="1" role="menuitem">Periode 01 &middot; 18&ndash;28 Agustus 2026</button>
+              <button type="button" class="on" data-p="2" role="menuitem">Periode 02 &middot; 31 Agustus&ndash;11 September 2026</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="re-desc">Pemeriksaan Pendahuluan atas Kepatuhan Pengukuhan dan Pengelolaan Kawasan Hutan Konservasi Tahun 2021 s.d. 2025 pada Kementerian Kehutanan serta Instansi Terkait Lainnya di Provinsi DKI Jakarta, Nusa Tenggara Barat, Jawa Timur, dan Jawa Barat</div>
+    </div>
+  </header>
+
+  <main class="sheet">
+    <section class="re-empty">
+      <span class="re-empty-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/><path d="M12 12.5v3.5M10.3 14.2h3.4"/></svg></span>
+      <h3>Lapduming ke-2 belum diterbitkan</h3>
+      <p>Periode 31 Agustus &ndash; 11 September 2026 (Minggu ke-3 &amp; ke-4). Pemeriksaan pendahuluan masih berjalan; ringkasan eksekutif periode ini akan tersedia setelah periode dilaporkan.</p>
+      <button type="button" class="re-empty-btn" data-goto="1">&larr; Lihat Ringkasan Periode 01</button>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER (full-bleed, di luar .sheet) ============ -->
+  <footer class="re-foot">
+    <span><b>BPK RI</b><span class="sep">|</span>Mengawal Pengelolaan Keuangan Negara untuk Mewujudkan Tujuan Negara</span>
+    <span class="re-sign">Periode berjalan<span class="sep">·</span>Pengendali Teknis<span class="sep">&mdash;</span><b>Sudarmadi</b></span>
+    <span><i>Hutan Terjaga, Kehidupan Berkelanjutan</i></span>
+  </footer>
+</div><!-- /periode 02 -->
+
+<script>
+  /* ---------- pilih periode ---------- */
+  (function(){
+    var tabs = [].slice.call(document.querySelectorAll('.per-menu button[data-p]'));
+    var periods = [].slice.call(document.querySelectorAll('.periode[data-p]'));
+    var switches = [].slice.call(document.querySelectorAll('.per-switch'));
+    if(!tabs.length) return;
+
+    // pasangan {btn, menu}: .per-menu dipindah jadi anak langsung <body> (position:fixed)
+    // supaya tidak ikut terpotong oleh overflow:hidden pada .re-head; posisi dihitung ulang
+    // relatif ke tombolnya tiap kali dibuka.
+    var pairs = switches.map(function(s){
+      var btn = s.querySelector('.per-switch-btn');
+      var menu = s.querySelector('.per-menu');
+      if(menu) document.body.appendChild(menu);
+      return {sw:s, btn:btn, menu:menu};
+    }).filter(function(x){ return x.btn && x.menu; });
+
+    function closeAll(){
+      pairs.forEach(function(x){
+        x.sw.classList.remove('open');
+        x.btn.setAttribute('aria-expanded','false');
+        x.menu.classList.remove('open');
+      });
+    }
+    function positionMenu(btn, menu){
+      var r=btn.getBoundingClientRect();
+      var mw=menu.offsetWidth || 240;
+      var left=Math.min(r.left, window.innerWidth - mw - 12);
+      left=Math.max(12, left);
+      menu.style.left=left+'px';
+      menu.style.top=(r.bottom+8)+'px';
+    }
+    pairs.forEach(function(x){
+      x.btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var willOpen = !x.sw.classList.contains('open');
+        closeAll();
+        if(willOpen){
+          x.sw.classList.add('open');
+          x.btn.setAttribute('aria-expanded','true');
+          positionMenu(x.btn, x.menu);
+          x.menu.classList.add('open');
+        }
+      });
+      x.menu.addEventListener('click', function(e){ e.stopPropagation(); });
+    });
+    document.addEventListener('click', closeAll);
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(); });
+    window.addEventListener('resize', closeAll);
+    window.addEventListener('scroll', closeAll, {passive:true});
+
+    function show(p){
+      p = String(p);
+      periods.forEach(function(el){ el.hidden = el.getAttribute('data-p') !== p; });
+      tabs.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-p') === p); });
+      document.title = 'Periode 0' + p + ' — Ringkasan Eksekutif Lapduming';
+      try { history.replaceState(null, '', p === '1' ? location.pathname : location.pathname + '?p=' + p); } catch(e){}
+      window.scrollTo(0, 0);
+      closeAll();
+    }
+    tabs.forEach(function(b){ b.addEventListener('click', function(){ show(b.getAttribute('data-p')); }); });
+    [].slice.call(document.querySelectorAll('[data-goto]')).forEach(function(b){
+      b.addEventListener('click', function(){ show(b.getAttribute('data-goto')); });
+    });
+    var m = (location.search.match(/[?&]p=(\d+)/) || location.hash.match(/p(\d+)/) || [])[1];
+    if (m && document.querySelector('.periode[data-p="' + m + '"]')) show(m);
+  })();
+
+  (function(){
+    var pd=document.getElementById('pdlg'),obj=document.getElementById('pdlgObj'),btn=document.getElementById('openDoc');
+    var SRC='assets/A5.1-tujuan-dan-harapan-penugasan.pdf#view=FitH';
+    function close(){ if(typeof pd.close==='function') pd.close(); else pd.removeAttribute('open'); }
+    if(btn) btn.addEventListener('click',function(){
+      if(obj.getAttribute('data')!==SRC) obj.setAttribute('data',SRC);
+      if(typeof pd.showModal==='function') pd.showModal(); else pd.setAttribute('open','');
+    });
+    document.getElementById('pdlgX').addEventListener('click',close);
+    pd.addEventListener('click',function(e){
+      if(e.target!==pd) return;
+      var r=pd.getBoundingClientRect();
+      if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom) close();
+    });
+  })();
+
+  /* ---------- ikhtisar: isi bar % dan tone warna (--tc) tiap kartu tujuan ---------- */
+  (function(){
+    var goals=[].slice.call(document.querySelectorAll('.tp-g'));
+    if(!goals.length) return;
+
+    /* 6 rentang warna diskret, merah → hijau (bukan gradasi kontinu — satu kartu selalu
+       memakai satu warna flat sesuai rentang progresnya, bukan interpolasi antar warna):
+         0%        : merah tua   (belum mulai sama sekali)
+         >0–25%    : merah-jingga
+         >25–50%   : jingga
+         >50–80%   : kuning tua/zaitun
+         >80–<100% : hijau muda
+         100%      : hijau tua   (tuntas) */
+    function progColor(pct){
+      var p=Math.max(0,Math.min(100,pct));
+      if(p<=0)   return 'hsl(6,65%,30%)';
+      if(p<=25)  return 'hsl(16,68%,42%)';
+      if(p<=50)  return 'hsl(32,70%,44%)';
+      if(p<=80)  return 'hsl(50,55%,38%)';
+      if(p<100)  return 'hsl(96,40%,38%)';
+      return 'hsl(140,45%,30%)';
+    }
+
+    goals.forEach(function(g){
+      var pct=parseFloat(g.getAttribute('data-pct'))||0;
+      // --tc di-set pada .tp-row (ayah bersama) agar kartu tujuan & kartu hasil di sebelahnya
+      // mewarisi tone yang sama; fallback ke g sendiri jika markup lama tanpa .tp-row dipakai.
+      var toneHost=g.closest('.tp-row')||g;
+      toneHost.style.setProperty('--tc',progColor(pct));
+      var pctEl=g.querySelector('.tp-g-pct'); if(pctEl) pctEl.textContent=pct+'%';
+    });
+  })();
+</script>
+</body>
+</html>
