@@ -62,9 +62,15 @@
     line-height:1.5;color:#f2e3d5;text-align:left;
     text-shadow:0 1px 6px rgba(0,0,0,.55),0 2px 14px rgba(0,0,0,.35)}
   @media (max-width:640px){
+    /* header mobile dipadatkan: jarak & padding ditekan, cakupan penugasan (re-desc) yang
+       panjang dibatasi 2 baris (bukan meluber 5 baris) — sisanya masih terbaca lengkap di
+       halaman detail tiap tujuan, jadi aman dipotong di sini demi ringkas. */
+    .re-head{padding:12px clamp(14px,4vw,20px)}
     /* di layout kolom, flex-basis lebar (240px) akan terbaca sebagai tinggi — reset ke auto */
-    .re-top{flex-direction:column;align-items:flex-start;gap:12px}
+    .re-top{flex-direction:column;align-items:flex-start;gap:8px}
     .re-nav,.re-title,.re-desc{flex:0 0 auto}
+    .re-desc{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;
+      overflow:hidden;text-overflow:ellipsis;line-height:1.38;font-size:clamp(11px,3.2vw,12.5px)}
   }
   .home-fab{display:flex;align-items:center;
     padding:4px;border-radius:99px;text-decoration:none;overflow:hidden;
