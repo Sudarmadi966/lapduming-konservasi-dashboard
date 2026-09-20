@@ -215,11 +215,22 @@
   .tp-flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:clamp(8px,1vw,12px)}
   .tp-flow .tp-g--merged{flex:1 1 320px;max-width:540px}
   @media (max-width:640px){ .tp-flow .tp-g--merged{flex-basis:100%;max-width:100%} }
-  .tp-g--merged{flex-direction:column;align-items:stretch;gap:clamp(10px,1.2vw,16px)}
   .tp-g-top{display:flex;align-items:center;gap:clamp(9px,1vw,12px)}
+  /* kartu gabungan = "header" (tujuan, berlatar warna tone pekat) + "body" (hasil, latar
+     netral terang) — dua blok warna yang kontras, bukan satu latar rata seperti kartu biasa. */
+  .tp-g--merged{flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;
+    background:var(--card)}
+  .tp-g-top{background:var(--tc);margin:0;padding:clamp(9px,1vw,13px) clamp(10px,1.1vw,14px);
+    transition:background .2s ease}
+  .tp-g--merged .gnum{background:#fff;color:var(--tc);box-shadow:0 2px 5px rgba(0,0,0,.18)}
+  .tp-g--merged .tp-g-lbl{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.22)}
+  .tp-g--merged .tp-g-sep{color:rgba(255,255,255,.55)}
+  .tp-g--merged .tp-g-pct{background:#fff;color:var(--tc);box-shadow:0 2px 6px rgba(0,0,0,.18)}
   .tp-g--merged .tp-h-showcase,.tp-g--merged .tp-h-list,.tp-g--merged .tp-h-line{
-    padding-top:clamp(6px,.8vw,10px);border-top:1px dashed color-mix(in srgb,var(--tc) 28%,transparent)}
-  .tp-g--merged .tp-h-list{margin-top:0}
+    margin:0;padding:clamp(10px,1.1vw,14px)}
+  .tp-g--merged:hover,.tp-g--merged:focus-visible{background:var(--card)}
+  .tp-g--merged:hover .tp-g-top,.tp-g--merged:focus-visible .tp-g-top{
+    background:color-mix(in srgb,var(--tc) 88%,#000)}
 
   /* kartu hasil — terpisah dari kartu tujuan, di sebelah kanannya dalam baris yang sama */
   .tp-h{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0;
