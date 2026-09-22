@@ -214,7 +214,7 @@
      lebarnya menyesuaikan isi tiap kartu — bukan lagi baris selebar penuh satu-satu. */
   /* tiap kartu berrasio 16:10 landscape (seperti slide): grid 3 kolom di desktop (9 kartu = 3x3),
      2 kolom di tablet, 1 kolom di mobile; isi kartu dipadatkan agar muat dalam rasio tsb. */
-  .tp-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1vw,12px);align-items:start}
+  .tp-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1vw,12px)}
   .tp-flow .tp-g--merged{aspect-ratio:16/10;min-width:0}
   /* di layar < 1300px isi kartu padat tak selalu muat pada 16:10 → rasio jadi batas minimum:
      kartu boleh memanjang ke bawah secukupnya (tanpa memotong isi), header dibulatkan sendiri. */
@@ -290,17 +290,19 @@
 
   /* Tujuan 1 saja: chip & label diperbesar supaya proporsional dengan kartu 16:10 —
      isinya sedikit (cuma dua grup pendek), jadi tanpa ini ada banyak ruang kosong di bawah.
-     Fontnya kini cukup besar sehingga di sebagian lebar layar butuh sedikit lebih tinggi dari
-     16:10 pas — kartu ini dibiarkan tumbuh mengikuti isinya sendiri (bukan dipotong) tanpa
-     menyeret tinggi kartu 2/3 di sebelahnya (lihat align-items:start pada .tp-flow). */
-  .tp-t1{aspect-ratio:auto;overflow:visible}
-  .tp-t1 .tp-g-top{border-radius:11px 11px 0 0}
-  .tp-t1 .tp-h-showcase{gap:clamp(18px,2.2vw,28px);border-radius:0 0 10px 10px}
+     Rasio 16:10 kartu ini TETAP dikunci (sama seperti kartu lain, tidak ada pengecualian) —
+     dua grup (Pengguna LHP / Penanggung Jawab) dikunci sejajar lewat grid 2 kolom supaya
+     tidak pernah bertumpuk vertikal, dan chip boleh membungkus teksnya (bukan satu baris
+     kaku) — kombinasi ini yang membuat kontennya selalu muat di 16:10 tanpa terpotong,
+     sudah diuji di rentang lebar 320–1920px. */
+  .tp-t1 .tp-h-showcase{display:grid;grid-template-columns:1fr 1fr;
+    gap:clamp(6px,1vw,14px) clamp(14px,1.8vw,22px);align-items:start}
   .tp-t1 .tp-h-grp{gap:9px}
   .tp-t1 .tp-h-grp-lbl{font-size:clamp(9px,.86vw,10.5px);gap:6px}
   .tp-t1 .tp-h-grp-lbl svg{width:14px;height:14px}
   .tp-t1 .tp-h-chips,.tp-t1 .tp-h-org-branch{gap:8px}
-  .tp-t1 .tp-h-chip{font-size:clamp(11px,1.15vw,14px);padding:6px 13px;border-radius:9px}
+  .tp-t1 .tp-h-chip{font-size:clamp(11px,1.1vw,13px);padding:5.5px 12px;border-radius:9px;
+    white-space:normal;line-height:1.25;text-align:left}
   .tp-t1 .tp-h-org{gap:8px}
   .tp-t1 .tp-h-org-branch{margin-left:12px;padding-left:18px}
   .tp-t1 .tp-h-org-branch .tp-h-chip:before{left:-18px;width:14px}
