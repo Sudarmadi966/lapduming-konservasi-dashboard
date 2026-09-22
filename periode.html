@@ -294,7 +294,12 @@
      dua grup (Pengguna LHP / Penanggung Jawab) dikunci sejajar lewat grid 2 kolom supaya
      tidak pernah bertumpuk vertikal, dan chip boleh membungkus teksnya (bukan satu baris
      kaku) — kombinasi ini yang membuat kontennya selalu muat di 16:10 tanpa terpotong,
-     sudah diuji di rentang lebar 320–1920px. */
+     sudah diuji di rentang lebar 320–1920px.
+     Kartu ini bukan lagi tautan (elemennya <div>, bukan <a href>) — kursor & efek hover
+     yang menyiratkan bisa diklik dimatikan juga supaya tidak menyesatkan. */
+  .tp-t1{cursor:default}
+  .tp-t1:hover,.tp-t1:focus-visible{transform:none;box-shadow:none}
+  .tp-t1:hover .tp-g-top,.tp-t1:focus-visible .tp-g-top{background:var(--tc)}
   .tp-t1 .tp-h-showcase{display:grid;grid-template-columns:1fr 1fr;
     gap:clamp(6px,1vw,14px) clamp(14px,1.8vw,22px);align-items:start}
   .tp-t1 .tp-h-grp{gap:9px}
@@ -468,7 +473,7 @@
       <!-- contoh lanjutan "kartu gabungan": Tujuan 1–3 mengalir sebagai kolom (flex-wrap),
            lebar tiap kartu menyesuaikan isinya sendiri, bukan lagi baris selebar penuh. -->
       <div class="tp-flow">
-        <a class="tp-g tp-g--merged tp-t1" href="tujuan-1.html" data-pct="100">
+        <div class="tp-g tp-g--merged tp-t1" data-pct="100">
           <span class="tp-g-top">
             <span class="gnum">1</span>
             <span class="tp-g-tx">
@@ -496,7 +501,7 @@
               </div>
             </div>
           </div>
-        </a>
+        </div>
         <a class="tp-g tp-g--merged" href="tujuan-2.html" data-pct="60">
           <span class="tp-g-top">
             <span class="gnum">2</span>
