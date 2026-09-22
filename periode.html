@@ -212,11 +212,11 @@
   /* ---- versi "digabung": tujuan + hasil jadi SATU kartu, bukan dua kartu bersebelahan ----
      .tp-flow menampung kartu-kartu gabungan sebagai kolom yang mengalir (flex-wrap),
      lebarnya menyesuaikan isi tiap kartu — bukan lagi baris selebar penuh satu-satu. */
-  /* tiap kartu berrasio 16:10 landscape (seperti slide): grid 3 kolom di desktop (9 kartu = 3x3),
+  /* tiap kartu berrasio 16:9 landscape (seperti slide): grid 3 kolom di desktop (9 kartu = 3x3),
      2 kolom di tablet, 1 kolom di mobile; isi kartu dipadatkan agar muat dalam rasio tsb. */
   .tp-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1vw,12px)}
-  .tp-flow .tp-g--merged{aspect-ratio:16/10;min-width:0}
-  /* di layar < 1300px isi kartu padat tak selalu muat pada 16:10 → rasio jadi batas minimum:
+  .tp-flow .tp-g--merged{aspect-ratio:16/9;min-width:0}
+  /* di layar < 1300px isi kartu padat tak selalu muat pada 16:9 → rasio jadi batas minimum:
      kartu boleh memanjang ke bawah secukupnya (tanpa memotong isi), header dibulatkan sendiri. */
   @media (max-width:1299px){
     .tp-flow .tp-g--merged{overflow:visible}
@@ -288,12 +288,12 @@
   .tp-h-org-branch .tp-h-chip:before{content:"";position:absolute;left:-16px;top:50%;width:12px;height:2px;
     background:color-mix(in srgb,var(--tc,#c2410c) 38%,transparent)}
 
-  /* Tujuan 1 saja: chip & label diperbesar supaya proporsional dengan kartu 16:10 —
+  /* Tujuan 1 saja: chip & label diperbesar supaya proporsional dengan kartu 16:9 —
      isinya sedikit (cuma dua grup pendek), jadi tanpa ini ada banyak ruang kosong di bawah.
-     Rasio 16:10 kartu ini TETAP dikunci (sama seperti kartu lain, tidak ada pengecualian) —
+     Rasio 16:9 kartu ini TETAP dikunci (sama seperti kartu lain, tidak ada pengecualian) —
      dua grup (Pengguna LHP / Penanggung Jawab) dikunci sejajar lewat grid 2 kolom supaya
      tidak pernah bertumpuk vertikal, dan chip boleh membungkus teksnya (bukan satu baris
-     kaku) — kombinasi ini yang membuat kontennya selalu muat di 16:10 tanpa terpotong,
+     kaku) — kombinasi ini yang membuat kontennya selalu muat di 16:9 tanpa terpotong,
      sudah diuji di rentang lebar 320–1920px.
      Kartu ini bukan lagi tautan (elemennya <div>, bukan <a href>) — kursor & efek hover
      yang menyiratkan bisa diklik dimatikan juga supaya tidak menyesatkan. */
@@ -301,17 +301,37 @@
   .tp-t1:hover,.tp-t1:focus-visible{transform:none;box-shadow:none}
   .tp-t1:hover .tp-g-top,.tp-t1:focus-visible .tp-g-top{background:var(--tc)}
   .tp-t1 .tp-h-showcase{display:grid;grid-template-columns:1fr 1fr;
-    gap:clamp(6px,1vw,14px) clamp(14px,1.8vw,22px);align-items:start}
-  .tp-t1 .tp-h-grp{gap:9px}
+    gap:clamp(4px,.6vw,9px) clamp(12px,1.6vw,20px);align-items:start}
+  .tp-t1 .tp-h-grp{gap:6px}
   .tp-t1 .tp-h-grp-lbl{font-size:clamp(7.5px,.68vw,9px);gap:5px;letter-spacing:.06em}
-  .tp-t1 .tp-h-grp-lbl svg{width:14px;height:14px}
-  .tp-t1 .tp-h-chips,.tp-t1 .tp-h-org-branch{gap:8px}
-  .tp-t1 .tp-h-chip{font-size:clamp(11px,1.1vw,13px);padding:5.5px 12px;border-radius:9px;
-    white-space:normal;line-height:1.25;text-align:left}
-  .tp-t1 .tp-h-org{gap:8px}
+  .tp-t1 .tp-h-grp-lbl svg{width:13px;height:13px}
+  .tp-t1 .tp-h-chips,.tp-t1 .tp-h-org-branch{gap:5px}
+  .tp-t1 .tp-h-chip{font-size:clamp(10.5px,1.05vw,12.5px);padding:4.5px 11px;border-radius:9px;
+    white-space:normal;line-height:1.15;text-align:left}
+  .tp-t1 .tp-h-org{gap:5px}
   .tp-t1 .tp-h-org-branch{margin-left:12px;padding-left:18px}
   .tp-t1 .tp-h-org-branch .tp-h-chip:before{left:-18px;width:14px}
   .tp-t1 .tp-h-cq{font-size:clamp(9.5px,.9vw,11px);margin-left:12px}
+
+  /* Tujuan 4 saja: 3 grup (Entitas/UPT/Proses Pengukuhan) — dua grup chip pendek dikunci
+     sejajar di baris atas, grup alur proses (lebih lebar karena ada tanda panah) diberi
+     baris sendiri selebar penuh supaya tidak diperas ke kolom sempit & jadi bertingkat. */
+  .tp-t4 .tp-h-showcase{display:grid;grid-template-columns:1fr 1fr;
+    gap:clamp(4px,.7vw,10px) clamp(12px,1.6vw,20px)}
+  .tp-t4 .tp-h-grp:nth-child(3){grid-column:1/-1}
+  .tp-t4 .tp-h-grp{gap:5px}
+  .tp-t4 .tp-h-chips,.tp-t4 .tp-h-flow{gap:4px}
+  .tp-t4 .tp-h-chip{font-size:clamp(8px,.72vw,9.5px);padding:3px 8px}
+  .tp-t4 .tp-h-arrow{font-size:9px}
+
+  /* Tujuan 5 saja: grup "Fokus SPI" (5 chip, bisa 2-3 baris) & "Data Pendukung" dikunci
+     sejajar juga, dengan jarak dipadatkan supaya muat 16:9. */
+  .tp-t5 .tp-h-showcase{display:grid;grid-template-columns:1fr 1fr;
+    gap:clamp(6px,.9vw,12px) clamp(14px,1.8vw,22px);align-items:start}
+  .tp-t5 .tp-h-grp{gap:6px}
+  .tp-t5 .tp-h-chips{gap:4px}
+  .tp-t5 .tp-h-chip{font-size:clamp(8px,.7vw,9.5px);padding:3px 8px}
+  .tp-t5 .tp-h-stats{gap:clamp(8px,1vw,14px);row-gap:6px}
 
   /* alur proses berurutan (mis. tahapan pengukuhan) — chip dipisah tanda panah */
   .tp-h-flow{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
@@ -554,7 +574,7 @@
             </div>
           </div>
         </a>
-        <a class="tp-g tp-g--merged" href="tujuan-4.html" data-pct="27">
+        <a class="tp-g tp-g--merged tp-t4" href="tujuan-4.html" data-pct="27">
           <span class="tp-g-top">
             <span class="gnum">4</span>
             <span class="tp-g-tx">
@@ -593,7 +613,7 @@
             </div>
           </div>
         </a>
-        <a class="tp-g tp-g--merged" href="tujuan-5.html" data-pct="24">
+        <a class="tp-g tp-g--merged tp-t5" href="tujuan-5.html" data-pct="24">
           <span class="tp-g-top">
             <span class="gnum">5</span>
             <span class="tp-g-tx">
