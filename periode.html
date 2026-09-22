@@ -253,6 +253,10 @@
   .tp-h-line{margin:0;font-family:var(--sans);font-weight:500;font-size:clamp(9px,.9vw,11px);
     line-height:1.42;color:var(--ink)}
   .tp-h-line b,.tp-h-list b{font-weight:700;color:#2a1a12}
+  /* narasi singkat di dalam satu grup (beda dari .tp-h-line yang isi satu kartu penuh) —
+     dipakai saat sebuah grup butuh kalimat pendek, bukan chip */
+  .tp-h-note{margin:0;font-family:var(--sans);font-weight:500;font-size:clamp(8.5px,.85vw,10.5px);
+    line-height:1.4;color:var(--ink)}
   .tp-h-list{margin:0;padding-left:1.15em}
   .tp-h-list li{font-family:var(--sans);font-weight:500;font-size:clamp(9px,.9vw,11px);
     line-height:1.42;color:var(--ink)}
@@ -312,6 +316,12 @@
   .tp-t1 .tp-h-org-branch{margin-left:12px;padding-left:18px}
   .tp-t1 .tp-h-org-branch .tp-h-chip:before{left:-18px;width:14px}
   .tp-t1 .tp-h-cq{font-size:clamp(9.5px,.9vw,11px);margin-left:12px}
+
+  /* Tujuan 2 saja: 3 grup narasi singkat (Hal Pokok / Tujuan / Lingkup Pemeriksaan) —
+     disejajarkan 3 kolom, tiap grup satu kalimat pendek (bukan chip). */
+  .tp-t2 .tp-h-showcase{display:grid;grid-template-columns:repeat(3,1fr);
+    gap:clamp(6px,.9vw,12px) clamp(12px,1.6vw,20px);align-items:start}
+  .tp-t2 .tp-h-grp{gap:6px}
 
   /* Tujuan 4 saja: 3 grup (Entitas/UPT/Proses Pengukuhan) — dua grup chip pendek dikunci
      sejajar di baris atas, grup alur proses (lebih lebar karena ada tanda panah) diberi
@@ -522,7 +532,7 @@
             </div>
           </div>
         </div>
-        <a class="tp-g tp-g--merged" href="tujuan-2.html" data-pct="60">
+        <a class="tp-g tp-g--merged tp-t2" href="tujuan-2.html" data-pct="60">
           <span class="tp-g-top">
             <span class="gnum">2</span>
             <span class="tp-g-tx">
@@ -532,19 +542,16 @@
           </span>
           <div class="tp-h-showcase">
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-target"/></svg>Sasaran</span>
-              <div class="tp-h-chips">
-                <span class="tp-h-chip">Efektivitas SPI</span>
-                <span class="tp-h-chip">Penilaian Risiko</span>
-              </div>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-info"/></svg>Hal Pokok</span>
+              <p class="tp-h-note">Kepatuhan atas pengukuhan dan pengelolaan kawasan hutan konservasi Tahun 2021 s.d. 2025.</p>
             </div>
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-doc-check"/></svg>Keluaran &amp; Pedoman</span>
-              <div class="tp-h-chips">
-                <span class="tp-h-chip">LHPP</span>
-                <span class="tp-h-chip">P2 Terinci</span>
-                <span class="tp-h-chip">SPKN No.1/2017</span>
-              </div>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-target"/></svg>Tujuan</span>
+              <p class="tp-h-note">Menilai efektivitas SPI dan penilaian risiko sebagai dasar pemeriksaan terinci.</p>
+            </div>
+            <div class="tp-h-grp">
+              <span class="tp-h-grp-lbl"><svg><use href="#i-map"/></svg>Lingkup Pemeriksaan</span>
+              <p class="tp-h-note">Pengukuhan &amp; pengelolaan kawasan hutan konservasi oleh Kementerian Kehutanan serta instansi terkait, Tahun 2021&ndash;2025.</p>
             </div>
           </div>
         </a>
