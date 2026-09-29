@@ -116,32 +116,16 @@
     font-size:clamp(8.5px,.82vw,11px);letter-spacing:.04em;color:#3a1a08;background:var(--gold);
     padding:2px 11px;border-radius:99px;white-space:nowrap}
 
-  /* ---------------- PILIH PERIODE: ikon di samping pill tanggal, buka menu popover ---------------- */
-  .per-switch{position:relative}
-  .per-switch-btn{display:grid;place-items:center;width:20px;height:20px;flex:0 0 auto;border-radius:50%;
-    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);color:#fff;padding:0;
-    cursor:pointer;transition:background .15s ease}
-  .per-switch-btn svg{width:11px;height:11px;transition:transform .2s ease}
-  .per-switch-btn:hover,.per-switch-btn:focus-visible{background:rgba(255,255,255,.32)}
-  .per-switch.open .per-switch-btn svg{transform:rotate(180deg)}
-  /* posisi diatur lewat JS (position:fixed, dipindah ke <body>) agar tidak terpotong oleh
-     overflow:hidden pada .re-head — menu popover harus bisa "keluar" dari kotak header */
-  .per-menu{position:fixed;z-index:200;min-width:240px;max-width:calc(100vw - 24px);
-    background:linear-gradient(150deg,var(--navy-3),var(--navy-2) 70%);
-    border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:6px;
-    box-shadow:0 20px 44px rgba(0,0,0,.45);display:flex;flex-direction:column;gap:3px;
-    opacity:0;visibility:hidden;transform:translateY(-6px);pointer-events:none;
-    transition:opacity .16s ease,transform .16s ease,visibility 0s linear .16s}
-  /* .per-menu dipindah jadi anak langsung <body> lewat JS, jadi status "terbuka" ada di
-     dirinya sendiri (.open), bukan lewat leluhur .per-switch.open */
-  .per-menu.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto;
-    transition:opacity .16s ease,transform .16s ease}
-  .per-menu button{display:block;width:100%;text-align:left;font-family:var(--display);font-weight:600;
-    font-size:10.5px;letter-spacing:.02em;color:#efe0d4;background:transparent;border:0;border-radius:8px;
-    padding:8px 10px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-    transition:background .13s,color .13s}
-  .per-menu button:hover,.per-menu button:focus-visible{background:rgba(255,255,255,.12);color:#fff}
-  .per-menu button.on{background:var(--gold);color:#3a1a08}
+  /* ---------------- PILIH PERIODE: badge P1 / P2 / P3 selalu terlihat ---------------- */
+  .per-badges{display:flex;align-items:center;gap:5px}
+  .per-badges button{display:grid;place-items:center;min-width:30px;height:24px;padding:0 8px;
+    border-radius:99px;border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.10);
+    color:#eadfd5;font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.05em;
+    cursor:pointer;transition:background .15s,color .15s,border-color .15s,transform .15s}
+  .per-badges button:hover,.per-badges button:focus-visible{background:rgba(255,255,255,.24);
+    color:#fff;border-color:rgba(255,255,255,.55);transform:translateY(-1px)}
+  .per-badges button.on{background:var(--gold);border-color:var(--gold);color:#3a1a08;
+    box-shadow:0 4px 10px rgba(0,0,0,.25)}
 
   /* ---------------- SECTION HEADS ---------------- */
   .sec-head{display:flex;align-items:center;gap:10px;color:#fff;border-radius:10px;flex-wrap:wrap;
@@ -255,13 +239,20 @@
   .tp-h-line b,.tp-h-list b{font-weight:700;color:#2a1a12}
   /* narasi singkat di dalam satu grup (beda dari .tp-h-line yang isi satu kartu penuh) —
      dipakai saat sebuah grup butuh kalimat pendek, bukan chip */
-  .tp-h-note{margin:0;font-family:var(--sans);font-weight:500;font-size:clamp(8.5px,.85vw,10.5px);
+  .tp-h-note{margin:0;font-family:var(--sans);font-weight:500;font-size:clamp(13px,.85vw,15px);
     line-height:1.4;color:var(--ink)}
   .tp-h-list{margin:0;padding-left:1.15em}
   .tp-h-list li{font-family:var(--sans);font-weight:500;font-size:clamp(9px,.9vw,11px);
     line-height:1.42;color:var(--ink)}
   .tp-h-list li::marker{color:var(--tc,#c2410c)}
   .tp-h-list li+li{margin-top:4px}
+  /* daftar berpoin di dalam satu grup (beda dari .tp-h-list yang mengisi satu kartu penuh
+     dan kena padding global .tp-g--merged .tp-h-list) */
+  .tp-h-ul{margin:0;padding-left:1.15em}
+  .tp-h-ul li{font-family:var(--sans);font-weight:500;font-size:clamp(9px,.9vw,11px);
+    line-height:1.42;color:var(--ink)}
+  .tp-h-ul li::marker{color:var(--tc,#c2410c)}
+  .tp-h-ul li+li{margin-top:3px}
 
   /* ---- kartu hasil gaya "presentasi": kelompok pihak sebagai chip, bukan paragraf ----
      dipakai contoh di Tujuan 1: Pengguna LHP (chip datar) & Penanggung Jawab (mini org-chart:
@@ -281,6 +272,9 @@
     background:color-mix(in srgb,var(--tc,#c2410c) 13%,var(--card));
     border:1px solid color-mix(in srgb,var(--tc,#c2410c) 34%,var(--line));
     border-radius:8px;padding:4px 10px;transition:transform .15s ease,box-shadow .15s ease}
+  /* chip yang benar-benar tautan (membuka dialog gambar): terisi warna kartu agar jelas bisa diklik */
+  .tp-h-chip--link{align-self:flex-start;cursor:pointer;text-decoration:none;color:#fff;
+    background:var(--tc,#c2410c);border-color:var(--tc,#c2410c)}
   .tp-h-chip:hover{transform:translateY(-1px);box-shadow:0 4px 10px color-mix(in srgb,var(--tc,#c2410c) 28%,transparent)}
   .tp-h-org{display:flex;flex-direction:column;gap:6px}
   .tp-h-chip--root{align-self:flex-start;background:var(--tc,#c2410c);border-color:var(--tc,#c2410c);
@@ -301,9 +295,12 @@
      sudah diuji di rentang lebar 320–1920px.
      Kartu ini bukan lagi tautan (elemennya <div>, bukan <a href>) — kursor & efek hover
      yang menyiratkan bisa diklik dimatikan juga supaya tidak menyesatkan. */
-  .tp-t1{cursor:default}
-  .tp-t1:hover,.tp-t1:focus-visible{transform:none;box-shadow:none}
-  .tp-t1:hover .tp-g-top,.tp-t1:focus-visible .tp-g-top{background:var(--tc)}
+  .tp-t1,.tp-t2,.tp-t4{cursor:default}
+  .tp-t1:hover,.tp-t1:focus-visible,.tp-t2:hover,.tp-t2:focus-visible,
+  .tp-t4:hover,.tp-t4:focus-visible{transform:none;box-shadow:none}
+  .tp-t1:hover .tp-g-top,.tp-t1:focus-visible .tp-g-top,
+  .tp-t2:hover .tp-g-top,.tp-t2:focus-visible .tp-g-top,
+  .tp-t4:hover .tp-g-top,.tp-t4:focus-visible .tp-g-top{background:var(--tc)}
   .tp-t1 .tp-h-showcase{display:grid;grid-template-columns:1fr 1fr;
     gap:clamp(4px,.6vw,9px) clamp(12px,1.6vw,20px);align-items:start}
   .tp-t1 .tp-h-grp{gap:6px}
@@ -327,12 +324,30 @@
      sejajar di baris atas, grup alur proses (lebih lebar karena ada tanda panah) diberi
      baris sendiri selebar penuh supaya tidak diperas ke kolom sempit & jadi bertingkat. */
   .tp-t4 .tp-h-showcase{display:grid;grid-template-columns:1fr 1fr;
-    gap:clamp(4px,.7vw,10px) clamp(12px,1.6vw,20px)}
-  .tp-t4 .tp-h-grp:nth-child(3){grid-column:1/-1}
-  .tp-t4 .tp-h-grp{gap:5px}
+    gap:3px clamp(12px,1.6vw,20px);padding:clamp(7px,.7vw,9px) clamp(10px,1.1vw,14px)}
+  .tp-t4 .tp-h-grp{grid-column:1/-1}
+  /* daftar struktur: 6 butir pendek disusun 2 kolom (3 baris) supaya tidak menjulang & memotong kartu */
+  .tp-t4 .tp-h-ul{display:grid;grid-template-columns:repeat(2,max-content);justify-content:start;
+    gap:2px clamp(14px,2vw,26px)}
+  .tp-t4 .tp-h-ul li+li{margin-top:0}
+  .tp-t4 .tp-h-grp{gap:4px}
   .tp-t4 .tp-h-chips,.tp-t4 .tp-h-flow{gap:4px}
   .tp-t4 .tp-h-chip{font-size:clamp(8px,.72vw,9.5px);padding:3px 8px}
   .tp-t4 .tp-h-arrow{font-size:9px}
+  /* urutan singkat proses bisnis: judul + deretan tahap bernomor dalam grid (bukan rantai panah
+     yang membungkus tak beraturan) — jumlah kolom menyesuaikan lebar, tinggi tetap ringkas */
+  .tp-t4 .tp-h-pb{display:flex;flex-direction:column;gap:2px}
+  .tp-t4 .tp-h-pb-lbl{font-family:var(--display);font-weight:700;font-size:clamp(7.5px,.66vw,9px);
+    letter-spacing:.03em;color:color-mix(in srgb,var(--tc,#c2410c) 74%,#2a1206)}
+  .tp-t4 .tp-h-steps{list-style:none;margin:0;padding:0;display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:3px}
+  .tp-t4 .tp-h-steps .tp-h-chip{display:flex;gap:4px;background:var(--card);
+    font-size:clamp(7.5px,.66vw,9px);padding:2px 6px}
+  .tp-t4 .tp-h-steps i{font-style:normal;font-weight:800;color:var(--tc,#c2410c)}
+  /* tautan pembuka dialog sebaris dengan label grup (hemat satu baris tinggi) */
+  .tp-h-grp-lbl .tp-h-chip--inl{margin-left:4px;text-transform:none;letter-spacing:0;font-size:clamp(7.5px,.66vw,9px);
+    padding:1px 7px;border-radius:99px}
+  .tp-t4 .tp-h-pb .tp-h-chip{background:var(--card);font-size:clamp(7.5px,.66vw,9px);padding:2px 6px}
 
   /* Tujuan 5 saja: grup "Fokus SPI" (5 chip, bisa 2-3 baris) & "Data Pendukung" dikunci
      sejajar juga, dengan jarak dipadatkan supaya muat 16:9. */
@@ -342,6 +357,66 @@
   .tp-t5 .tp-h-chips{gap:4px}
   .tp-t5 .tp-h-chip{font-size:clamp(8px,.7vw,9.5px);padding:3px 8px}
   .tp-t5 .tp-h-stats{gap:clamp(8px,1vw,14px);row-gap:6px}
+  .tp-t5 .tp-h-showcase{grid-template-columns:.9fr 1.1fr}
+  .tp-g.tp-t5{cursor:default}
+  .tp-t5 .tp-h-chip--status{background:color-mix(in srgb,var(--tc,#c2410c) 12%,var(--card));
+    border-color:color-mix(in srgb,var(--tc,#c2410c) 55%,var(--line));font-weight:800}
+  .tp-t5 .tp-h-result{font-size:clamp(8px,.73vw,10px);line-height:1.35;color:var(--ink);margin:0}
+  .tp-t5 .tp-h-dialogs{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px;margin-top:-2px}
+  .tp-t5 .tp-h-dialogs .tp-h-chip{cursor:pointer;text-decoration:none;color:#fff;
+    background:var(--tc,#c2410c);border-color:var(--tc,#c2410c);font-weight:800}
+  .tp-t5 .tp-h-dialogs .tp-h-chip::after{content:' \2197';font-weight:700}
+
+  /* Tujuan 6: hasil materialitas awal + tombol penjelas */
+  .tp-g.tp-t6{cursor:default}
+  .tp-t6 .tp-h-showcase{grid-template-columns:.9fr 1.1fr;position:relative;flex:1;min-height:0;
+    box-sizing:border-box;padding-bottom:clamp(35px,3vw,40px)}
+  .tp-t6 .tp-h-chip--status{background:color-mix(in srgb,var(--tc,#c2410c) 12%,var(--card));
+    border-color:color-mix(in srgb,var(--tc,#c2410c) 55%,var(--line));font-weight:800}
+  .tp-t6 .tp-h-result{font-size:clamp(8px,.73vw,10px);line-height:1.35;color:var(--ink);margin:0}
+  .tp-t6 .tp-h-dialogs{position:absolute;left:clamp(10px,1.1vw,14px);right:clamp(10px,1.1vw,14px);
+    bottom:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:0}
+  .tp-t6 .tp-h-dialogs .tp-h-chip{cursor:pointer;text-decoration:none;color:#fff;
+    background:var(--tc,#c2410c);border-color:var(--tc,#c2410c);font-weight:800;
+    justify-content:center;text-align:center;white-space:nowrap;font-size:clamp(7px,.62vw,8.5px);padding:3px 6px}
+  .tp-t6 .tp-h-dialogs .tp-h-chip::after{content:' \2197';font-weight:700}
+
+  /* Tujuan 7–9: hasil ringkas dan tombol dialog selalu terlihat dalam kartu 16:9 */
+  .tp-g.tp-t789{cursor:default}
+  .tp-t789 .tp-h-showcase{grid-template-columns:.9fr 1.1fr;position:relative;flex:1;min-height:0;
+    box-sizing:border-box;padding-bottom:clamp(35px,3vw,40px)}
+  .tp-t789 .tp-h-chip--status{background:color-mix(in srgb,var(--tc,#c2410c) 12%,var(--card));
+    border-color:color-mix(in srgb,var(--tc,#c2410c) 55%,var(--line));font-weight:800}
+  .tp-t789 .tp-h-dialogs{position:absolute;left:clamp(10px,1.1vw,14px);right:clamp(10px,1.1vw,14px);
+    bottom:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:0}
+  .tp-t789 .tp-h-dialogs .tp-h-chip{cursor:pointer;text-decoration:none;color:#fff;
+    background:var(--tc,#c2410c);border-color:var(--tc,#c2410c);font-weight:800;
+    justify-content:center;text-align:center;white-space:nowrap;font-size:clamp(7px,.62vw,8.5px);padding:3px 6px}
+  .tp-t789 .tp-h-dialogs .tp-h-chip::after{content:' \2197';font-weight:700}
+
+  /* dialog isi Tujuan 5 */
+  .pdlg--spi{width:min(1120px,96vw)}
+  .pdlg--spi .pdlg-body{background:#f5efe5;padding:clamp(14px,2vw,24px);overflow:auto;
+    -webkit-overflow-scrolling:touch;color:var(--ink)}
+  .pdlg--spi .pdlg-x{width:auto;padding:0 12px;border-radius:99px;font-family:var(--sans);
+    font-size:.76rem;font-weight:800;letter-spacing:.02em}
+  .spi-intro{margin:0 0 14px;padding:11px 13px;border-left:4px solid var(--gold);
+    background:#fff8ed;border-radius:0 9px 9px 0;line-height:1.55;color:var(--ink)}
+  .spi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .spi-box{border:1px solid var(--line);border-radius:11px;padding:13px;background:#fffdfa}
+  .spi-box h4{margin:0 0 6px;font-family:var(--display);color:var(--navy-2);font-size:1rem}
+  .spi-box p,.spi-box li{font-size:.87rem;line-height:1.5}
+  .spi-box ul{margin:5px 0 0;padding-left:20px}
+  .spi-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff}
+  .spi-table{width:100%;border-collapse:collapse;font-size:.79rem;line-height:1.35}
+  .spi-table th{position:sticky;top:0;background:var(--navy-2);color:#fff;text-align:left;padding:9px 10px}
+  .spi-table td{padding:9px 10px;vertical-align:top;border-top:1px solid var(--line)}
+  .spi-table tr:nth-child(even) td{background:#fbf6ed}
+  .spi-status{display:inline-block;padding:2px 7px;border-radius:99px;border:1px solid #d7b98b;
+    background:#fff6e8;color:#7b431d;font-size:.72rem;font-weight:800;white-space:nowrap}
+  .spi-evidence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .spi-evidence .spi-box{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+  @media(max-width:720px){.spi-grid,.spi-evidence{grid-template-columns:1fr}.pdlg--spi{width:96vw}}
 
   /* alur proses berurutan (mis. tahapan pengukuhan) — chip dipisah tanda panah */
   .tp-h-flow{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
@@ -391,6 +466,27 @@
   .pdlg-fallback{display:grid;place-items:center;height:100%;padding:24px;text-align:center;
     color:#d8ccbe;font-size:13px;line-height:1.7}
   .pdlg-fallback a{color:var(--gold-2);font-weight:600}
+  /* varian gambar (infografis tegak 9:16): dialog lebih sempit, gambar mengisi lebar dan discroll */
+  .pdlg--img{width:min(640px,96vw)}
+  .pdlg-body--img{overflow:auto;-webkit-overflow-scrolling:touch}
+  .pdlg-body--img img{display:block;width:100%;height:auto}
+  .pdlg-more{position:sticky;bottom:0;display:block;width:100%;text-align:center;
+    font-family:var(--display);font-weight:600;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;text-decoration:none;color:#3a1a08;background:var(--gold);
+    border-radius:99px;padding:9px 18px;margin-top:10px;box-shadow:0 -4px 14px rgba(0,0,0,.35)}
+  .pdlg-more:hover{background:var(--gold-2)}
+  /* keterangan singkatan di bawah gambar: panel terang agar terbaca di atas latar gelap badan dialog */
+  .pdlg-legend{list-style:square;margin:0;padding:12px clamp(14px,3vw,26px) 14px calc(clamp(14px,3vw,26px) + 1.2em);
+    background:var(--card);color:var(--ink);font-family:var(--sans);font-size:clamp(11px,1.3vw,13px);line-height:1.5}
+  .pdlg-legend li::marker{color:var(--gold)}
+  .pdlg-legend li{padding-left:2px}
+  .pdlg-legend li+li{margin-top:2px}
+  .pdlg-legend b{display:inline-block;min-width:6.2em;font-weight:700;color:#2a1a12}
+  .pdlg-legend b::after{content:":";float:right;margin-right:.6em}
+  .pdlg-legend span{display:inline}
+  /* gambar mendatar (mis. bagan proses bisnis): dialog lebar, tinggi mengikuti gambar */
+  .pdlg--wide{width:min(1000px,96vw);height:fit-content;max-height:90vh}
+  .pdlg--wide .pdlg-body{flex:0 1 auto}
 
   /* ---------------- FOOTER (full-bleed, menempel kiri/kanan/bawah — pasangan .re-head) ---------------- */
   .re-foot{flex:0 0 auto;width:100%;background:linear-gradient(100deg,var(--navy-2),var(--navy));color:#e4d3c5;
@@ -473,15 +569,11 @@
       <h2>LAPORAN DUAMINGGUAN KE-1</h2>
       <div class="per-row">
         <div class="per">Periode 01: 18 &ndash; 28 Agustus 2026</div>
-        <div class="per-switch">
-          <button type="button" class="per-switch-btn" aria-haspopup="true" aria-expanded="false" aria-label="Pilih periode lain">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <div class="per-menu" role="menu" aria-label="Pilih periode Lapduming">
-            <button type="button" class="on" data-p="1" role="menuitem">Periode 01 &middot; 18&ndash;28 Agustus 2026</button>
-            <button type="button" data-p="2" role="menuitem">Periode 02 &middot; 31 Agustus&ndash;11 September 2026</button>
-          </div>
-        </div>
+        <nav class="per-badges" aria-label="Pilih periode Lapduming">
+          <button type="button" class="on" data-p="1" aria-label="Periode 01: 18 sampai 28 Agustus 2026" aria-current="page">P1</button>
+          <button type="button" data-p="2" aria-label="Periode 02: 31 Agustus sampai 11 September 2026">P2</button>
+          <button type="button" data-p="3" aria-label="Periode 03: 14 sampai 25 September 2026">P3</button>
+        </nav>
       </div>
     </div>
     <div class="re-desc">Pemeriksaan Pendahuluan atas Kepatuhan Pengukuhan dan Pengelolaan Kawasan Hutan Konservasi Tahun 2021 s.d. 2025 pada Kementerian Kehutanan serta Instansi Terkait Lainnya di Provinsi DKI Jakarta, Nusa Tenggara Barat, Jawa Timur, dan Jawa Barat</div>
@@ -495,7 +587,7 @@
     <div class="tp-ph">
       <svg><use href="#i-target"/></svg><span>Tujuan, Progres &amp; Hasil Pemeriksaan Pendahuluan</span>
       <span class="tp-ph-tail"><svg><use href="#i-check"/></svg>Total 23%</span>
-      <button type="button" class="sh-doc" id="openDoc" title="Lihat dokumen: Tujuan dan Harapan Penugasan (A.5.1)" aria-label="Lihat dokumen Tujuan dan Harapan Penugasan"><svg><use href="#i-doc"/></svg></button>
+      <button type="button" class="sh-doc openDoc" title="Lihat dokumen: Tujuan dan Harapan Penugasan (A.5.1)" aria-label="Lihat dokumen Tujuan dan Harapan Penugasan"><svg><use href="#i-doc"/></svg></button>
     </div>
     <!-- Ikhtisar untuk pimpinan: 9 tujuan pemeriksaan pendahuluan. Klik kartu → detail
          langkah KKP A.4 & hasil pengujian di tujuan-N.html. -->
@@ -532,7 +624,7 @@
             </div>
           </div>
         </div>
-        <a class="tp-g tp-g--merged tp-t2" href="tujuan-2.html" data-pct="60">
+        <div class="tp-g tp-g--merged tp-t2" data-pct="60">
           <span class="tp-g-top">
             <span class="gnum">2</span>
             <span class="tp-g-tx">
@@ -543,19 +635,22 @@
           <div class="tp-h-showcase">
             <div class="tp-h-grp">
               <span class="tp-h-grp-lbl"><svg><use href="#i-info"/></svg>Hal Pokok</span>
-              <p class="tp-h-note">Kepatuhan atas pengukuhan dan pengelolaan kawasan hutan konservasi Tahun 2021 s.d. 2025.</p>
+              <p class="tp-h-note"> <b>Pengukuhan</b> dan <b>perlindungan</b> kawasan hutan konservasi.</p>
             </div>
             <div class="tp-h-grp">
               <span class="tp-h-grp-lbl"><svg><use href="#i-target"/></svg>Tujuan</span>
-              <p class="tp-h-note">Menilai efektivitas SPI dan penilaian risiko sebagai dasar pemeriksaan terinci.</p>
+              <p class="tp-h-note">Menilai bahwa pengukuhan dan perlindungan kawasan hutan konservasi <b>telah sesuai dengan ketentuan</b> peraturan perundang-undangan.</p>
             </div>
             <div class="tp-h-grp">
               <span class="tp-h-grp-lbl"><svg><use href="#i-map"/></svg>Lingkup Pemeriksaan</span>
-              <p class="tp-h-note">Pengukuhan &amp; pengelolaan kawasan hutan konservasi oleh Kementerian Kehutanan serta instansi terkait, Tahun 2021&ndash;2025.</p>
+              <p class="tp-h-note">Pengukuhan &amp; perlindungan kawasan hutan konservasi oleh Kementerian Kehutanan serta instansi terkait, <b>Tahun 2021&ndash;2025.</b></p>
+            </div>
+            <div>
+            <span class="tp-h-chip tp-h-chip--pending">Penentuan hal pokok, tujuan, dan lingkup masih belum final.</span>
             </div>
           </div>
-        </a>
-        <a class="tp-g tp-g--merged" href="tujuan-3.html" data-pct="90">
+        </div>
+        <a class="tp-g tp-g--merged" href="assets/hierarki-kriteria-pemeriksaan-konservasi-9x16.png" data-pct="90" data-idlg="kriteria" aria-haspopup="dialog">
           <span class="tp-g-top">
             <span class="gnum">3</span>
             <span class="tp-g-tx">
@@ -565,23 +660,27 @@
           </span>
           <div class="tp-h-showcase">
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-sitemap"/></svg>Ranah Kriteria</span>
-              <div class="tp-h-chips">
-                <span class="tp-h-chip">Pengukuhan</span>
-                <span class="tp-h-chip">Pengelolaan</span>
-              </div>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-sitemap"/></svg>Kriteria Utama</span>
+              <ul class="tp-h-ul">
+                <li><span class="tp-h-chip">UU 41/1999 Kehutanan</span></li>
+                <li><span class="tp-h-chip">UU 5/1990 Konservasi SDA Hayati dan Ekosistem</span></li>
+                <li><span class="tp-h-chip">PP 23/2021 Penyelenggaraan Kehutanan</span></li>
+                <li><span class="tp-h-chip">PP 28/2011 Pengelolaan KSA dan KPA</span></li>
+              </ul>
             </div>
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-doc"/></svg>Sumber Utama</span>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-doc"/></svg>Kriteria Teknis</span>
               <div class="tp-h-chips">
-                <span class="tp-h-chip">UU 41/1999</span>
-                <span class="tp-h-chip">PP 23/2021</span>
-                <span class="tp-h-chip">UU 5/1990</span>
+                <span class="tp-h-chip">Selengkapnya ...</span>
+      
               </div>
+            </div>
+               <div>
+            <span class="tp-h-chip tp-h-chip--pending">Kriteria teknis masih dalam proses identifikasi lebih lanjut di periode selanjutnya.</span>
             </div>
           </div>
         </a>
-        <a class="tp-g tp-g--merged tp-t4" href="tujuan-4.html" data-pct="27">
+        <div class="tp-g tp-g--merged tp-t4" data-pct="27">
           <span class="tp-g-top">
             <span class="gnum">4</span>
             <span class="tp-g-tx">
@@ -591,36 +690,24 @@
           </span>
           <div class="tp-h-showcase">
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-sitemap"/></svg>Entitas Utama</span>
-              <div class="tp-h-chips">
-                <span class="tp-h-chip">Ditjen Planologi Kehutanan</span>
-                <span class="tp-h-chip">Ditjen KSDAE</span>
-              </div>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-sitemap"/></svg>Struktur Organisasi<a class="tp-h-chip tp-h-chip--link tp-h-chip--inl" href="assets/struktur-organisasi-pengukuhan-pengelolaan-konservasi-9x16.png" data-idlg="struktur" aria-haspopup="dialog">Lihat Struktur &nearr;</a></span>
+              <ul class="tp-h-ul">
+                <li><span class="tp-h-chip">Ditjen Planologi Kehutanan</span></li>
+                <li><span class="tp-h-chip">Ditjen KSDAE</span></li>
+              </ul>
             </div>
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-bank"/></svg>UPT Pelaksana</span>
-              <div class="tp-h-chips">
-                <span class="tp-h-chip">BBTN</span>
-                <span class="tp-h-chip">BTN</span>
-                <span class="tp-h-chip">BBKSDA</span>
-                <span class="tp-h-chip">BKSDA</span>
-              </div>
-            </div>
-            <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-map"/></svg>Proses Pengukuhan</span>
-              <div class="tp-h-flow">
-                <span class="tp-h-chip">Penunjukan</span>
-                <span class="tp-h-arrow" aria-hidden="true">&rarr;</span>
-                <span class="tp-h-chip">Penataan Batas</span>
-                <span class="tp-h-arrow" aria-hidden="true">&rarr;</span>
-                <span class="tp-h-chip">Pemetaan</span>
-                <span class="tp-h-arrow" aria-hidden="true">&rarr;</span>
-                <span class="tp-h-chip">Penetapan</span>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-map"/></svg>Proses Bisnis<a class="tp-h-chip tp-h-chip--link tp-h-chip--inl" href="assets/proses-bisnis.jpg" data-idlg="prosesBisnis" aria-haspopup="dialog">Lihat Proses Bisnis &nearr;</a></span>
+              <div class="tp-h-pb">
+                <b class="tp-h-pb-lbl">Pengukuhan &middot; 4 tahap</b>
+                <ol class="tp-h-steps"><li><span class="tp-h-chip"><i>1</i>Penunjukan</span></li><li><span class="tp-h-chip"><i>2</i>Penataan Batas</span></li><li><span class="tp-h-chip"><i>3</i>Pemetaan</span></li><li><span class="tp-h-chip"><i>4</i>Penetapan</span></li></ol>
+                <b class="tp-h-pb-lbl">Pengelolaan KSA/KPA &middot; 8 tahap</b>
+                <ol class="tp-h-steps"><li><span class="tp-h-chip"><i>1</i>Inventarisasi</span></li><li><span class="tp-h-chip"><i>2</i>Penataan</span></li><li><span class="tp-h-chip"><i>3</i>Rencana</span></li><li><span class="tp-h-chip"><i>4</i>Perlindungan</span></li><li><span class="tp-h-chip"><i>5</i>Pengawetan</span></li><li><span class="tp-h-chip"><i>6</i>Pemanfaatan</span></li><li><span class="tp-h-chip"><i>7</i>Evaluasi</span></li><li><span class="tp-h-chip"><i>8</i>Tindak Lanjut</span></li></ol>
               </div>
             </div>
           </div>
-        </a>
-        <a class="tp-g tp-g--merged tp-t5" href="tujuan-5.html" data-pct="24">
+        </div>
+        <div class="tp-g tp-g--merged tp-t5" data-pct="24">
           <span class="tp-g-top">
             <span class="gnum">5</span>
             <span class="tp-g-tx">
@@ -630,26 +717,29 @@
           </span>
           <div class="tp-h-showcase">
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-gear"/></svg>Fokus SPI &middot; COSO</span>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-gear"/></svg>Status Pemahaman</span>
               <div class="tp-h-chips">
-                <span class="tp-h-chip tp-h-chip--root">Aktivitas Pengendalian</span>
-                <span class="tp-h-chip">Lingkungan Pengendalian</span>
-                <span class="tp-h-chip">Penaksiran Risiko</span>
-                <span class="tp-h-chip">Informasi &amp; Komunikasi</span>
-                <span class="tp-h-chip">Pemantauan</span>
+                <span class="tp-h-chip tp-h-chip--status">Pemahaman Awal Diperoleh</span>
+                <span class="tp-h-chip tp-h-chip--pending">Efektivitas Belum Disimpulkan</span>
               </div>
             </div>
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-chart"/></svg>Data Pendukung</span>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-chart"/></svg>Hasil Sementara</span>
               <div class="tp-h-stats">
-                <span class="tp-h-stat"><b>580</b><span>Unit Rencana Pengelolaan</span></span>
-                <span class="tp-h-stat"><b>17,41%</b><span>Belum Disusun</span></span>
-                <span class="tp-h-stat"><b>535</b><span>Unit Penangkaran</span></span>
+                <span class="tp-h-stat"><b>7</b><span>Kelompok Analisis</span></span>
+                <span class="tp-h-stat"><b>2</b><span>Siklus Proses Bisnis</span></span>
               </div>
+              <p class="tp-h-result">Indikasi awal pada rekonsiliasi data, batas kawasan, perencanaan, patroli, bidang tanah, dan pemantauan tindak lanjut.</p>
             </div>
+            <nav class="tp-h-dialogs" aria-label="Detail hasil pemahaman SPI">
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgPetaSpi" data-idlg="petaSpi" aria-haspopup="dialog">Lihat Peta SPI</a>
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgRisikoSpi" data-idlg="risikoSpi" aria-haspopup="dialog">Lihat Risiko &amp; Pengendalian</a>
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgBuktiSpi" data-idlg="buktiSpi" aria-haspopup="dialog">Lihat Bukti Penilaian</a>
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgKesimpulanSpi" data-idlg="kesimpulanSpi" aria-haspopup="dialog">Lihat Kesimpulan</a>
+            </nav>
           </div>
-        </a>
-        <a class="tp-g tp-g--merged" href="tujuan-6.html" data-pct="21">
+        </div>
+        <div class="tp-g tp-g--merged tp-t6" data-pct="21">
           <span class="tp-g-top">
             <span class="gnum">6</span>
             <span class="tp-g-tx">
@@ -661,11 +751,12 @@
             <div class="tp-h-grp">
               <span class="tp-h-grp-lbl"><svg><use href="#i-info"/></svg>Status</span>
               <div class="tp-h-chips">
-                <span class="tp-h-chip tp-h-chip--pending">Menunggu Pematangan SPI &amp; Risiko</span>
+                <span class="tp-h-chip tp-h-chip--status">Materialitas Awal Disusun</span>
+                <span class="tp-h-chip tp-h-chip--pending">Dinilai Ulang Selama Pemeriksaan</span>
               </div>
             </div>
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-pie"/></svg>Kandidat Dasar Materialitas</span>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-pie"/></svg>Dasar Penilaian</span>
               <div class="tp-h-stats">
                 <span class="tp-h-stat"><b>25</b><span>Fitur Berkurang</span></span>
                 <span class="tp-h-stat"><b>71</b><span>Fitur Bertambah</span></span>
@@ -673,9 +764,13 @@
                 <span class="tp-h-stat"><b>5.122</b><span>Poligon Tutupan</span></span>
               </div>
             </div>
+            <nav class="tp-h-dialogs" aria-label="Detail hasil penentuan materialitas">
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgDasarMaterialitas" data-idlg="dasarMaterialitas" aria-haspopup="dialog">Lihat Dasar Materialitas</a>
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgKesimpulanMaterialitas" data-idlg="kesimpulanMaterialitas" aria-haspopup="dialog">Lihat Kesimpulan Materialitas</a>
+            </nav>
           </div>
-        </a>
-        <a class="tp-g tp-g--merged" href="tujuan-7.html" data-pct="26">
+        </div>
+        <div class="tp-g tp-g--merged tp-t789" data-pct="26">
           <span class="tp-g-top">
             <span class="gnum">7</span>
             <span class="tp-g-tx">
@@ -685,24 +780,27 @@
           </span>
           <div class="tp-h-showcase">
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-warn"/></svg>Indikasi Risiko Utama</span>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-warn"/></svg>Status</span>
               <div class="tp-h-chips">
-                <span class="tp-h-chip tp-h-chip--risk"><b>E.1</b>Pengukuhan</span>
-                <span class="tp-h-chip tp-h-chip--risk"><b>E.2</b>Pengelolaan</span>
+                <span class="tp-h-chip tp-h-chip--status">Profil Risiko Awal Disusun</span>
+                <span class="tp-h-chip tp-h-chip--pending">Perlu Validasi &amp; Pemeringkatan</span>
               </div>
             </div>
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-map"/></svg>Data Spasial</span>
-              <div class="tp-h-stats">
-                <span class="tp-h-stat"><b>3.974</b><span>Bidang Tanah</span></span>
-                <span class="tp-h-stat"><b>5.122</b><span>Poligon Tutupan</span></span>
-                <span class="tp-h-stat"><b>351 km</b><span>Jaringan Listrik</span></span>
-                <span class="tp-h-stat"><b>803 km</b><span>Jaringan Jalan</span></span>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-map"/></svg>Domain Risiko</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip tp-h-chip--risk"><b>E.1</b>Pengukuhan</span>
+                <span class="tp-h-chip tp-h-chip--risk"><b>E.2</b>Pengelolaan</span>
+                <span class="tp-h-chip">7 Tema Analisis</span>
               </div>
             </div>
+            <nav class="tp-h-dialogs" aria-label="Detail hasil penilaian risiko">
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgPetaRisiko" data-idlg="petaRisiko" aria-haspopup="dialog">Lihat Peta Risiko</a>
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgKesimpulanRisiko" data-idlg="kesimpulanRisiko" aria-haspopup="dialog">Lihat Kesimpulan Risiko</a>
+            </nav>
           </div>
-        </a>
-        <a class="tp-g tp-g--merged" href="tujuan-8.html" data-pct="20">
+        </div>
+        <div class="tp-g tp-g--merged tp-t789" data-pct="20">
           <span class="tp-g-top">
             <span class="gnum">8</span>
             <span class="tp-g-tx">
@@ -714,7 +812,8 @@
             <div class="tp-h-grp">
               <span class="tp-h-grp-lbl"><svg><use href="#i-info"/></svg>Status</span>
               <div class="tp-h-chips">
-                <span class="tp-h-chip tp-h-chip--pending">Menunggu Penentuan Materialitas</span>
+                <span class="tp-h-chip tp-h-chip--status">Kerangka Uji Petik Disusun</span>
+                <span class="tp-h-chip tp-h-chip--pending">Sampel Final Belum Ditetapkan</span>
               </div>
             </div>
             <div class="tp-h-grp">
@@ -725,9 +824,13 @@
                 <span class="tp-h-chip">Tingkat Risiko</span>
               </div>
             </div>
+            <nav class="tp-h-dialogs" aria-label="Detail hasil penentuan uji petik">
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgMetodeUjiPetik" data-idlg="metodeUjiPetik" aria-haspopup="dialog">Lihat Metode Uji Petik</a>
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgFokusUjiPetik" data-idlg="fokusUjiPetik" aria-haspopup="dialog">Lihat Fokus Sampel</a>
+            </nav>
           </div>
-        </a>
-        <a class="tp-g tp-g--merged" href="tujuan-9.html" data-pct="22">
+        </div>
+        <div class="tp-g tp-g--merged tp-t789" data-pct="22">
           <span class="tp-g-top">
             <span class="gnum">9</span>
             <span class="tp-g-tx">
@@ -737,20 +840,26 @@
           </span>
           <div class="tp-h-showcase">
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-doc"/></svg>Dokumen Keluaran</span>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-doc"/></svg>Status Penyusunan</span>
               <div class="tp-h-chips">
-                <span class="tp-h-chip tp-h-chip--pending">LHPP</span>
-                <span class="tp-h-chip tp-h-chip--pending">P2 Terinci</span>
+                <span class="tp-h-chip tp-h-chip--status">Konsep LHPP &amp; P2 Disusun</span>
+                <span class="tp-h-chip tp-h-chip--pending">Menunggu Finalisasi</span>
               </div>
             </div>
             <div class="tp-h-grp">
-              <span class="tp-h-grp-lbl"><svg><use href="#i-pie"/></svg>Progres Keseluruhan</span>
-              <div class="tp-h-stats">
-                <span class="tp-h-stat"><b>23%</b><span>Seluruh Tujuan</span></span>
+              <span class="tp-h-grp-lbl"><svg><use href="#i-pie"/></svg>Arah Pemeriksaan</span>
+              <div class="tp-h-chips">
+                <span class="tp-h-chip">Perlindungan Kawasan</span>
+                <span class="tp-h-chip">2021–2025</span>
+                <span class="tp-h-chip">6 Subaspek</span>
               </div>
             </div>
+            <nav class="tp-h-dialogs" aria-label="Detail strategi dan program pemeriksaan">
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgStrategiPemeriksaan" data-idlg="strategiPemeriksaan" aria-haspopup="dialog">Lihat Strategi Pemeriksaan</a>
+              <a class="tp-h-chip tp-h-chip--link" href="#idlgStrukturP2" data-idlg="strukturP2" aria-haspopup="dialog">Lihat Struktur P2</a>
+            </nav>
           </div>
-        </a>
+        </div>
       </div>
     </nav>
   </section>
@@ -771,6 +880,247 @@
       <object id="pdlgObj" type="application/pdf" data="" aria-label="Dokumen: Tujuan dan Harapan Penugasan">
         <div class="pdlg-fallback">Pratinjau PDF tidak dapat ditampilkan di peramban ini.<br><a href="assets/A5.1-tujuan-dan-harapan-penugasan.pdf" target="_blank" rel="noopener">Buka dokumen di tab baru &nearr;</a></div>
       </object>
+    </div>
+  </dialog>
+
+  <!-- ============ INFOGRAFIS DIALOG (Tujuan 3) ============ -->
+  <dialog class="pdlg pdlg--img" id="idlgKriteria" aria-labelledby="idlgKriteriaTitle">
+    <div class="pdlg-head">
+      <div>
+        <div class="pdlg-kick">Infografis &middot; Tujuan 3</div>
+        <h3 id="idlgKriteriaTitle">Hierarki Kriteria Pemeriksaan</h3>
+      </div>
+      <div class="pdlg-act">
+        <a class="pdlg-open" href="assets/hierarki-kriteria-pemeriksaan-konservasi-9x16.png" target="_blank" rel="noopener">Buka di tab baru &nearr;</a>
+        <button type="button" class="pdlg-x" aria-label="Tutup">&times;</button>
+      </div>
+    </div>
+    <div class="pdlg-body pdlg-body--img">
+      <img src="assets/hierarki-kriteria-pemeriksaan-konservasi-9x16.png" alt="Bagan hierarki kriteria pemeriksaan pengukuhan dan pengelolaan kawasan hutan konservasi" loading="lazy">
+    </div>
+  </dialog>
+
+  <!-- ============ INFOGRAFIS DIALOG (Tujuan 4: Struktur Organisasi) ============ -->
+  <dialog class="pdlg pdlg--img" id="idlgStruktur" aria-labelledby="idlgStrukturTitle">
+    <div class="pdlg-head">
+      <div>
+        <div class="pdlg-kick">Infografis &middot; Tujuan 4</div>
+        <h3 id="idlgStrukturTitle">Struktur Organisasi</h3>
+      </div>
+      <div class="pdlg-act">
+        <a class="pdlg-open" href="assets/struktur-organisasi-pengukuhan-pengelolaan-konservasi-9x16.png" target="_blank" rel="noopener">Buka di tab baru &nearr;</a>
+        <button type="button" class="pdlg-x" aria-label="Tutup">&times;</button>
+      </div>
+    </div>
+    <div class="pdlg-body pdlg-body--img">
+      <img src="assets/struktur-organisasi-pengukuhan-pengelolaan-konservasi-9x16.png" alt="Bagan struktur organisasi pengukuhan dan pengelolaan kawasan hutan konservasi" loading="lazy">
+      <ul class="pdlg-legend" aria-label="Keterangan singkatan">
+        <li><b>BBTN</b><span>Balai Besar Taman Nasional</span></li>
+        <li><b>BTN</b><span>Balai Taman Nasional</span></li>
+        <li><b>BBKSDA</b><span>Balai Besar Konservasi Sumber Daya Alam</span></li>
+        <li><b>BKSDA</b><span>Balai Konservasi Sumber Daya Alam</span></li>
+      </ul>
+    </div>
+  </dialog>
+
+  <!-- ============ GAMBAR DIALOG (Tujuan 4: Proses Bisnis) ============ -->
+  <dialog class="pdlg pdlg--img pdlg--wide" id="idlgProsesBisnis" aria-labelledby="idlgProsesBisnisTitle">
+    <div class="pdlg-head">
+      <div>
+        <div class="pdlg-kick">Bagan &middot; Tujuan 4</div>
+        <h3 id="idlgProsesBisnisTitle">Proses Bisnis</h3>
+      </div>
+      <div class="pdlg-act">
+        <a class="pdlg-open" href="assets/proses-bisnis.jpg" target="_blank" rel="noopener">Buka di tab baru &nearr;</a>
+        <button type="button" class="pdlg-x" aria-label="Tutup">&times;</button>
+      </div>
+    </div>
+    <div class="pdlg-body pdlg-body--img">
+      <img src="assets/proses-bisnis.jpg" width="1431" height="802" alt="Bagan proses bisnis pengukuhan dan pengelolaan kawasan hutan konservasi" loading="lazy">
+      <a class="pdlg-more" href="proses_bisnis_pengukuhan_dan_pengelolaan_konservasi.html" target="_blank" rel="noopener">Selengkapnya &nearr;</a>
+    </div>
+  </dialog>
+
+  <!-- ============ DIALOG TUJUAN 5: PETA SPI ============ -->
+  <dialog class="pdlg pdlg--spi" id="idlgPetaSpi" aria-labelledby="idlgPetaSpiTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 5 &middot; Pemahaman SPI</div><h3 id="idlgPetaSpiTitle">Peta SPI dan Proses Bisnis</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body">
+      <p class="spi-intro"><b>Kesimpulan sementara:</b> lima unsur SPI telah dipetakan pada siklus pengukuhan dan pengelolaan. Aktivitas pengendalian menjadi fokus utama, sedangkan efektivitas pelaksanaannya masih memerlukan pengujian.</p>
+      <div class="spi-table-wrap"><table class="spi-table"><thead><tr><th>Unsur SPI</th><th>Siklus Pengukuhan</th><th>Siklus Pengelolaan</th><th>Hasil Sementara</th></tr></thead><tbody>
+        <tr><td><b>Lingkungan pengendalian</b></td><td>Kewenangan Kementerian, BPKH, dan unit terkait</td><td>Ditjen KSDAE, UPT, dan UPTD Tahura</td><td>Pembagian peran perlu dipastikan sampai tingkat pelaksana.</td></tr>
+        <tr><td><b>Penilaian risiko</b></td><td>Batas, status, luas, peta, dan hak pihak ketiga</td><td>Gangguan, okupasi, pemanfaatan, dan kerusakan kawasan</td><td>Risiko telah diidentifikasi; mitigasi belum seluruhnya terhubung.</td></tr>
+        <tr><td><b>Aktivitas pengendalian</b></td><td>Penataan batas, verifikasi, dan rekonsiliasi peta</td><td>Perencanaan, patroli, perizinan, pemulihan</td><td><span class="spi-status">Fokus pemeriksaan</span></td></tr>
+        <tr><td><b>Informasi &amp; komunikasi</b></td><td>Konsistensi keputusan, BATB, register, dan IGT</td><td>Pelaporan UPT, SMART Patrol, dan register kasus</td><td>Data lintas sumber belum sepenuhnya konsisten.</td></tr>
+        <tr><td><b>Pemantauan</b></td><td>Pemutakhiran status pengukuhan</td><td>Evaluasi fungsi dan tindak lanjut gangguan</td><td>Pemantauan penyelesaian belum terpadu.</td></tr>
+      </tbody></table></div>
+    </div>
+  </dialog>
+
+  <!-- ============ DIALOG TUJUAN 5: RISIKO-PENGENDALIAN ============ -->
+  <dialog class="pdlg pdlg--spi" id="idlgRisikoSpi" aria-labelledby="idlgRisikoSpiTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 5 &middot; Pemahaman SPI</div><h3 id="idlgRisikoSpiTitle">Matriks Risiko dan Pengendalian</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body">
+      <p class="spi-intro">Matriks ini menghubungkan indikasi hasil analisis dengan proses bisnis, tujuan pengendalian, dan pengendalian yang diharapkan. Status belum merupakan kesimpulan final.</p>
+      <div class="spi-table-wrap"><table class="spi-table"><thead><tr><th>Risiko/Hasil Analisis</th><th>Proses Bisnis</th><th>Tujuan Pengendalian</th><th>Pengendalian yang Diharapkan</th><th>Status Awal</th></tr></thead><tbody>
+        <tr><td>Perbedaan luas, batas, nama, dan fungsi</td><td>Pengukuhan</td><td>Keputusan, peta, dan register konsisten</td><td>Rekonsiliasi dan verifikasi berjenjang</td><td><span class="spi-status">Perlu pendalaman</span></td></tr>
+        <tr><td>Pal batas tidak sesuai/tidak ditemukan</td><td>Penataan batas</td><td>Batas lapangan sesuai dokumen</td><td>Pemeriksaan dan pemeliharaan batas</td><td><span class="spi-status">Indikasi kelemahan</span></td></tr>
+        <tr><td>IPK, zona/blok, dan rencana belum lengkap</td><td>Perencanaan</td><td>Pengelolaan berbasis potensi dan risiko</td><td>Penyusunan, penilaian, pengesahan, evaluasi</td><td><span class="spi-status">Belum lengkap</span></td></tr>
+        <tr><td>Cakupan Patroli SMART terbatas</td><td>Perlindungan</td><td>Kawasan rawan dijaga secara efektif</td><td>Perencanaan patroli berbasis risiko</td><td><span class="spi-status">Perlu pengujian</span></td></tr>
+        <tr><td>Bidang tanah bersertipikat</td><td>Perlindungan/tenurial</td><td>Hak pihak ketiga diselesaikan secara sah</td><td>Verifikasi bersama BPN dan register penyelesaian</td><td><span class="spi-status">Belum tuntas</span></td></tr>
+        <tr><td>Kerja sama pembangunan strategis</td><td>Pemanfaatan/perlindungan</td><td>Kegiatan sesuai izin dan fungsi kawasan</td><td>Evaluasi kerja sama dan pemantauan kewajiban</td><td><span class="spi-status">Perlu pendalaman</span></td></tr>
+        <tr><td>Kualitas dan rekonsiliasi data</td><td>Kedua siklus</td><td>Satu sumber data yang andal dan tertelusur</td><td>Validasi metadata, versi, topologi, dan pemutakhiran</td><td><span class="spi-status">Perlu penguatan</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </dialog>
+
+  <!-- ============ DIALOG TUJUAN 5: BUKTI ============ -->
+  <dialog class="pdlg pdlg--spi" id="idlgBuktiSpi" aria-labelledby="idlgBuktiSpiTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 5 &middot; Pemahaman SPI</div><h3 id="idlgBuktiSpiTitle">Bukti dan Dasar Penilaian</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body">
+      <p class="spi-intro">Status menunjukkan tingkat ketersediaan dan kebutuhan validasi bukti, bukan penilaian kepatuhan akhir.</p>
+      <div class="spi-evidence">
+        <div class="spi-box"><div><h4>Kebijakan dan SOP</h4><p>Peraturan, pedoman, pembagian kewenangan, dan prosedur pengendalian.</p></div><span class="spi-status">Diperoleh sebagian</span></div>
+        <div class="spi-box"><div><h4>Dokumen Pengukuhan</h4><p>Keputusan, BATB, peta, register, koordinat, dan IGT.</p></div><span class="spi-status">Perlu rekonsiliasi</span></div>
+        <div class="spi-box"><div><h4>Dokumen Perencanaan</h4><p>IPK, zonasi/blok, RPJP, dan rencana pengelolaan tahunan.</p></div><span class="spi-status">Belum lengkap</span></div>
+        <div class="spi-box"><div><h4>Perlindungan Kawasan</h4><p>Data SMART Patrol, pengamanan batas, gangguan, dan evaluasi fungsi.</p></div><span class="spi-status">Perlu validasi</span></div>
+        <div class="spi-box"><div><h4>Bidang Tanah</h4><p>Register bidang, data BHUMI ATR/BPN, korespondensi, dan hasil verifikasi.</p></div><span class="spi-status">Belum seluruhnya</span></div>
+        <div class="spi-box"><div><h4>Kerja Sama</h4><p>Perjanjian, peta areal, kewajiban, laporan pelaksanaan, dan pemantauan.</p></div><span class="spi-status">Diperoleh sebagian</span></div>
+        <div class="spi-box"><div><h4>Pemeriksaan Fisik</h4><p>Pal batas, kondisi kawasan, pemanfaatan lahan, dan bukti lapangan.</p></div><span class="spi-status">Uji petik</span></div>
+        <div class="spi-box"><div><h4>Konfirmasi Entitas</h4><p>Penjelasan pemilik proses, pemilik pengendalian, dan unit pelaksana.</p></div><span class="spi-status">Berlanjut</span></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============ DIALOG TUJUAN 5: KESIMPULAN ============ -->
+  <dialog class="pdlg pdlg--spi" id="idlgKesimpulanSpi" aria-labelledby="idlgKesimpulanSpiTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 5 &middot; Pemahaman SPI</div><h3 id="idlgKesimpulanSpiTitle">Kesimpulan Sementara dan Pekerjaan Lanjutan</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body">
+      <p class="spi-intro"><b>Kesimpulan sementara:</b> desain pengendalian utama telah diidentifikasi pada siklus pengukuhan dan pengelolaan. Efektivitas SPI belum dapat disimpulkan karena pelaksanaan pengendalian masih harus diuji.</p>
+      <div class="spi-grid">
+        <div class="spi-box"><h4>Sudah Dipahami</h4><ul><li>Proses bisnis dan pemilik proses utama.</li><li>Risiko pada pengukuhan dan pengelolaan.</li><li>Tujuan pengendalian dan desain pengendalian utama.</li><li>Keterkaitan tujuh kelompok analisis dengan dua siklus.</li></ul></div>
+        <div class="spi-box"><h4>Belum Dapat Disimpulkan</h4><ul><li>Apakah pengendalian dilaksanakan secara konsisten.</li><li>Apakah bukti pelaksanaan lengkap dan andal.</li><li>Apakah kelemahan telah ditindaklanjuti tepat waktu.</li><li>Apakah pengendalian efektif menurunkan risiko.</li></ul></div>
+        <div class="spi-box"><h4>Pengujian Berikutnya</h4><ul><li>Walkthrough dan konfirmasi pemilik pengendalian.</li><li>Uji dokumen dan rekonsiliasi data lintas sumber.</li><li>Pemeriksaan fisik serta pengujian sampel.</li><li>Penelusuran tindak lanjut dan register penyelesaian.</li></ul></div>
+        <div class="spi-box"><h4>Fokus Pendalaman</h4><ul><li>Konsistensi data dan kepastian batas.</li><li>Kelengkapan perencanaan pengelolaan.</li><li>Cakupan patroli dan respons atas gangguan.</li><li>Bidang tanah, kerja sama, dan pemantauan kewajiban.</li></ul></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============ DIALOG TUJUAN 6: DASAR MATERIALITAS ============ -->
+  <dialog class="pdlg pdlg--spi" id="idlgDasarMaterialitas" aria-labelledby="idlgDasarMaterialitasTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 6 &middot; Penentuan Materialitas</div><h3 id="idlgDasarMaterialitasTitle">Dasar Penilaian Materialitas Perencanaan</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body">
+      <p class="spi-intro"><b>Pendekatan:</b> materialitas tidak ditentukan hanya dengan nilai rupiah. Suatu kondisi dipertimbangkan material apabila besaran, sifat, konteks, atau keluarannya dapat memengaruhi keputusan pengguna hasil pemeriksaan.</p>
+      <div class="spi-grid">
+        <div class="spi-box"><h4>1. Besaran dan Keluasan</h4><ul><li>Luas kawasan atau areal yang terdampak.</li><li>Jumlah kawasan, bidang tanah, poligon, atau unit pengelola.</li><li>Persebaran masalah pada lebih dari satu provinsi atau UPT.</li><li>Potensi masalah yang bersifat sistemik atau berulang.</li></ul></div>
+        <div class="spi-box"><h4>2. Kepastian Hukum</h4><ul><li>Ketidaksesuaian keputusan, peta, register, batas, atau fungsi kawasan.</li><li>Hak pihak ketiga dan bidang tanah bersertipikat.</li><li>Kegiatan atau pemanfaatan tanpa dasar legal yang memadai.</li><li>Ketidakpatuhan terhadap tenggat atau prosedur wajib.</li></ul></div>
+        <div class="spi-box"><h4>3. Dampak Ekologis</h4><ul><li>Hilang atau menurunnya fungsi konservasi.</li><li>Perubahan tutupan lahan dan fragmentasi habitat.</li><li>Gangguan yang tidak segera dideteksi atau dipulihkan.</li><li>Dampak pada kawasan atau spesies bernilai penting.</li></ul></div>
+        <div class="spi-box"><h4>4. Kepentingan Publik</h4><ul><li>Potensi konflik tenurial dan sengketa batas.</li><li>Dampak terhadap masyarakat dan pemegang hak.</li><li>Perhatian pemangku kepentingan dan sensitivitas kebijakan.</li><li>Risiko reputasi serta kepercayaan terhadap pengelolaan kawasan.</li></ul></div>
+      </div>
+      <div class="spi-table-wrap" style="margin-top:12px"><table class="spi-table"><thead><tr><th>Indikator Kuantitatif Awal</th><th>Besaran</th><th>Makna bagi Materialitas</th></tr></thead><tbody>
+        <tr><td>Fitur kawasan terindikasi berkurang</td><td><b>25 fitur / 7.738,77 ha</b></td><td>Perlu ditelusuri dasar perubahan dan jejak persetujuannya.</td></tr>
+        <tr><td>Fitur kawasan terindikasi bertambah</td><td><b>71 fitur / 247.979,06 ha</b></td><td>Menunjukkan keluasan perubahan yang perlu direkonsiliasi.</td></tr>
+        <tr><td>Bidang tanah dalam kawasan</td><td><b>3.974 bidang</b></td><td>Memiliki dimensi hak pihak ketiga, konflik, dan kepastian hukum.</td></tr>
+        <tr><td>Perubahan tutupan lahan</td><td><b>5.122 poligon / 230.797,29 ha</b></td><td>Berpotensi memengaruhi fungsi ekologis dan kebutuhan pemulihan.</td></tr>
+      </tbody></table></div>
+    </div>
+  </dialog>
+
+  <!-- ============ DIALOG TUJUAN 6: KESIMPULAN MATERIALITAS ============ -->
+  <dialog class="pdlg pdlg--spi" id="idlgKesimpulanMaterialitas" aria-labelledby="idlgKesimpulanMaterialitasTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 6 &middot; Penentuan Materialitas</div><h3 id="idlgKesimpulanMaterialitasTitle">Kesimpulan Materialitas Awal</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body">
+      <p class="spi-intro"><b>Kesimpulan awal:</b> permasalahan pengukuhan dan perlindungan kawasan dipertimbangkan material apabila memengaruhi kepastian hukum kawasan, keberlangsungan fungsi konservasi, hak pihak ketiga, atau keputusan pengguna. Penetapan ini bersifat perencanaan dan harus dinilai ulang berdasarkan bukti pemeriksaan.</p>
+      <div class="spi-table-wrap"><table class="spi-table"><thead><tr><th>Prioritas Materialitas</th><th>Kondisi</th><th>Alasan</th><th>Implikasi Pemeriksaan</th></tr></thead><tbody>
+        <tr><td><span class="spi-status">Prioritas tinggi</span></td><td>Perbedaan batas/status; perubahan kawasan tanpa dasar yang jelas; gangguan luas; hak pihak ketiga yang belum selesai</td><td>Dampak hukum, ekologis, sosial, dan pervasif</td><td>Masuk pengujian utama dan diprioritaskan dalam uji petik.</td></tr>
+        <tr><td><span class="spi-status">Prioritas menengah</span></td><td>Kelemahan perencanaan, patroli, pelaporan, dan pemantauan tindak lanjut</td><td>Dapat meningkatkan risiko kerusakan atau masalah berulang</td><td>Diuji desain dan pelaksanaannya pada unit/kawasan berisiko.</td></tr>
+        <tr><td><span class="spi-status">Kontekstual</span></td><td>Kondisi dengan luas atau jumlah kecil tetapi menyangkut kawasan penting, hak pihak ketiga, atau pelanggaran sensitif</td><td>Sifat kondisi dapat lebih material daripada besarannya</td><td>Tetap dapat dipilih meskipun berada di bawah ambang kuantitatif.</td></tr>
+      </tbody></table></div>
+      <div class="spi-grid" style="margin-top:12px">
+        <div class="spi-box"><h4>Belum Ditetapkan sebagai Ambang Final</h4><p>Belum tersedia dasar yang memadai untuk menetapkan satu ambang rupiah atau luas yang berlaku untuk seluruh jenis kondisi. Perbedaan karakter kawasan dan dampak harus dipertimbangkan.</p></div>
+        <div class="spi-box"><h4>Penilaian Ulang</h4><p>Materialitas diperbarui setelah validasi data, pematangan risiko, konfirmasi entitas, pemeriksaan fisik, dan pengujian bukti. Perubahan penilaian harus didokumentasikan dalam P2.</p></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============ DIALOG TUJUAN 7: PENILAIAN RISIKO ============ -->
+  <dialog class="pdlg pdlg--spi" id="idlgPetaRisiko" aria-labelledby="idlgPetaRisikoTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 7 &middot; Penilaian Risiko</div><h3 id="idlgPetaRisikoTitle">Peta Risiko Pemeriksaan</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body"><p class="spi-intro">Risiko dikelompokkan menurut proses bisnis dan dinilai awal berdasarkan kemungkinan keterjadian, dampak hukum/ekologis/sosial, serta keluasan masalah.</p>
+      <div class="spi-table-wrap"><table class="spi-table"><thead><tr><th>Risiko</th><th>Proses Terkait</th><th>Dampak Utama</th><th>Indikator Awal</th></tr></thead><tbody>
+        <tr><td>Perubahan kawasan tidak sah atau tidak tercatat konsisten</td><td>Penunjukan, pemetaan, penetapan</td><td>Ketidakpastian status, fungsi, batas, dan luas</td><td>Pengurangan/penambahan luas dan perbedaan IGT</td></tr>
+        <tr><td>Batas kawasan tidak pasti</td><td>Penataan dan pemeliharaan batas</td><td>Konflik, perambahan, dan lemahnya penegakan</td><td>Pal berbeda, bergeser, rusak, atau tidak ditemukan</td></tr>
+        <tr><td>Perencanaan tidak menjadi dasar pengelolaan</td><td>IPK, zona/blok, RPJP/RPJPendek</td><td>Kegiatan dan anggaran tidak menjawab risiko kawasan</td><td>Dokumen belum lengkap atau belum disesuaikan</td></tr>
+        <tr><td>Gangguan kawasan tidak terdeteksi/ditangani tepat waktu</td><td>Patroli, perlindungan, pemulihan</td><td>Kerusakan berlanjut dan fungsi konservasi menurun</td><td>Perubahan tutupan dan cakupan patroli terbatas</td></tr>
+        <tr><td>Hak pihak ketiga tidak terselesaikan</td><td>Tenurial, perlindungan, kemitraan</td><td>Sengketa dan hambatan pengelolaan</td><td>Bidang tanah/sertipikat dalam kawasan</td></tr>
+        <tr><td>Pemanfaatan tidak sesuai dasar legal</td><td>Perizinan dan kerja sama</td><td>Penggunaan melampaui fungsi atau kewajiban</td><td>Jalan, listrik, pertambangan, dan kegiatan lain</td></tr>
+        <tr><td>Data tidak andal dan tidak tertelusur</td><td>Seluruh proses</td><td>Keputusan dan prioritas pengawasan keliru</td><td>Versi, metadata, geometri, dan register tidak konsisten</td></tr>
+      </tbody></table></div>
+    </div>
+  </dialog>
+
+  <dialog class="pdlg pdlg--spi" id="idlgKesimpulanRisiko" aria-labelledby="idlgKesimpulanRisikoTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 7 &middot; Penilaian Risiko</div><h3 id="idlgKesimpulanRisikoTitle">Kesimpulan Risiko Awal</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body"><p class="spi-intro"><b>Kesimpulan awal:</b> risiko signifikan terdapat pada kepastian hukum dan spasial kawasan serta efektivitas perlindungan. Pemeringkatan final dilakukan setelah validasi data, konfirmasi entitas, dan pengujian bukti.</p>
+      <div class="spi-grid">
+        <div class="spi-box"><h4>Risiko Dominan Pengukuhan</h4><ul><li>Status kawasan belum selesai.</li><li>Perbedaan batas, peta, luas, nama, dan fungsi.</li><li>Hak pihak ketiga belum teridentifikasi dan terselesaikan.</li><li>Data keputusan dan IGT belum sepenuhnya konsisten.</li></ul></div>
+        <div class="spi-box"><h4>Risiko Dominan Pengelolaan</h4><ul><li>Perencanaan kawasan belum lengkap.</li><li>Patroli belum berbasis cakupan dan kerawanan.</li><li>Gangguan/pemanfaatan belum ditindaklanjuti tepat waktu.</li><li>Evaluasi dan register penyelesaian belum terpadu.</li></ul></div>
+        <div class="spi-box"><h4>Faktor Kemungkinan</h4><p>Kelemahan data, luasnya wilayah, banyaknya unit pengelola, keterbatasan pengawasan, dan masalah berulang meningkatkan kemungkinan keterjadian.</p></div>
+        <div class="spi-box"><h4>Faktor Dampak</h4><p>Kepastian hukum, fungsi ekologis, hak masyarakat, konflik tenurial, kerugian sumber daya, dan reputasi pemerintah menentukan besarnya dampak.</p></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============ DIALOG TUJUAN 8: UJI PETIK ============ -->
+  <dialog class="pdlg pdlg--spi" id="idlgMetodeUjiPetik" aria-labelledby="idlgMetodeUjiPetikTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 8 &middot; Penentuan Uji Petik</div><h3 id="idlgMetodeUjiPetikTitle">Metode Pemilihan Uji Petik</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body"><p class="spi-intro"><b>Pendekatan:</b> sampel dipilih secara bertujuan berbasis risiko dan materialitas, bukan untuk menghasilkan estimasi statistik atas seluruh populasi.</p>
+      <div class="spi-table-wrap"><table class="spi-table"><thead><tr><th>Kriteria</th><th>Pertimbangan</th><th>Penggunaan</th></tr></thead><tbody>
+        <tr><td>Tingkat risiko</td><td>Kemungkinan dan dampak kondisi</td><td>Memprioritaskan kasus berisiko tinggi.</td></tr>
+        <tr><td>Materialitas</td><td>Besaran, sifat, konteks, dan keluasan</td><td>Memilih kondisi yang dapat memengaruhi keputusan pengguna.</td></tr>
+        <tr><td>Fungsi/nilai penting kawasan</td><td>CA, SM, TN, TWA, Tahura, TB serta nilai ekologisnya</td><td>Menjaga keterwakilan fungsi dan sensitivitas kawasan.</td></tr>
+        <tr><td>Tipologi masalah</td><td>Batas, bidang tanah, tutupan lahan, patroli, kerja sama</td><td>Memastikan seluruh risiko utama memperoleh pengujian.</td></tr>
+        <tr><td>Persebaran</td><td>UPT, provinsi, karakter wilayah, dan pengelola pusat/daerah</td><td>Menghindari sampel terkonsentrasi pada satu karakter entitas.</td></tr>
+        <tr><td>Ketersediaan bukti</td><td>Dokumen, data spasial, konfirmasi, dan akses lapangan</td><td>Menjamin sampel dapat diuji secara memadai.</td></tr>
+      </tbody></table></div>
+    </div>
+  </dialog>
+
+  <dialog class="pdlg pdlg--spi" id="idlgFokusUjiPetik" aria-labelledby="idlgFokusUjiPetikTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 8 &middot; Penentuan Uji Petik</div><h3 id="idlgFokusUjiPetikTitle">Fokus Sampel Awal</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body"><p class="spi-intro"><b>Status:</b> kelompok sampel prioritas telah dirumuskan, tetapi daftar unit dan jumlah sampel final masih menunggu pemeringkatan risiko, materialitas, dan konfirmasi ketersediaan bukti.</p>
+      <div class="spi-grid">
+        <div class="spi-box"><h4>Pengukuhan dan Batas</h4><ul><li>Kawasan masih berstatus penunjukan/penetapan sebagian.</li><li>Poligon keputusan tidak konsisten dengan IGT.</li><li>Pal batas berbeda atau tidak ditemukan.</li></ul></div>
+        <div class="spi-box"><h4>Perlindungan dan Gangguan</h4><ul><li>Perubahan tutupan lahan yang luas.</li><li>Kawasan dengan patroli terbatas.</li><li>Gangguan berulang atau belum dipulihkan.</li></ul></div>
+        <div class="spi-box"><h4>Tenurial dan Pemanfaatan</h4><ul><li>Bidang tanah/sertipikat dalam kawasan.</li><li>Kerja sama atau infrastruktur strategis.</li><li>Pemanfaatan yang dasar legalnya perlu dipastikan.</li></ul></div>
+        <div class="spi-box"><h4>Keterwakilan</h4><ul><li>Fungsi kawasan dan nilai ekologis.</li><li>UPT pusat dan UPTD pemerintah daerah.</li><li>Provinsi serta karakter gangguan yang berbeda.</li></ul></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============ DIALOG TUJUAN 9: STRATEGI DAN P2 ============ -->
+  <dialog class="pdlg pdlg--spi" id="idlgStrategiPemeriksaan" aria-labelledby="idlgStrategiPemeriksaanTitle">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 9 &middot; Strategi Pemeriksaan</div><h3 id="idlgStrategiPemeriksaanTitle">Strategi Pemeriksaan Terinci</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body"><p class="spi-intro"><b>Arah strategi:</b> pemeriksaan terinci difokuskan pada perlindungan kawasan hutan konservasi Tahun 2021–2025 dengan kombinasi analisis data populasi, pengujian dokumen, konfirmasi, dan pemeriksaan fisik berbasis risiko.</p>
+      <div class="spi-grid">
+        <div class="spi-box"><h4>Tujuan</h4><p>Menguji kepatuhan Kementerian Kehutanan dan unit terkait dalam menjaga keberadaan kawasan dan keberlangsungan fungsi konservasinya.</p></div>
+        <div class="spi-box"><h4>Pendekatan</h4><p>Pengujian populasi data spasial dilanjutkan dengan uji petik berbasis risiko dan materialitas pada dokumen serta kondisi lapangan.</p></div>
+        <div class="spi-box"><h4>Bukti</h4><p>Keputusan, peta, BATB, register, IGT, dokumen perencanaan, SMART Patrol, bidang tanah, kerja sama, konfirmasi, dan bukti fisik.</p></div>
+        <div class="spi-box"><h4>Lokasi</h4><p>Kalimantan Tengah, Kalimantan Selatan, Sulawesi Selatan, dan/atau provinsi lain sesuai perkembangan analisis risiko.</p></div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="pdlg pdlg--spi" id="idlgStrukturP2" aria-labelledby="idlgStrukturP2Title">
+    <div class="pdlg-head"><div><div class="pdlg-kick">Tujuan 9 &middot; Program Pemeriksaan</div><h3 id="idlgStrukturP2Title">Struktur Konsep P2 Terinci</h3></div><div class="pdlg-act"><button type="button" class="pdlg-x" aria-label="Tutup dialog">Tutup &times;</button></div></div>
+    <div class="pdlg-body"><p class="spi-intro"><b>Status:</b> konsep LHPP dan P2 telah disusun. Finalisasi menunggu pemutakhiran risiko, materialitas, sampel, pembagian tugas, dan arahan penanggung jawab.</p>
+      <div class="spi-table-wrap"><table class="spi-table"><thead><tr><th>Subaspek Pengujian</th><th>Fokus</th><th>Contoh Prosedur Utama</th></tr></thead><tbody>
+        <tr><td>Kepastian batas dan status hukum</td><td>Penunjukan, penataan batas, pemetaan, penetapan</td><td>Rekonsiliasi keputusan, BATB, koordinat, register, IGT, dan kondisi fisik.</td></tr>
+        <tr><td>Informasi geospasial tematik</td><td>Keakuratan, kemutakhiran, konsistensi</td><td>Uji metadata, versi, topologi, perhitungan luas, dan pemutakhiran.</td></tr>
+        <tr><td>Perencanaan pengelolaan</td><td>IPK, zona/blok, RPJP, rencana tahunan</td><td>Uji kelengkapan, pengesahan, keterkaitan risiko, kegiatan, dan anggaran.</td></tr>
+        <tr><td>Patroli SMART</td><td>Cakupan dan prioritas pengamanan</td><td>Analisis jalur/titik patroli terhadap grid kawasan dan peta kerawanan.</td></tr>
+        <tr><td>Bidang tanah bersertipikat</td><td>Identifikasi, verifikasi, penyelesaian</td><td>Rekonsiliasi dengan ATR/BPN dan telusur status penyelesaian per bidang.</td></tr>
+        <tr><td>Kerja sama strategis</td><td>Dasar legal, areal, kegiatan, kewajiban</td><td>Uji perjanjian, peta, kondisi eksisting, pelaksanaan, dan pemantauan.</td></tr>
+      </tbody></table></div>
     </div>
   </dialog>
 
@@ -799,98 +1149,121 @@
         <h2>LAPORAN DUAMINGGUAN KE-2</h2>
         <div class="per-row">
           <div class="per">Periode 02: 31 Agustus &ndash; 11 September 2026</div>
-          <div class="per-switch">
-            <button type="button" class="per-switch-btn" aria-haspopup="true" aria-expanded="false" aria-label="Pilih periode lain">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-            </button>
-            <div class="per-menu" role="menu" aria-label="Pilih periode Lapduming">
-              <button type="button" data-p="1" role="menuitem">Periode 01 &middot; 18&ndash;28 Agustus 2026</button>
-              <button type="button" class="on" data-p="2" role="menuitem">Periode 02 &middot; 31 Agustus&ndash;11 September 2026</button>
-            </div>
-          </div>
+          <nav class="per-badges" aria-label="Pilih periode Lapduming">
+            <button type="button" data-p="1" aria-label="Periode 01: 18 sampai 28 Agustus 2026">P1</button>
+            <button type="button" class="on" data-p="2" aria-label="Periode 02: 31 Agustus sampai 11 September 2026" aria-current="page">P2</button>
+            <button type="button" data-p="3" aria-label="Periode 03: 14 sampai 25 September 2026">P3</button>
+          </nav>
         </div>
       </div>
       <div class="re-desc">Pemeriksaan Pendahuluan atas Kepatuhan Pengukuhan dan Pengelolaan Kawasan Hutan Konservasi Tahun 2021 s.d. 2025 pada Kementerian Kehutanan serta Instansi Terkait Lainnya di Provinsi DKI Jakarta, Nusa Tenggara Barat, Jawa Timur, dan Jawa Barat</div>
     </div>
   </header>
 
-  <main class="sheet">
-    <section class="re-empty">
-      <span class="re-empty-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/><path d="M12 12.5v3.5M10.3 14.2h3.4"/></svg></span>
-      <h3>Lapduming ke-2 belum diterbitkan</h3>
-      <p>Periode 31 Agustus &ndash; 11 September 2026 (Minggu ke-3 &amp; ke-4). Pemeriksaan pendahuluan masih berjalan; ringkasan eksekutif periode ini akan tersedia setelah periode dilaporkan.</p>
-      <button type="button" class="re-empty-btn" data-goto="1">&larr; Lihat Ringkasan Periode 01</button>
-    </section>
-  </main>
+  <main class="sheet" data-clone-ringkasan></main>
 
   <!-- ============ FOOTER (full-bleed, di luar .sheet) ============ -->
   <footer class="re-foot">
     <span><b>BPK RI</b><span class="sep">|</span>Mengawal Pengelolaan Keuangan Negara untuk Mewujudkan Tujuan Negara</span>
-    <span class="re-sign">Periode berjalan<span class="sep">·</span>Pengendali Teknis<span class="sep">&mdash;</span><b>Sudarmadi</b></span>
+    <span class="re-sign">Jakarta, 12 September 2026<span class="sep">·</span>Pengendali Teknis<span class="sep">&mdash;</span><b>Sudarmadi</b></span>
     <span><i>Hutan Terjaga, Kehidupan Berkelanjutan</i></span>
   </footer>
 </div><!-- /periode 02 -->
 
+<!-- ================= PERIODE 03 ================= -->
+<div class="periode" data-p="3" hidden>
+  <header class="re-head">
+    <div class="re-top">
+      <div class="re-nav"><a class="home-fab" href="index.html" aria-label="Kembali ke Beranda"><span class="hf-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 17l-5-5 5-5M18 12H8"/></svg></span><span class="hf-tx">Beranda</span></a></div>
+      <div class="re-title">
+        <h1>RINGKASAN EKSEKUTIF</h1>
+        <h2>LAPORAN DUAMINGGUAN KE-3</h2>
+        <div class="per-row">
+          <div class="per">Periode 03: 14 s.d. 25 September 2026</div>
+          <nav class="per-badges" aria-label="Pilih periode Lapduming">
+            <button type="button" data-p="1" aria-label="Periode 01: 18 sampai 28 Agustus 2026">P1</button>
+            <button type="button" data-p="2" aria-label="Periode 02: 31 Agustus sampai 11 September 2026">P2</button>
+            <button type="button" class="on" data-p="3" aria-label="Periode 03: 14 sampai 25 September 2026" aria-current="page">P3</button>
+          </nav>
+        </div>
+      </div>
+      <div class="re-desc">Pemeriksaan Pendahuluan atas Kepatuhan Pengukuhan dan Pengelolaan Kawasan Hutan Konservasi Tahun 2021 s.d. 2025 pada Kementerian Kehutanan serta Instansi Terkait Lainnya di Provinsi DKI Jakarta, Nusa Tenggara Barat, Jawa Timur, dan Jawa Barat</div>
+    </div>
+  </header>
+  <main class="sheet" data-clone-ringkasan></main>
+  <footer class="re-foot"><span><b>BPK RI</b><span class="sep">|</span>Mengawal Pengelolaan Keuangan Negara untuk Mewujudkan Tujuan Negara</span><span class="re-sign">Jakarta, 26 September 2026<span class="sep">·</span>Pengendali Teknis<span class="sep">&mdash;</span><b>Sudarmadi</b></span><span><i>Hutan Terjaga, Kehidupan Berkelanjutan</i></span></footer>
+</div><!-- /periode 03 -->
+
 <script>
+  /* Duplikasi ringkasan Periode 01 untuk Periode 02 dan 03 tanpa menggandakan dialog/ID. */
+  (function(){
+    var source=document.querySelector('.periode[data-p="1"] main.sheet > section');
+    if(source){
+      [].slice.call(document.querySelectorAll('main[data-clone-ringkasan]')).forEach(function(main){
+        main.appendChild(source.cloneNode(true));
+      });
+    }
+    /* Dialog dipakai bersama oleh ketiga periode dan harus berada di luar elemen periode yang disembunyikan. */
+    [].slice.call(document.querySelectorAll('.periode[data-p="1"] dialog')).forEach(function(d){document.body.appendChild(d);});
+  })();
+
+  /* Isi setiap kartu disesuaikan dengan capaian kumulatif pada Lapduming 1, 2, dan 3. */
+  (function(){
+    function grp(label,icon,content){return '<div class="tp-h-grp"><span class="tp-h-grp-lbl"><svg><use href="#'+icon+'"/></svg>'+label+'</span>'+content+'</div>';}
+    function chips(items){return '<div class="tp-h-chips">'+items.map(function(x){return '<span class="tp-h-chip'+(x[1]?' '+x[1]:'')+'">'+x[0]+'</span>';}).join('')+'</div>';}
+    function stats(items){return '<div class="tp-h-stats">'+items.map(function(x){return '<span class="tp-h-stat"><b>'+x[0]+'</b><span>'+x[1]+'</span></span>';}).join('')+'</div>';}
+    function dialogs(items,label){return '<nav class="tp-h-dialogs" aria-label="'+label+'">'+items.map(function(x){return '<a class="tp-h-chip tp-h-chip--link" href="#idlg'+x[0].charAt(0).toUpperCase()+x[0].slice(1)+'" data-idlg="'+x[0]+'" aria-haspopup="dialog">'+x[1]+'</a>';}).join('')+'</nav>';}
+    function setCard(p,n,pct,html,extraClass){
+      var period=document.querySelector('.periode[data-p="'+p+'"]'), cards=period&&period.querySelectorAll('.tp-g');
+      if(!cards||!cards[n-1]) return;
+      var card=cards[n-1]; card.setAttribute('data-pct',pct); card.classList.remove('tp-t5','tp-t6','tp-t789');
+      if(extraClass) extraClass.split(' ').forEach(function(c){card.classList.add(c);});
+      var body=card.querySelector('.tp-h-showcase'); if(body) body.innerHTML=html;
+    }
+    function setTotal(p,value){var el=document.querySelector('.periode[data-p="'+p+'"] .tp-ph-tail'); if(el) el.innerHTML='<svg><use href="#i-check"/></svg>Total '+value+'%';}
+
+    /* PERIODE 01 — Lapduming ke-1: pemahaman awal, indikasi, dan pekerjaan lanjutan. */
+    setCard(1,5,24,grp('Status','i-gear',chips([['Pemahaman Awal Diperoleh','tp-h-chip--status'],['Efektivitas Belum Disimpulkan','tp-h-chip--pending']]))+grp('Hasil','i-chart',stats([['7','Kelompok Analisis'],['2','Siklus Bisnis']]))+dialogs([['petaSpi','Lihat Peta SPI'],['risikoSpi','Lihat Risiko & Pengendalian']], 'Detail pemahaman SPI'),'tp-t5');
+    setCard(1,6,21,grp('Status','i-info',chips([['Belum Ditetapkan','tp-h-chip--pending']]))+grp('Bahan Awal','i-pie',chips([['Besaran/Luas'],['Dampak Hukum'],['Dampak Ekologis']])));
+    setCard(1,7,26,grp('Indikasi Utama','i-warn',chips([['E.1 Pengukuhan','tp-h-chip--risk'],['E.2 Pengelolaan','tp-h-chip--risk']]))+grp('Status','i-info',chips([['Perlu Validasi & Konfirmasi','tp-h-chip--pending']])));
+    setCard(1,8,20,grp('Status','i-info',chips([['Belum Ditetapkan','tp-h-chip--pending']]))+grp('Calon Dasar Sampel','i-search',chips([['Risiko'],['Materialitas'],['Ketersediaan Bukti']])));
+    setCard(1,9,22,grp('Status','i-doc',chips([['Belum Disusun','tp-h-chip--pending']]))+grp('Tahap Berikutnya','i-map',chips([['Validasi Data'],['Materialitas'],['Uji Petik'],['P2 Terinci']])));
+    setTotal(1,23);
+
+    /* PERIODE 02 — Lapduming ke-2: analisis pengukuhan, fisik Jawa Barat, konsep LHPP/P2. */
+    setCard(2,5,55,grp('Hasil SPI','i-gear',chips([['Pengendalian Dipetakan','tp-h-chip--status'],['Indikasi Kelemahan Diperbarui']]))+grp('Bukti Utama','i-chart',stats([['23','SK Penetapan Dianalisis'],['116','Bidang TWA G. Pancar']]))+dialogs([['petaSpi','Lihat Peta SPI'],['risikoSpi','Lihat Risiko & Pengendalian']], 'Detail pemahaman SPI'),'tp-t5');
+    setCard(2,6,40,grp('Status','i-info',chips([['Konsep Materialitas Disusun','tp-h-chip--status'],['Belum Final','tp-h-chip--pending']]))+grp('Dasar','i-pie',chips([['Selisih Spasial'],['Bidang Tanah'],['Dampak Kepatuhan']]))+dialogs([['dasarMaterialitas','Lihat Dasar Materialitas'],['kesimpulanMaterialitas','Lihat Kesimpulan Materialitas']], 'Detail materialitas'),'tp-t6');
+    setCard(2,7,50,grp('Risiko Signifikan','i-warn',chips([['Ketidaksesuaian Batas'],['Penguasaan Lahan'],['Pemanfaatan Tanpa Izin']]))+grp('Bukti','i-map',stats([['23','SK Dianalisis'],['8','Lokasi Fisik']]))+dialogs([['petaRisiko','Lihat Peta Risiko'],['kesimpulanRisiko','Lihat Kesimpulan Risiko']], 'Detail risiko'),'tp-t789');
+    setCard(2,8,45,grp('Uji Petik Terlaksana','i-search',chips([['23 SK Penetapan'],['8 Entitas/Lokasi'],['116 Bidang Tanah']]))+grp('Status','i-info',chips([['Sampel Terinci Belum Final','tp-h-chip--pending']]))+dialogs([['metodeUjiPetik','Lihat Metode Uji Petik'],['fokusUjiPetik','Lihat Fokus Sampel']], 'Detail uji petik'),'tp-t789');
+    setCard(2,9,50,grp('Dokumen','i-doc',chips([['Konsep LHPP Disusun','tp-h-chip--status'],['Konsep P2 Terinci Disusun','tp-h-chip--status']]))+grp('Menunggu','i-info',chips([['Arahan PJ/WPJ','tp-h-chip--pending']]))+dialogs([['strategiPemeriksaan','Lihat Strategi Pemeriksaan'],['strukturP2','Lihat Struktur P2']], 'Detail strategi dan P2'),'tp-t789');
+    setTotal(2,35);
+
+    /* PERIODE 03 — Lapduming ke-3: pematangan lingkup perlindungan dan enam subaspek. */
+    setCard(3,5,80,grp('Status','i-gear',chips([['Desain Pengendalian Dipahami','tp-h-chip--status'],['Efektivitas Perlu Diuji','tp-h-chip--pending']]))+grp('Fokus','i-chart',chips([['Batas & Status'],['IGT'],['Perencanaan'],['Patroli'],['Bidang Tanah'],['Kerja Sama']]))+dialogs([['petaSpi','Lihat Peta SPI'],['kesimpulanSpi','Lihat Kesimpulan']], 'Detail pemahaman SPI'),'tp-t5');
+    setCard(3,6,70,grp('Status','i-info',chips([['Materialitas Awal Disusun','tp-h-chip--status'],['Dinilai Ulang','tp-h-chip--pending']]))+grp('Dasar','i-pie',chips([['Hukum'],['Ekologis'],['Sosial'],['Keluasan']]))+dialogs([['dasarMaterialitas','Lihat Dasar Materialitas'],['kesimpulanMaterialitas','Lihat Kesimpulan Materialitas']], 'Detail materialitas'),'tp-t6');
+    setCard(3,7,85,grp('Risiko Prioritas','i-warn',chips([['Batas/Status'],['IGT'],['Perencanaan'],['Patroli'],['Tenurial'],['Kerja Sama']]))+grp('Status','i-info',chips([['Profil Risiko Dimatangkan','tp-h-chip--status']]))+dialogs([['petaRisiko','Lihat Peta Risiko'],['kesimpulanRisiko','Lihat Kesimpulan Risiko']], 'Detail risiko'),'tp-t789');
+    setCard(3,8,75,grp('Kerangka Sampel','i-search',chips([['Berbasis Risiko'],['Materialitas'],['Keterwakilan Fungsi']]))+grp('Uji Petik NTB','i-map',chips([['Batas Kawasan'],['Patroli SMART'],['Konflik Tenurial'],['Kerja Sama']]))+dialogs([['metodeUjiPetik','Lihat Metode Uji Petik'],['fokusUjiPetik','Lihat Fokus Sampel']], 'Detail uji petik'),'tp-t789');
+    setCard(3,9,80,grp('Status','i-doc',chips([['Konsep LHPP & P2 Disusun','tp-h-chip--status'],['Finalisasi Berlanjut','tp-h-chip--pending']]))+grp('Arah Pemeriksaan','i-target',chips([['Perlindungan Kawasan'],['6 Subaspek'],['Uji Data + Dokumen + Fisik']]))+dialogs([['strategiPemeriksaan','Lihat Strategi Pemeriksaan'],['strukturP2','Lihat Struktur P2']], 'Detail strategi dan P2'),'tp-t789');
+    setTotal(3,50);
+  })();
+
   /* ---------- pilih periode ---------- */
   (function(){
-    var tabs = [].slice.call(document.querySelectorAll('.per-menu button[data-p]'));
+    var tabs = [].slice.call(document.querySelectorAll('.per-badges button[data-p]'));
     var periods = [].slice.call(document.querySelectorAll('.periode[data-p]'));
-    var switches = [].slice.call(document.querySelectorAll('.per-switch'));
     if(!tabs.length) return;
-
-    // pasangan {btn, menu}: .per-menu dipindah jadi anak langsung <body> (position:fixed)
-    // supaya tidak ikut terpotong oleh overflow:hidden pada .re-head; posisi dihitung ulang
-    // relatif ke tombolnya tiap kali dibuka.
-    var pairs = switches.map(function(s){
-      var btn = s.querySelector('.per-switch-btn');
-      var menu = s.querySelector('.per-menu');
-      if(menu) document.body.appendChild(menu);
-      return {sw:s, btn:btn, menu:menu};
-    }).filter(function(x){ return x.btn && x.menu; });
-
-    function closeAll(){
-      pairs.forEach(function(x){
-        x.sw.classList.remove('open');
-        x.btn.setAttribute('aria-expanded','false');
-        x.menu.classList.remove('open');
-      });
-    }
-    function positionMenu(btn, menu){
-      var r=btn.getBoundingClientRect();
-      var mw=menu.offsetWidth || 240;
-      var left=Math.min(r.left, window.innerWidth - mw - 12);
-      left=Math.max(12, left);
-      menu.style.left=left+'px';
-      menu.style.top=(r.bottom+8)+'px';
-    }
-    pairs.forEach(function(x){
-      x.btn.addEventListener('click', function(e){
-        e.stopPropagation();
-        var willOpen = !x.sw.classList.contains('open');
-        closeAll();
-        if(willOpen){
-          x.sw.classList.add('open');
-          x.btn.setAttribute('aria-expanded','true');
-          positionMenu(x.btn, x.menu);
-          x.menu.classList.add('open');
-        }
-      });
-      x.menu.addEventListener('click', function(e){ e.stopPropagation(); });
-    });
-    document.addEventListener('click', closeAll);
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(); });
-    window.addEventListener('resize', closeAll);
-    window.addEventListener('scroll', closeAll, {passive:true});
 
     function show(p){
       p = String(p);
       periods.forEach(function(el){ el.hidden = el.getAttribute('data-p') !== p; });
-      tabs.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-p') === p); });
+      tabs.forEach(function(b){
+        var active=b.getAttribute('data-p') === p;
+        b.classList.toggle('on',active);
+        if(active) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current');
+      });
       document.title = 'Periode 0' + p + ' — Ringkasan Eksekutif Lapduming';
       try { history.replaceState(null, '', p === '1' ? location.pathname : location.pathname + '?p=' + p); } catch(e){}
       window.scrollTo(0, 0);
-      closeAll();
     }
     tabs.forEach(function(b){ b.addEventListener('click', function(){ show(b.getAttribute('data-p')); }); });
     [].slice.call(document.querySelectorAll('[data-goto]')).forEach(function(b){
@@ -901,18 +1274,38 @@
   })();
 
   (function(){
-    var pd=document.getElementById('pdlg'),obj=document.getElementById('pdlgObj'),btn=document.getElementById('openDoc');
+    var pd=document.getElementById('pdlg'),obj=document.getElementById('pdlgObj'),btns=[].slice.call(document.querySelectorAll('.openDoc'));
     var SRC='assets/A5.1-tujuan-dan-harapan-penugasan.pdf#view=FitH';
     function close(){ if(typeof pd.close==='function') pd.close(); else pd.removeAttribute('open'); }
-    if(btn) btn.addEventListener('click',function(){
+    btns.forEach(function(btn){btn.addEventListener('click',function(){
       if(obj.getAttribute('data')!==SRC) obj.setAttribute('data',SRC);
       if(typeof pd.showModal==='function') pd.showModal(); else pd.setAttribute('open','');
+    });
     });
     document.getElementById('pdlgX').addEventListener('click',close);
     pd.addEventListener('click',function(e){
       if(e.target!==pd) return;
       var r=pd.getBoundingClientRect();
       if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom) close();
+    });
+  })();
+
+  /* kartu ber-data-idlg membuka dialog gambar, bukan pindah halaman */
+  (function(){
+    [].slice.call(document.querySelectorAll('[data-idlg]')).forEach(function(card){
+      var d=document.getElementById('idlg'+card.getAttribute('data-idlg').replace(/^./,function(c){return c.toUpperCase();}));
+      if(!d) return;
+      function close(){ if(typeof d.close==='function') d.close(); else d.removeAttribute('open'); }
+      card.addEventListener('click',function(e){
+        e.preventDefault();
+        if(typeof d.showModal==='function') d.showModal(); else d.setAttribute('open','');
+      });
+      d.querySelector('.pdlg-x').addEventListener('click',close);
+      d.addEventListener('click',function(e){
+        if(e.target!==d) return;
+        var r=d.getBoundingClientRect();
+        if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom) close();
+      });
     });
   })();
 

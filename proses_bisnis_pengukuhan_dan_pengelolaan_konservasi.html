@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proses Bisnis Pengukuhan dan Pengelolaan Konservasi — Ditjen KSDAE 2026</title>
+<meta name="description" content="Kerangka kriteria dan peta hubungan regulasi proses bisnis pengukuhan kawasan hutan konservasi dan pengelolaan KSA/KPA, dari 42 peraturan dan Laporan Kinerja Ditjen KSDAE 2021-2025.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Archivo:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PROSES BISNIS PENGUKUHAN & PENGELOLAAN KONSERVASI
+   Palet & tipografi mengikuti periode.html (rust / cream / espresso)
+   Shell: topbar + sidebar kiri (nav tree) · Konten kanan
+   ============================================================ */
+:root{
+  /* palet — disinkronkan dengan periode.html */
+  --navy:#5a1e0a; --navy-2:#43140a; --navy-3:#331009;
+  --green:#3f7a4e; --green-2:#2f5c3b; --green-bg:#ecf1e6; --green-line:#d0e0c7;
+  --rust:#c2410c; --rust-2:#9a3412; --rust-bg:#fbe8dc; --rust-line:#f3d5bf;
+  --gold:#e0982f; --gold-ink:#8c5410; --gold-2:#f2c879;
+  --plum:#9a5b3b; --plum-2:#7a4227; --plum-bg:#f4ece2; --plum-line:#e7d6c5;
+  --tan-bg:#fdf1e2; --tan-line:#f0dcbd;
+
+  --ink:#241b17; --ink-2:#3d2c22; --muted:#75665e; --faint:#9a8a7e;
+  --paper:#f5efe7; --card:#fffdf8; --line:#e7dccd; --line-2:#f0e7d9;
+
+  /* alias accent yang dipakai inline style pada markup */
+  --teal:#3f7a4e;        /* Domain A  */
+  --emerald:#c2410c;     /* Domain B  */
+  --c-accent:var(--rust); --c-ink:var(--rust-2); --c-soft:rgba(194,65,12,.10);
+
+  --sh-xs:0 1px 2px rgba(58,26,8,.06);
+  --sh-sm:0 3px 12px rgba(58,26,8,.07);
+  --sh:0 12px 34px rgba(58,26,8,.10);
+  --sh-lg:0 28px 70px rgba(58,26,8,.18);
+
+  --display:"Oswald","Archivo","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+  --sans:"Archivo",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+
+  --rail:322px;
+  --bar:64px;
+}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 22px);-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);background:var(--paper);
+  font-family:var(--sans);font-size:16px;line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 94% -6%,rgba(194,65,12,.09),transparent 34rem),
+    radial-gradient(circle at 2% 104%,rgba(224,152,47,.10),transparent 30rem);
+  background-repeat:no-repeat;
+}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+::selection{background:rgba(194,65,12,.22)}
+img{max-width:100%}
+
+/* ─── scrollbar ─────────────────────────────────────────── */
+.sidebar ::-webkit-scrollbar,.main ::-webkit-scrollbar,
+.navtree ::-webkit-scrollbar{width:9px;height:9px}
+.sidebar ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:9px}
+.sidebar ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3)}
+.main ::-webkit-scrollbar-thumb{background:rgba(90,30,10,.18);border-radius:9px}
+.main ::-webkit-scrollbar-thumb:hover{background:rgba(90,30,10,.34)}
+
+/* ============================================================
+   PROGRESS BAR + SCRIM
+   ============================================================ */
+.prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:70;
+  background:linear-gradient(90deg,var(--rust),var(--gold) 60%,var(--green));
+  box-shadow:0 0 12px rgba(194,65,12,.5)}
+.scrim{display:none;position:fixed;inset:0;z-index:54;
+  background:rgba(51,16,9,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+body.drawer-open .scrim{display:block}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar{
+  position:fixed;inset:0 0 auto 0;z-index:60;height:var(--bar);
+  display:flex;align-items:center;gap:12px;padding:0 18px;
+  background:rgba(255,253,248,.86);backdrop-filter:blur(16px) saturate(1.5);
+  -webkit-backdrop-filter:blur(16px) saturate(1.5);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 6px 22px rgba(58,26,8,.05);
+}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex:0 1 auto;min-width:0;
+  padding:5px 10px 5px 5px;border-radius:12px;transition:background .15s ease}
+.brand:hover{background:rgba(194,65,12,.07)}
+.brand .blogo{width:36px;height:36px;flex:none;border-radius:11px;padding:8px;
+  background:linear-gradient(140deg,var(--navy) 0%,var(--navy-3) 100%);
+  box-shadow:0 5px 14px rgba(58,26,8,.28),inset 0 1px 0 rgba(255,255,255,.2)}
+.brand .blogo path{fill:none;stroke:var(--gold-2);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.brand span{min-width:0;display:block}
+.brand b{display:block;font-family:var(--display);font-weight:600;font-size:15px;line-height:1.15;
+  letter-spacing:.02em;color:var(--navy-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;font-size:10.5px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spacer{flex:1 1 auto;min-width:0}
+
+.search{position:relative;display:flex;align-items:center;flex:0 1 340px;min-width:0}
+.search svg{position:absolute;left:12px;width:15px;height:15px;fill:none;
+  stroke:var(--muted);stroke-width:2;pointer-events:none}
+.search input{
+  width:100%;height:38px;padding:0 36px;border-radius:99px;
+  border:1px solid var(--line);background:var(--card);outline:0;
+  font-size:13.4px;color:var(--ink);transition:.16s ease;
+}
+.search input::placeholder{color:var(--faint)}
+.search input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,152,47,.2)}
+.qclear{display:none;position:absolute;right:7px;width:24px;height:24px;place-items:center;
+  border:0;border-radius:50%;background:rgba(194,65,12,.1);color:var(--rust-2);
+  font-size:13px;line-height:1;cursor:pointer}
+.qclear:hover{background:rgba(194,65,12,.2)}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;
+  border-radius:99px;text-decoration:none;white-space:nowrap;cursor:pointer;
+  font-family:var(--display);font-weight:500;font-size:12.5px;letter-spacing:.05em;
+  text-transform:uppercase;transition:.16s ease}
+.btn.ghost{border:1px solid var(--line);background:var(--card);color:var(--ink-2)}
+.btn.ghost:hover{border-color:var(--navy);color:var(--navy-2);transform:translateY(-1px);box-shadow:var(--sh-xs)}
+.iconbtn{display:grid;place-items:center;width:38px;height:38px;flex:none;
+  border:1px solid var(--line);border-radius:12px;background:var(--card);
+  color:var(--ink-2);font-size:17px;line-height:1;cursor:pointer;transition:.16s ease}
+.iconbtn:hover{border-color:var(--navy);color:var(--navy-2);transform:translateY(-1px);box-shadow:var(--sh-xs)}
+.iconbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.drawer-only{display:none}
+@media(max-width:1100px){.drawer-only{display:grid}}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar{
+  position:fixed;z-index:55;top:var(--bar);bottom:0;left:0;width:var(--rail);
+  display:flex;flex-direction:column;color:#f0e2d3;isolation:isolate;
+  background:linear-gradient(178deg,var(--navy) 0%,var(--navy-2) 46%,var(--navy-3) 100%);
+  box-shadow:6px 0 40px rgba(58,26,8,.20);
+}
+.sidebar:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;
+  background:
+    radial-gradient(360px 260px at 108% 2%,rgba(242,200,121,.20),transparent 68%),
+    radial-gradient(320px 300px at -18% 82%,rgba(194,65,12,.26),transparent 66%),
+    repeating-linear-gradient(115deg,transparent 0 30px,rgba(255,255,255,.02) 30px 31px)}
+.sidebar>*{position:relative;z-index:1}
+
+.sb-head{display:flex;align-items:center;gap:10px;padding:16px 18px 13px;
+  border-bottom:1px solid rgba(255,255,255,.1)}
+.sb-eyebrow{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);
+  font-weight:500;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-2)}
+.sb-eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--gold-2);box-shadow:0 0 0 3px rgba(242,200,121,.2)}
+.sb-head .iconbtn{margin-left:auto;width:30px;height:30px;border-radius:9px;
+  background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.18);color:#fff;font-size:15px}
+.sb-head .iconbtn:hover{background:rgba(255,255,255,.24)}
+
+.navtree{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 10px 24px}
+
+.ngroup{margin:0 0 7px;border-radius:12px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.028)}
+.ngroup-h{display:flex;align-items:center;gap:9px;width:100%;padding:10px 11px;
+  border:0;background:transparent;color:#f6ece1;cursor:pointer;text-align:left;
+  font-family:var(--display);font-weight:500;font-size:12.8px;line-height:1.3;letter-spacing:.015em;
+  transition:background .15s ease}
+.ngroup-h:hover{background:rgba(255,255,255,.08)}
+.ngroup-h>span:first-child{flex:1;min-width:0}
+.ngroup-h .chev{flex:none;width:14px;height:14px;font-size:15px;line-height:1;
+  color:var(--gold-2);transition:transform .2s ease;transform:rotate(90deg)}
+.ngroup.closed .ngroup-h .chev{transform:rotate(0deg)}
+.ngroup-h .ncount{flex:none;min-width:20px;height:19px;padding:0 6px;border-radius:6px;
+  display:grid;place-items:center;font-family:var(--sans);font-size:10.5px;font-weight:700;
+  background:rgba(242,200,121,.2);color:var(--gold-2)}
+.ngroup-b{display:none;padding:2px 6px 8px}
+.ngroup:not(.closed)>.ngroup-b{display:block}
+
+.nlink{display:flex;align-items:flex-start;gap:8px;width:100%;padding:6px 9px;margin:1px 0;
+  border:0;border-radius:8px;background:transparent;text-decoration:none;cursor:pointer;
+  color:rgba(240,226,211,.78);font-size:12.7px;line-height:1.42;transition:.14s ease}
+.nlink:hover{background:rgba(255,255,255,.09);color:#fff}
+.nlink .ntag{flex:none;min-width:24px;height:19px;padding:0 5px;border-radius:5px;
+  display:grid;place-items:center;font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.01em;
+  background:rgba(255,255,255,.1);color:rgba(240,226,211,.8)}
+.nlink .ntxt{flex:1;min-width:0}
+.nlink.l1{font-weight:700;color:#f6ece1;font-size:12.9px;padding-top:7px}
+.nlink.l1 .ntag{background:var(--gold);color:#2a1206}
+.nlink.l2{padding-left:11px}
+.nlink.l2 .ntag{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(240,226,211,.72);min-width:22px}
+.nlink.active{background:rgba(242,200,121,.18);color:#fff;box-shadow:inset 0 0 0 1px rgba(242,200,121,.3)}
+.nlink.active .ntag{background:var(--gold);color:#2a1206}
+.nlink.active:before{content:"";position:absolute;left:0;width:3px;align-self:stretch;
+  border-radius:0 3px 3px 0;background:var(--gold-2)}
+.ngroup-b>.nlink{position:relative}
+.ngroup-b>.nlink.l2:before{content:"";position:absolute;left:4px;top:50%;width:5px;height:1.5px;
+  border-radius:2px;background:rgba(255,255,255,.22)}
+.ngroup-b>.nlink.l2.active:before{background:var(--gold-2);width:7px}
+
+.sb-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:11px 18px 14px;border-top:1px solid rgba(255,255,255,.1);
+  font-family:var(--display);font-weight:500;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:rgba(240,226,211,.55)}
+.sb-foot .mono{font-family:var(--mono);font-size:10.5px;color:var(--gold-2)}
+
+/* ============================================================
+   MAIN / WRAP
+   ============================================================ */
+.main{margin-left:var(--rail);padding-top:var(--bar);min-width:0}
+.wrap{max-width:1120px;margin:0 auto;padding:26px 38px 110px}
+
+/* ─── HERO (landing page) ─── */
+.hero{position:relative;overflow:hidden;isolation:isolate;border-radius:22px;
+  padding:clamp(28px,4vw,50px);color:#f8efe4;
+  background:
+    linear-gradient(104deg,#320f05 0%,#54190a 34%,rgba(122,52,20,.84) 58%,rgba(168,78,32,.6) 80%,rgba(206,116,54,.44) 100%),
+    url('assets/hero-konservasi-orange.png') center right/cover no-repeat,
+    #4a1608;
+  box-shadow:var(--sh-lg)}
+.hero:before{content:"";position:absolute;inset:0;z-index:0;opacity:.4;mix-blend-mode:soft-light;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='360'%3E%3Cg fill='none' stroke='%23e6f0f8' stroke-width='1.1'%3E%3Cpath d='M-20,52C140,12 300,90 580,34'/%3E%3Cpath d='M-20,96C140,56 290,132 580,76'/%3E%3Cpath d='M-20,146C160,102 310,180 580,118'/%3E%3Cpath d='M-20,204C160,158 290,240 580,176'/%3E%3Cpath d='M-20,260C140,216 310,304 580,238'/%3E%3Cpath d='M-20,314C140,272 290,346 580,294'/%3E%3C/g%3E%3C/svg%3E") right center/600px auto no-repeat}
+.hero:after{content:"";position:absolute;right:-80px;top:-40px;z-index:0;width:340px;height:130px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle,transparent 60%,rgba(255,255,255,.10) 61%,rgba(255,255,255,.10) 64%,transparent 65%),
+    radial-gradient(circle at 58% 42%,rgba(226,167,46,.16),transparent 62%)}
+.hero-in{position:relative;z-index:1;max-width:830px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;
+  border:1px solid rgba(242,200,121,.34);border-radius:99px;background:rgba(242,200,121,.12);
+  font-family:var(--display);font-weight:500;font-size:10.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--gold-2)}
+.eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--gold-2);font-style:normal;
+  box-shadow:0 0 0 3px rgba(242,200,121,.22)}
+.hero h1{margin:0 0 16px;font-family:var(--display);font-weight:700;letter-spacing:.005em;
+  font-size:clamp(28px,4.4vw,50px);line-height:1.06;color:#fff;
+  text-shadow:0 2px 14px rgba(0,0,0,.32)}
+.hero h1 em{font-style:normal;color:var(--gold-2)}
+.hero .lede{margin:0 0 24px;max-width:720px;font-size:16.2px;line-height:1.68;
+  color:rgba(248,239,228,.86);text-shadow:0 1px 8px rgba(0,0,0,.3)}
+.hero .lede b{color:var(--gold-2);font-weight:700}
+.hero .lede code.mono{background:rgba(255,255,255,.14);color:#fff}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px}
+.hero-tags span{padding:7px 13px;border-radius:10px;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.14);font-size:12.2px;font-weight:500;color:rgba(250,242,233,.9)}
+.hero-tags span b{font-family:var(--display);font-weight:600;color:var(--gold-2)}
+
+/* ============================================================
+   HEADING
+   ============================================================ */
+h2.h2{position:relative;margin:64px 0 18px;padding:20px 0 0;
+  border-top:2px solid var(--line);
+  font-family:var(--display);font-weight:600;letter-spacing:.005em;
+  font-size:clamp(24px,3.2vw,34px);line-height:1.1;color:var(--navy-2);
+  scroll-margin-top:calc(var(--bar) + 20px)}
+h2.h2:before{content:"";position:absolute;left:0;top:-2px;width:84px;height:2px;
+  background:linear-gradient(90deg,var(--c-accent,var(--rust)),transparent)}
+h2.h2 .tagno{display:block;margin-bottom:8px;font-family:var(--display);font-weight:500;
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--c-accent,var(--rust))}
+h2.h2 .h2row{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+h2.h2 .h2row>span:first-child{flex:0 1 auto}
+h2.h2 .sub{flex:1 1 260px;min-width:220px;margin:0;font-family:var(--sans);font-weight:400;
+  font-size:14.2px;line-height:1.6;color:var(--muted);letter-spacing:0}
+h2.h2 .badge{flex:none;padding:6px 13px;border-radius:99px;font-family:var(--display);
+  font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  background:color-mix(in srgb,var(--c-accent,var(--rust)) 12%,var(--card));
+  border:1px solid color-mix(in srgb,var(--c-accent,var(--rust)) 30%,var(--line));
+  color:color-mix(in srgb,var(--c-accent,var(--rust)) 76%,var(--navy-2));white-space:nowrap}
+
+h3.h3{margin:42px 0 14px;scroll-margin-top:calc(var(--bar) + 20px);
+  font-family:var(--display);font-weight:600;font-size:clamp(19px,2.3vw,25px);
+  line-height:1.18;letter-spacing:.008em;color:var(--navy)}
+h3.h3 .h3no{display:inline-block;margin-right:10px;padding:3px 10px;border-radius:7px;
+  vertical-align:2px;font-family:var(--sans);font-size:12.5px;font-weight:700;letter-spacing:0;
+  background:color-mix(in srgb,var(--c-accent,var(--rust)) 11%,var(--card));
+  border:1px solid color-mix(in srgb,var(--c-accent,var(--rust)) 26%,var(--line));
+  color:color-mix(in srgb,var(--c-accent,var(--rust)) 80%,var(--navy-2))}
+h3.h3 .h3sub{display:block;margin-top:9px;font-family:var(--sans);font-weight:400;
+  font-size:14px;line-height:1.6;color:var(--muted);letter-spacing:0;max-width:78ch}
+
+h4.h4{margin:34px 0 12px;scroll-margin-top:calc(var(--bar) + 20px);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--navy-2)}
+h4.h4:before{content:"";width:16px;height:2.5px;border-radius:2px;flex:none;
+  background:var(--c-accent,var(--rust))}
+h4.h4 .h4tag{padding:2px 9px;border-radius:99px;background:var(--tan-bg);
+  border:1px solid var(--tan-line);color:var(--gold-ink);
+  font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:none}
+
+p{margin:12px 0 14px}
+.lead{font-size:16.2px;line-height:1.72;color:var(--ink-2);max-width:82ch}
+.muted{color:var(--muted)}
+small{font-size:12.4px;line-height:1.6}
+.mono,code{font-family:var(--mono);font-size:.9em}
+code,.mono.mono{padding:1.5px 6px;border-radius:5px;background:var(--tan-bg);
+  color:var(--navy-2);border:1px solid var(--tan-line)}
+
+/* ============================================================
+   GRID / CARD
+   ============================================================ */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh-sm)}
+.block{padding:clamp(18px,2.4vw,26px)}
+.card>h4.h4:first-child{margin-top:0}
+
+/* ============================================================
+   KPI
+   ============================================================ */
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:20px 0 6px}
+.kpi{position:relative;overflow:hidden;padding:17px 16px 15px;border-radius:15px;
+  background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-xs);transition:.2s ease}
+.kpi:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--tan-line)}
+.kpi .kbar{position:absolute;left:0;top:0;height:3px;width:100%;
+  background:linear-gradient(90deg,var(--rust),var(--gold))}
+.kpi.t .kbar{background:linear-gradient(90deg,var(--green),#6ea87c)}
+.kpi.g .kbar{background:linear-gradient(90deg,var(--gold),var(--gold-2))}
+.kpi.i .kbar{background:linear-gradient(90deg,var(--plum),var(--plum-2))}
+.kpi .klabel{display:block;font-family:var(--display);font-weight:500;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.kpi .kval{display:block;font-family:var(--display);font-weight:600;
+  font-size:clamp(21px,2.4vw,29px);line-height:1.02;letter-spacing:.005em;color:var(--navy-2)}
+.kpi .kval .u{font-family:var(--sans);font-size:.42em;font-weight:600;color:var(--muted);
+  letter-spacing:0;margin-left:4px}
+.kpi .kfoot{display:block;margin-top:8px;font-size:11.6px;line-height:1.45;color:var(--muted);
+  overflow-wrap:anywhere}
+
+/* ============================================================
+   RIBBON — 9 PROSES (dibangun JS)
+   ============================================================ */
+.ribbon{margin:20px 0 8px}
+.rbl{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:8px}
+.rb{position:relative;display:flex;flex-direction:column;gap:8px;overflow:hidden;
+  padding:15px 12px 14px;border-radius:14px;text-decoration:none;
+  background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-xs);transition:.2s ease}
+.rb:before{content:"";position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--green),#6ea87c)}
+.rb.b:before{background:linear-gradient(90deg,var(--rust),var(--gold))}
+.rb:hover{transform:translateY(-4px);box-shadow:var(--sh);border-color:var(--tan-line)}
+.rbn{width:27px;height:27px;border-radius:9px;display:grid;place-items:center;flex:none;
+  font-family:var(--display);font-weight:600;font-size:13px;
+  background:var(--green-bg);color:var(--green-2);border:1px solid var(--green-line)}
+.rb.b .rbn{background:var(--rust-bg);color:var(--rust-2);border-color:var(--rust-line)}
+.rbt{display:block;font-size:12.8px;font-weight:600;line-height:1.3;color:var(--navy-2)}
+.rbstage{display:flex;gap:22px;justify-content:center;margin-top:12px;padding-top:11px;
+  border-top:1px dashed var(--line);font-family:var(--display);font-weight:500;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rbstage span{display:inline-flex;align-items:center;gap:7px}
+.rbstage span:before{content:"";width:16px;height:3px;border-radius:2px}
+.rbstage span:first-child:before{background:var(--green)}
+.rbstage span:last-child:before{background:var(--rust)}
+
+/* ============================================================
+   FLOW
+   ============================================================ */
+.flow{display:grid;gap:10px;margin:16px 0}
+.fstep{position:relative;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
+  padding:16px 18px;border-radius:14px;background:var(--card);border:1px solid var(--line-2);
+  border-left:3px solid var(--c-accent,var(--rust));box-shadow:var(--sh-xs)}
+.fstep .fn{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:none;
+  font-family:var(--display);font-weight:600;font-size:14px;color:#fff;
+  background:linear-gradient(140deg,var(--rust),var(--rust-2));
+  box-shadow:0 4px 12px rgba(194,65,12,.26)}
+.fstep .fn.t{background:linear-gradient(140deg,var(--green),var(--green-2));box-shadow:0 4px 12px rgba(63,122,78,.26)}
+.fstep .fn.g{background:linear-gradient(140deg,var(--gold),#b8710f);box-shadow:0 4px 12px rgba(224,152,47,.26)}
+.fstep .fn.i{background:linear-gradient(140deg,var(--plum),var(--plum-2));box-shadow:0 4px 12px rgba(154,91,59,.26)}
+.fstep b{display:block;margin-bottom:5px;font-family:var(--display);font-weight:600;
+  font-size:15.5px;letter-spacing:.01em;color:var(--navy-2)}
+.fstep .fc{margin:0;font-size:13.7px;line-height:1.62;color:var(--ink-2);max-width:86ch}
+.fstep .fcode{display:inline-block;margin-top:9px;padding:3px 10px;border-radius:99px;
+  font-family:var(--mono);font-size:11px;font-weight:600;text-decoration:none;
+  background:var(--tan-bg);border:1px solid var(--tan-line);color:var(--gold-ink)}
+.fstep .fcode:hover{background:var(--gold);color:#2a1206;border-color:var(--gold)}
+
+/* ============================================================
+   CHAIN
+   ============================================================ */
+.chain{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap;margin:14px 0 18px}
+.chain .cl{display:inline-flex;align-items:center;padding:8px 14px;border-radius:99px;
+  background:var(--card);border:1px solid var(--line);font-family:var(--display);font-weight:500;
+  font-size:12.5px;letter-spacing:.02em;color:var(--navy-2);text-decoration:none;transition:.16s ease}
+.chain .cl:hover{border-color:var(--rust);background:var(--rust-bg);color:var(--rust-2);transform:translateY(-2px)}
+.chain .car{display:inline-flex;align-items:center;color:var(--gold);font-size:15px;font-weight:700}
+
+/* ============================================================
+   NOTE / CALLOUT
+   ============================================================ */
+.note{margin:18px 0;padding:16px 18px;border-radius:14px;border:1px solid var(--line);
+  background:var(--card);border-left:4px solid var(--c-accent,var(--rust));
+  font-size:14.1px;line-height:1.66;color:var(--ink-2);box-shadow:var(--sh-xs)}
+.note b{color:var(--navy-2)}
+.note .nt{display:block;margin-bottom:6px;font-family:var(--display);font-weight:600;
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--c-accent,var(--rust)) 78%,var(--navy-2))}
+.note.warn{--c-accent:var(--gold);background:var(--tan-bg);border-color:var(--tan-line)}
+.note.stop{--c-accent:var(--rust-2);background:var(--rust-bg);border-color:var(--rust-line)}
+.note.ok{--c-accent:var(--green);background:var(--green-bg);border-color:var(--green-line)}
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+.tw{overflow-x:auto;margin:16px 0 20px;border:1px solid var(--line);border-radius:14px;
+  background:var(--card);box-shadow:var(--sh-xs)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:13.7px;line-height:1.5}
+th,td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line-2)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:rgba(194,65,12,.035)}
+thead th{position:sticky;top:0;z-index:2;background:var(--navy-2);color:#f6ece1;
+  font-family:var(--display);font-weight:500;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;white-space:nowrap;border-bottom:0}
+tbody td:first-child{font-weight:600;color:var(--navy-2)}
+.tbl-sm{min-width:520px;font-size:13.1px}
+.reg-table{min-width:760px}
+.ck{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;
+  letter-spacing:.01em;background:var(--green-bg);color:var(--green-2);border:1px solid var(--green-line)}
+.ck.o{background:var(--tan-bg);color:var(--gold-ink);border-color:var(--tan-line)}
+.ck.r{background:var(--rust-bg);color:var(--rust-2);border-color:var(--rust-line)}
+.ck.b{background:var(--plum-bg);color:var(--plum-2);border-color:var(--plum-line)}
+
+/* ============================================================
+   DOC-LIST / HAK-KW / CHIP
+   ============================================================ */
+.doc-list{margin:0;padding:0;list-style:none}
+.doc-list li{position:relative;padding:9px 0 9px 24px;font-size:13.7px;line-height:1.6;
+  color:var(--ink-2);border-top:1px solid var(--line-2)}
+.doc-list li:first-child{border-top:0;padding-top:2px}
+.doc-list li:last-child{padding-bottom:2px}
+.doc-list li:before{content:"";position:absolute;left:3px;top:16px;width:7px;height:7px;
+  border-radius:2px;background:var(--c-accent,var(--rust));opacity:.5;transform:rotate(45deg)}
+.doc-list li:first-child:before{top:9px}
+.doc-list li b{color:var(--navy-2)}
+.doc-list li a{color:var(--rust-2);font-weight:600}
+
+.hkw{display:grid;gap:12px;margin:14px 0 18px}
+.hkw3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.hk{padding:15px 16px 13px;border-radius:14px;background:var(--card);
+  border:1px solid var(--line);box-shadow:var(--sh-xs)}
+.hk .hkh{display:flex;align-items:center;gap:9px;margin-bottom:10px;
+  padding-bottom:9px;border-bottom:1px solid var(--line-2)}
+.hk .hki{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+  font-size:13px;flex:none;font-weight:700}
+.hk.h .hki{background:var(--green-bg);color:var(--green-2);border:1px solid var(--green-line)}
+.hk.k .hki{background:var(--tan-bg);color:var(--gold-ink);border:1px solid var(--tan-line)}
+.hk.l .hki{background:var(--rust-bg);color:var(--rust-2);border:1px solid var(--rust-line)}
+.hk .hkh b{font-family:var(--display);font-weight:600;font-size:12.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--navy-2)}
+.hk ul{margin:0;padding:0;list-style:none}
+.hk li{position:relative;padding:7px 0 7px 15px;font-size:13.4px;line-height:1.56;color:var(--ink-2);
+  border-top:1px dashed var(--line-2)}
+.hk li:first-child{border-top:0;padding-top:0}
+.hk li:before{content:"";position:absolute;left:1px;top:15px;width:5px;height:5px;border-radius:50%;
+  background:var(--c-accent,var(--rust));opacity:.55}
+.hk li:first-child:before{top:8px}
+.hk li b{color:var(--navy-2)}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 18px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:10px;
+  background:var(--tan-bg);border:1px solid var(--tan-line);font-size:12.5px;font-weight:500;
+  color:var(--ink-2);text-decoration:none;transition:.16s ease;line-height:1.35}
+a.chip:hover{border-color:var(--gold);background:#fff;transform:translateY(-1px);box-shadow:var(--sh-xs)}
+.chip svg{width:14px;height:14px;flex:none;fill:none;stroke:var(--rust);stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.chip .ev{font-family:var(--mono);font-size:10.5px;font-weight:700;
+  color:color-mix(in srgb,var(--rust) 70%,var(--muted))}
+
+.tag{display:inline-block;padding:3px 10px;border-radius:99px;font-family:var(--display);
+  font-weight:500;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.tag.l1{background:var(--plum-bg);color:var(--plum-2);border:1px solid var(--plum-line)}
+.tag.l2{background:var(--green-bg);color:var(--green-2);border:1px solid var(--green-line)}
+.tag.l3{background:var(--rust-bg);color:var(--rust-2);border:1px solid var(--rust-line)}
+
+/* ============================================================
+   RISIKO
+   ============================================================ */
+.risk-board{display:grid;gap:2px}
+.risk{display:grid;grid-template-columns:minmax(28px,max-content) 1fr;gap:12px;align-items:start;
+  padding:13px 0;border-top:1px solid var(--line-2)}
+.risk>div{min-width:0}
+.risk:first-of-type{border-top:0;padding-top:2px}
+/* .rk dipakai dua kali: nomor risiko ("01") dan label kategori ("KSA/KPA", "33–67")
+   → lebarnya ikut konten (max-content) + white-space:nowrap, bukan fix 28px. */
+.risk .rk{min-width:28px;height:26px;padding:0 8px;border-radius:8px;display:grid;place-items:center;
+  font-family:var(--mono);font-size:11px;font-weight:700;line-height:1;white-space:nowrap;
+  background:var(--tan-bg);color:var(--gold-ink);border:1px solid var(--tan-line)}
+.risk .rk.hi{background:var(--rust-bg);color:var(--rust-2);border:1px solid var(--rust-line)}
+.risk b{display:block;margin-bottom:4px;font-size:14.2px;font-weight:600;line-height:1.4;color:var(--navy-2)}
+.risk span{display:block;font-size:13.3px;line-height:1.6;color:var(--ink-2)}
+
+/* ============================================================
+   BAR SERIES (dibangun JS) + LR
+   ============================================================ */
+/* #luasSeries diisi JS: satu panel berisi baris tahun → batang → nilai */
+.lr{margin:16px 0 20px;padding:16px 20px 18px;border-radius:16px;
+  background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-sm)}
+.lrrow{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;
+  padding:10px 0;border-top:1px solid var(--line-2)}
+.lrrow:first-child{border-top:0;padding-top:2px}
+.lrl{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--rust-2)}
+.lrtrack{height:12px;border-radius:99px;background:var(--tan-bg);overflow:hidden;
+  border:1px solid var(--tan-line)}
+.lrtrack i{display:block;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--rust),var(--gold))}
+.lrv{font-size:12.6px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+
+/* ============================================================
+   SCORECARD — 9 KARTU RINGKAS
+   ============================================================ */
+.scards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0 20px}
+.scard{position:relative;display:flex;flex-direction:column;gap:7px;overflow:hidden;
+  padding:16px 16px 14px;border-radius:15px;text-decoration:none;
+  background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-xs);transition:.2s ease}
+.scard:before{content:"";position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--rust),var(--gold))}
+.scard:hover{transform:translateY(-4px);box-shadow:var(--sh);border-color:var(--tan-line)}
+.scno{width:27px;height:27px;border-radius:9px;display:grid;place-items:center;
+  font-family:var(--display);font-weight:600;font-size:13px;
+  background:var(--rust-bg);color:var(--rust-2);border:1px solid var(--rust-line)}
+.sct{display:block;font-size:13.6px;font-weight:600;line-height:1.34;color:var(--navy-2)}
+.scc{display:inline-block;align-self:flex-start;padding:3px 9px;border-radius:99px;
+  font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.scc.ok{background:var(--green-bg);color:var(--green-2);border:1px solid var(--green-line)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{margin-top:70px;padding:26px clamp(18px,2.4vw,28px);border-radius:16px;
+  background:linear-gradient(100deg,var(--navy-2),var(--navy));color:#e8d8c8;
+  font-size:12.6px;line-height:1.68}
+.foot-in{display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start}
+.foot b{font-family:var(--display);font-weight:600;letter-spacing:.02em;color:#fff}
+.foot p{margin:6px 0 0;max-width:62ch;color:#dcc7b4}
+.foot code.mono{background:rgba(255,255,255,.14);color:#f6e6d5;border:0}
+.foot-meta{display:flex;flex-direction:column;gap:4px;flex:none;
+  font-family:var(--display);font-weight:500;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase}
+.foot-meta b{color:var(--gold-2)}
+.disclaimer{margin:18px 0 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.14);
+  color:#cbb59f}
+.disclaimer b{color:var(--gold-2)}
+
+/* ============================================================
+   SEARCH HIGHLIGHT
+   ============================================================ */
+.hl{box-shadow:0 0 0 2px var(--gold)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1320px){
+  :root{--rail:296px}
+  .wrap{padding:24px 26px 100px}
+  .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rbl{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .lr{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .scards{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:1100px){
+  :root{--rail:0px}
+  .sidebar{width:min(88vw,340px);transform:translateX(-104%);
+    transition:transform .28s cubic-bezier(.4,0,.2,1)}
+  body.drawer-open .sidebar{transform:none;box-shadow:14px 0 60px rgba(30,10,4,.4)}
+  .main{margin-left:0}
+  .search{flex:1 1 200px}
+  .brand small{display:none}
+}
+@media(max-width:980px){
+  .g4,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hkw3{grid-template-columns:1fr}
+}
+@media(max-width:860px){
+  body{font-size:15.5px}
+  .wrap{padding:18px 15px 88px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rbl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lr{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .scards{grid-template-columns:1fr}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .hero{border-radius:18px;padding:24px 20px}
+  .hero:before,.hero:after{display:none}
+}
+@media(max-width:560px){
+  .kpis{grid-template-columns:1fr}
+  .rbl{grid-template-columns:1fr}
+  .lr{grid-template-columns:1fr}
+  .brand b{font-size:13.5px}
+  .search input{font-size:13px}
+  .btn{padding:0 11px;font-size:11.5px}
+  .wrap{padding:14px 11px 74px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+@media print{
+  :root{--rail:0px}
+  .topbar,.sidebar,.scrim,.prog{display:none!important}
+  .main{margin-left:0;padding-top:0}
+  .wrap{max-width:none;padding:0}
+  .hero{color:#241b17;background:#fff!important;border:2px solid #241b17;box-shadow:none}
+  .hero h1,.hero h1 em,.hero .lede,.hero-tags span{color:#241b17;text-shadow:none}
+  .hero:before,.hero:after{display:none}
+  h2.h2,h3.h3,h4.h4{page-break-after:avoid}
+  .card,.note,.kpi,.scard,.rb,.fstep{break-inside:avoid}
+  .tw{overflow:visible}
+  thead th{position:static}
+}
+
+</style>
+</head>
+<body>
+<div id="prog" class="prog"></div>
+<div id="scrim" class="scrim"></div>
+
+<header class="topbar">
+  <button id="drawerbtn" class="iconbtn drawer-only" aria-label="Menu">&#9776;</button>
+  <a class="brand" href="#atas">
+    <svg viewBox="0 0 24 24" class="blogo"><path d="M12 2 4 7v10l8 5 8-5V7z"/><path d="M12 22V12l8-5"/></svg>
+    <span><b>Proses Bisnis KSDAE</b><small>Pengukuhan &amp; Pengelolaan Konservasi</small></span>
+  </a>
+  <div class="spacer"></div>
+  <div class="search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" placeholder="Cari proses, dasar hukum, angka…  (Cmd K)" autocomplete="off">
+    <button id="qclear" class="qclear" aria-label="Bersihkan">&#10005;</button>
+  </div>
+  <a class="btn ghost" href="periode.html">&larr; Bagan</a>
+</header>
+
+<aside class="sidebar">
+  <div class="sb-head">
+    <span class="sb-eyebrow">Navigasi Dokumen</span>
+    <button id="drawerclose" class="iconbtn drawer-only" aria-label="Tutup">&#10005;</button>
+  </div>
+  <nav id="navtree" class="navtree"></nav>
+  <div class="sb-foot">
+    <span>Ditjen KSDAE · 2026</span>
+    <span class="mono" id="tahun">2026</span>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="wrap">
+  <!-- ── HERO ───────────────────────────────────────────── -->
+  <header class="hero" id="atas">
+    <div class="hero-in">
+      <span class="eyebrow"><i></i> Kerangka Kriteria &amp; Peta Hubungan Regulasi</span>
+      <h1>Proses Bisnis Pengukuhan <em>dan</em> Pengelolaan Konservasi</h1>
+      <p class="lede">
+        Rantai proses yang memberi <b>kepastian hukum</b> atas status, letak, batas, dan luas kawasan hutan konservasi —
+        lalu meneruskannya menjadi <b>fungsi konservasi</b> yang dijalankan, dipantau, dan dievaluasi.
+        Disusun dari 42 peraturan di <code class="mono">02_peraturan</code> dan Laporan Kinerja Ditjen KSDAE 2021–2025.
+      </p>
+      <div class="hero-tags">
+        <span>9 <b>proses</b> utama</span>
+        <span>2 <b>domain</b></span>
+        <span>4 <b>tahap pengukuhan</b></span>
+        <span>568–579 <b>unit kawasan</b></span>
+        <span>±27 <b>juta ha</b></span>
+        <span>MEET <b>63,24</b> poin</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ BAGIAN 00 — RINGKASAN ══ -->
+  <h2 class="h2" id="ringkasan" data-tagno="Bagian 00" data-sub="Ringkasan eksekutif, peta proses, dan angka kunci yang menjadi titik berat pemeriksaan." data-badge="Mulai di sini">
+    <span class="tagno">Bagian 00</span>
+    <span class="h2row">
+      <span>Ringkasan Eksekutif</span>
+      <p class="sub">Ringkasan eksekutif, peta proses, dan angka kunci yang menjadi titik berat pemeriksaan.</p>
+      <span class="badge">Mulai di sini</span>
+    </span>
+  </h2>
+
+  <div class="kpis">
+    <div class="kpi t">
+      <span class="kbar"></span>
+      <span class="klabel">Luas KK 2021</span>
+      <span class="kval">27,016<span class="u">juta ha</span></span>
+      <span class="kfoot">568 unit konservasi, 74 UPT</span>
+    </div>
+    <div class="kpi t">
+      <span class="kbar"></span>
+      <span class="klabel">Luas KK 2024</span>
+      <span class="kval">26,910<span class="u">juta ha</span></span>
+      <span class="kfoot">563 unit pada tabel; 573 unit pada narasi</span>
+    </div>
+    <div class="kpi">
+      <span class="kbar"></span>
+      <span class="klabel">Unit KK 2025</span>
+      <span class="kval">579<span class="u">unit</span></span>
+      <span class="kfoot">6 kawasan belum ditetapkan fungsi konservasinya</span>
+    </div>
+    <div class="kpi g">
+      <span class="kbar"></span>
+      <span class="klabel">Efektivitas 2022</span>
+      <span class="kval">63,24<span class="u">poin</span></span>
+      <span class="kfoot">Target 57,50 — capaian 109,98%</span>
+    </div>
+    <div class="kpi g">
+      <span class="kbar"></span>
+      <span class="klabel">Capaian IKP 2025</span>
+      <span class="kval">121,8<span class="u">%</span></span>
+      <span class="kfoot">Rata-rata 2021–2025 selalu di atas 100%</span>
+    </div>
+  </div>
+
+  <h3 class="h3" id="peta-proses"><span class="h3no">0.1</span> Peta Besar: Sembilan Proses, Dua Domain
+    <span class="h3sub">Alur dari penunjukan kawasan hutan sampai tindak lanjut evaluasi — tidak berhenti pada urutan linear, melainkan membentuk siklus.</span>
+  </h3>
+
+  <div class="ribbon" id="ribbon"></div>
+
+  <div class="flow">
+    <div class="fstep"><span class="fn t">A</span>
+      <div><b>Domain A — Pengukuhan kawasan hutan konservasi</b>
+        <p class="fc">Menjawab <b>“di mana dan seluas apa objek kawasan hutan konservasi”</b>. Terdiri dari penunjukan, penataan batas, pemetaan, dan penetapan (UU 41/1999 Pasal 15 ayat (1) huruf a–d).</p>
+        <a class="fcode" href="#domain-a">LHK-01.03.A.1 → A.4</a>
+      </div>
+    </div>
+    <div class="fstep"><span class="fn">B</span>
+      <div><b>Domain B — Pengelolaan KSA dan KPA</b>
+        <p class="fc">Menjawab <b>“apa fungsi konservasinya dan bagaimana ruang di dalamnya dikelola”</b>. Dikendalikan oleh siklus PP 28/2011 jo. PP 108/2015: perencanaan, perlindungan, pengawetan, pemanfaatan, dan evaluasi kesesuaian fungsi.</p>
+        <a class="fcode" href="#domain-b">LHK-02.01 s.d. LHK-02.UPT.E</a>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="h3" id="angka-kunci"><span class="h3no">0.2</span> Angka Kunci Kinerja Ditjen KSDAE 2021–2025
+    <span class="h3sub">Angka diambil literal dari Laporan Kinerja Ditjen KSDAE. Sebagian angka berbeda antar-baris dalam laporan yang sama — itu sendiri menjadi bahan pemeriksaan.</span>
+  </h3>
+
+  <div class="tw">
+    <table class="tbl-sm">
+      <thead><tr><th>Tahun</th><th>Luas kawasan konservasi</th><th>Unit</th><th>Capaian IKP</th><th>Nilai SAKIP</th><th>Efektivitas pengelolaan</th></tr></thead>
+      <tbody>
+        <tr><td>2021</td><td>27,016 juta ha</td><td>568 unit / 74 UPT</td><td><span class="ck">123,98%</span></td><td>80,02 poin</td><td>61,56 poin (111,93%)</td></tr>
+        <tr><td>2022</td><td>26.894.122,42 ha <small>(SK.99/2022)</small></td><td>568 unit</td><td><span class="ck">106,23%</span></td><td>79,12 poin</td><td>63,24 poin (109,98%)</td></tr>
+        <tr><td>2023</td><td>26,91 juta ha</td><td>564 unit</td><td><span class="ck">101,69%</span></td><td>79,88 poin</td><td><span class="ck o">tidak dirinci</span></td></tr>
+        <tr><td>2024</td><td>26.910.593,81 ha</td><td>563 unit (tabel) / 573 unit (narasi)</td><td><span class="ck">111,12%</span></td><td>82,31 poin</td><td><span class="ck o">tidak dirinci</span></td></tr>
+        <tr><td>2025</td><td>27 juta ha</td><td>579 unit KSA/KPA/TB</td><td><span class="ck">121,8%</span></td><td>82,45 poin</td><td>METT: TN 78,9 · lainnya 63,76</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <span class="nt">Batasan kerangka</span>
+    Dokumen ini memetakan kriteria dan peta hubungan regulasi, <b>bukan pendapat hukum</b>. Keputusan penunjukan/penetapan kawasan tertentu, rencana tata ruang daerah, peraturan daerah tentang Tahura, dan keputusan zonasi/blok setiap unit pengelola perlu diuji <b>kasus per kasus</b>.
+  </div>
+
+  <h3 class="h3" id="siklus"><span class="h3no">0.3</span> Logika Siklus, Bukan Garis Lurus
+    <span class="h3sub">Alur ini membentuk lingkaran umpan balik: hasil lapangan → evaluasi → perbaikan rencana → pelaksanaan.</span>
+  </h3>
+
+  <div class="chain">
+    <a class="cl" href="#p7-pelaksanaan">7&nbsp; Pelaksanaan</a><span class="car">→</span>
+    <a class="cl" href="#p9-monev">9&nbsp; Monitoring &amp; Evaluasi</a><span class="car">→</span>
+    <a class="cl" href="#p8-mitra">8&nbsp; Kemitraan &amp; Masyarakat</a><span class="car">→</span>
+    <a class="cl" href="#p6-rencana">6&nbsp; Perencanaan</a><span class="car">→</span>
+    <a class="cl" href="#p5-zona">5&nbsp; Penataan Kawasan</a><span class="car">→</span>
+    <a class="cl" href="#p4-penetapan">4&nbsp; Penetapan</a><span class="car">↺</span>
+  </div>
+
+  <p class="lead">
+    Sembilan proses tersebut tidak berhenti pada urutan linear. Penetapan kawasan menjadi dasar kepastian hukum untuk penataan dan perencanaan.
+    Pelaksanaan pengelolaan menghasilkan data kondisi lapangan; data itu dinilai melalui monitoring dan evaluasi, lalu digunakan untuk
+    menganalisis perubahan kondisi, memperbaiki zonasi/rencana/target/metode, menyesuaikan skema kemitraan, dan melaksanakan kembali
+    tindakan yang telah disempurnakan.
+  </p>
+
+  <!-- ══ BAGIAN 01 — KERANGKA ══ -->
+  <h2 class="h2" id="kerangka" data-tagno="Bagian 01" data-sub="Ruang lingkup, kedudukan, dan peta master regulasi yang menjadi pondasi." data-badge="3 subbagian">
+    <span class="tagno">Bagian 01</span>
+    <span class="h2row">
+      <span>Kerangka, Ruang Lingkup, dan Kedudukan</span>
+      <p class="sub">Ruang lingkup, kedudukan, dan peta master regulasi yang menjadi pondasi.</p>
+      <span class="badge">3 subbagian</span>
+    </span>
+  </h2>
+
+  <h3 class="h3" id="kedudukan"><span class="h3no">1.1</span> Kedudukan dalam Arsitektur Proses Bisnis
+    <span class="h3sub">Proses ini beririsan dengan rumpun Planologi Kehutanan dan Tata Lingkungan serta rumpun Konservasi Sumber Daya Alam dan Ekosistem.</span>
+  </h3>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Domain</th><th>Rumpun proses bisnis</th><th>Kode yang dipakai</th><th>Pelaksana utama</th></tr></thead>
+      <tbody>
+        <tr><td>Pengukuhan</td><td>Planologi Kehutanan dan Tata Lingkungan</td><td><code>LHK-01.03.A</code> Pengukuhan Kawasan Hutan</td><td>Direktorat Planologi Kehutanan · Menteri Kehutanan</td></tr>
+        <tr><td>Pengelolaan</td><td>Konservasi Sumber Daya Alam dan Ekosistem</td><td><code>LHK-02.01</code> s.d. <code>LHK-02.05</code></td><td>Ditjen KSDAE · Menteri Kehutanan</td></tr>
+        <tr><td>Pelaksanaan lapangan</td><td>Pelaksanaan pada UPT</td><td><code>LHK-02.UPT.A-2</code> s.d. <code>LHK-02.UPT.E</code></td><td>UPT KSDAE: BBKSDA, BKSDA, BBTN, BTN</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="h3" id="ruang-lingkup"><span class="h3no">1.2</span> Ruang Lingkup Dua Domain
+    <span class="h3sub">Batas tegas antara “objek kawasan” dan “fungsi konservasi” menentukan boleh/tidaknya sebuah dokumen dipakai sebagai kriteria.</span>
+  </h3>
+
+  <div class="grid g2">
+    <div class="card block">
+      <span class="tag l2">Domain A</span>
+      <h4 class="h4">Pengukuhan kawasan hutan konservasi
+        <span class="h4tag">Pasal 14–15 UU 41/1999</span>
+      </h4>
+      <p class="muted" style="font-size:14.2px">Pemberian <b>kepastian hukum</b> atas status, fungsi, letak, batas, dan luas kawasan melalui empat tahap: penunjukan, penataan batas, pemetaan, dan penetapan.</p>
+      <div class="chips">
+        <span class="chip"><span class="ev">Pasal 15(1) a</span> Penunjukan</span>
+        <span class="chip"><span class="ev">Pasal 15(1) b</span> Penataan batas</span>
+        <span class="chip"><span class="ev">Pasal 15(1) c</span> Pemetaan</span>
+        <span class="chip"><span class="ev">Pasal 15(1) d</span> Penetapan</span>
+      </div>
+    </div>
+    <div class="card block">
+      <span class="tag l3">Domain B</span>
+      <h4 class="h4">Pengelolaan konservasi
+        <span class="h4tag">Pasal 13–14 PP 28/2011</span>
+      </h4>
+      <p class="muted" style="font-size:14.2px">Pengelolaan <b>KSA</b> dan <b>KPA</b> melalui siklus perencanaan, perlindungan, pengawetan, pemanfaatan, dan evaluasi kesesuaian fungsi — dengan kerja sama, daerah penyangga, pendanaan, dan pemberdayaan sebagai unsur pendukung.</p>
+      <div class="chips">
+        <span class="chip"><span class="ev">Pasal 24</span> Perlindungan</span>
+        <span class="chip"><span class="ev">Pasal 25–28</span> Pengawetan</span>
+        <span class="chip"><span class="ev">Pasal 29–31</span> Pemulihan</span>
+        <span class="chip"><span class="ev">Pasal 32–40</span> Pemanfaatan</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="h3" id="peta-regulasi"><span class="h3no">1.3</span> Peta Master Regulasi
+    <span class="h3sub">Gunakan regulasi secara berpasangan. Aturan pokok tidak boleh dibaca tanpa naskah perubahannya.</span>
+  </h3>
+
+  <div class="tw">
+    <table class="reg-table">
+      <thead><tr><th>Pilar</th><th>Peraturan pokok</th><th>Perubahan / lanjutan</th><th>Norma kunci untuk pemeriksaan</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Konstitusi</td>
+          <td>UUD 1945 Pasal 33 ayat (3)</td>
+          <td>—</td>
+          <td>Penguasaan negara diwujudkan melalui pengaturan, pengurusan, pengelolaan, dan pengawasan yang menjaga kemanfaatan publik serta keberlanjutan.</td>
+        </tr>
+        <tr>
+          <td>Rezim kehutanan</td>
+          <td>UU 41/1999 tentang Kehutanan</td>
+          <td>UU 6/2023 (Cipta Kerja) → PP 23/2021 → Permen LHK 7/2021 jo. Permenhut 20/2025</td>
+          <td>Pasal 14–15: inventarisasi, pengukuhan, penatagunaan, wilayah pengelolaan, rencana kehutanan. Pengukuhan = penunjukan + penataan batas + pemetaan + penetapan.</td>
+        </tr>
+        <tr>
+          <td>Rezim konservasi</td>
+          <td>UU 5/1990 tentang KSDAHE</td>
+          <td>UU 32/2024</td>
+          <td>Dasar penetapan/pengelolaan KSA dan KPA serta konservasi jenis dan ekosistem. <b>UU 5/1990 tidak boleh dibaca sendiri.</b></td>
+        </tr>
+        <tr>
+          <td>Pengelolaan kawasan</td>
+          <td>PP 28/2011 tentang Pengelolaan KSA dan KPA</td>
+          <td>PP 108/2015</td>
+          <td>Pasal 13 siklus pengelolaan; Pasal 14 memecah perencanaan menjadi inventarisasi, penataan kawasan, dan rencana pengelolaan.</td>
+        </tr>
+        <tr>
+          <td>Pelaksanaan konservasi</td>
+          <td>Permenhut P.81/2014 · Permen LHK P.76/2015 · Permen LHK P.35/2016</td>
+          <td>Permenhut P.48/2014 · Permenhut P.49/2014 · Permenhut P.85/2014 jo. Permen LHK P.44/2017 · Permen LHK P.43/2017</td>
+          <td>Norma teknis inventarisasi, zona/blok, rencana, pemulihan, evaluasi fungsi, kerja sama, dan pemberdayaan.</td>
+        </tr>
+        <tr>
+          <td>Yang telah dicabut</td>
+          <td>Permenhut P.44/2012 jo. P.62/2013 (Pengukuhan Kawasan Hutan)</td>
+          <td>Dicabut oleh Permen LHK 7/2021</td>
+          <td><span class="ck r">Bukan kriteria berjalan</span> Hanya relevan untuk menguji tindakan masa lalu atau memahami riwayat proses.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note stop">
+    <span class="nt">Empat peraturan yang wajib dibaca berpasangan</span>
+    <div class="chips" style="margin:0">
+      <span class="chip"><span class="ev">jo.</span>UU 41/1999 + UU 6/2023</span>
+      <span class="chip"><span class="ev">jo.</span>UU 5/1990 + UU 32/2024</span>
+      <span class="chip"><span class="ev">jo.</span>PP 28/2011 + PP 108/2015</span>
+      <span class="chip"><span class="ev">jo.</span>Permen LHK 7/2021 + Permenhut 20/2025</span>
+    </div>
+  </div>
+
+<h2 class="h2" id="domain-a" data-tagno="Bagian 02 · Domain A" data-sub="Empat tahap pengukuhan. Setiap tahap punya tujuan, input, kegiatan, dokumen, hkl, kriteria uji, dan risiko." data-badge="4 subproses" style="--c-accent:var(--teal);--c-ink:var(--teal)"><span class="tagno">Bagian 02 · Domain A</span><span class="h2row"><span>Pengukuhan Kawasan Hutan Konservasi</span><p class="sub">Empat tahap pengukuhan. Setiap tahap punya tujuan, input, kegiatan, dokumen, hkl, kriteria uji, dan risiko.</p><span class="badge">4 subproses</span></span></h2><div class="note" style="--c-accent:var(--teal);--c-ink:var(--teal)"><span class="nt">Aturan teknis utama yang berlaku</span><b>Permen LHK 7/2021</b> tentang Perencanaan Kehutanan, Perubahan Peruntukan dan Fungsi Kawasan Hutan, serta Penggunaan Kawasan Hutan — berlaku, dengan perubahan oleh <b>Permenhut 20/2025</b> sejak 6 November 2025 yang menambah mekanisme perubahan peruntukan parsial bagi kegiatan usaha kelapa sawit hasil penguasaan kembali. Permen LHK 7/2021 mencabut antara lain Permenhut P.44/2012 jo. P.62/2013 tentang Pengukuhan Kawasan Hutan dan Permen LHK P.93/2016 tentang Panitia Tata Batas.</div><p class="lead">Pengukuhan adalah pemberian <b>kepastian hukum atas status, fungsi, letak, batas, dan luas</b> kawasan hutan. Keempat tahapnya diatur eksplisit dalam UU 41/1999 Pasal 15 ayat (1) huruf a sampai d, dan dirinci lebih lanjut dalam PP 23/2021 Pasal 14–22 serta Permen LHK 7/2021.</p><h3 class="h3" id="p1-penunjukan"><span class="h3no">2.1</span> Penunjukan Kawasan Hutan<span class="h3sub">Menetapkan secara makro wilayah tertentu sebagai kawasan hutan berdasarkan data, kondisi eksisting, dan kebijakan, sebagai titik awal proses pengukuhan.</span></h3><div class="chips" style="margin-top:14px"><span class="chip"><span class="ev">Dasar</span>Pasal 15 ayat (1) huruf a</span><span class="chip"><span class="ev">LHK-01.03.A.1</span>Penunjukan kawasan hutan</span></div><div class="grid g2"><div class="card block"><ul class="doc-list"><li>Menetapkan peruntukan suatu wilayah sebagai kawasan hutan konservasi.</li><li>Menjadi <b>titik awal</b> seluruh proses pengukuhan — tanpa SK penunjukan, tiga tahap berikutnya tidak punya dasar.</li><li>Menetapkan wilayah provinsi <b>atau wilayah tertentu secara parsial</b>.</li><li>Menjadi dasar hukum bagi penyusunan peta dan pelaksanaan penataan batas.</li></ul></div><div class="card block"><div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Dasar</th><th>Ketentuan</th></tr></thead><tbody><tr><td>UU 41/1999</td><td>Pasal 15 ayat (1) huruf a — dasar penunjukan kawasan hutan.</td></tr><tr><td>PP 23/2021</td><td>Pasal 16, 17, dan 18 — tata cara penunjukan, tata cara penunjukan kawasan hutan.</td></tr><tr><td>Permen LHK 7/2021</td><td>Bab III bagian pengukuhan kawasan hutan.</td></tr><tr><td>PP 23/2021</td><td>Pasal 16 ayat (3) — penggunaan koordinat geografis, satelit, dan teknologi penginderaan jauh.</td></tr></tbody></table></div></div></div><h4 class="h4">Input &amp; Prasyarat</h4><ul class="doc-list"><li>Peta dasar dan peta kawasan hutan</li><li>Rencana Tata Ruang Wilayah (RTRW) dan rencana tata ruang daerah</li><li>Data status dan kondisi kawasan</li><li>Batas administrasi wilayah</li><li>Data penguasaan atau pemanfaatan tanah</li><li>Usulan yang dipersyaratkan</li></ul><h4 class="h4">Kegiatan Pokok</h4><div class="flow"><div class="fstep"><span class="fn ">1</span><div><b>Penyiapan dan penelaahan data yuridis</b><p class="fc">Penelaahan status tanah, sertifikat, dan dokumen pertanahan di wilayah candidata.</p></div></div><div class="fstep"><span class="fn t">2</span><div><b>Penelaahan data spasial</b><p class="fc">Analisis tutupan lahan, kenekaragaman hayati, dan wilayah inland terhadap batas administrasi.</p></div></div><div class="fstep"><span class="fn ">3</span><div><b>Sinkronisasi dengan tata ruang</b><p class="fc">Pemeriksaan kesesuaian wilayah candidata terhadap RTRW/RDTR.</p></div></div><div class="fstep"><span class="fn g">4</span><div><b>Konsultasi dan koordinasi</b><p class="fc">Koordinasi dengan pemerintah daerah, pihak terkait, dan instansi terkait.</p></div></div><div class="fstep"><span class="fn i">5</span><div><b>Penyusunan peta penunjukan</b><p class="fc">Penyusunan peta wilayah yang ditetapkan sebagai kawasan hutan.</p></div></div><div class="fstep"><span class="fn ">6</span><div><b>Penyusunan rancangan keputusan</b><p class="fc">Penyusunan rancangan SK Menteri tentang penunjukan kawasan hutan beserta peta lampiran.</p></div></div><div class="fstep"><span class="fn t">7</span><div><b>Penetapan</b><p class="fc">Penetapan SK oleh Menteri Kehutanan.</p></div></div><div class="fstep"><span class="fn ">8</span><div><b>Sosialisasi dan pendataan</b><p class="fc">Sosialisasi hasil penunjukan, updating basis data kawasan hutan, dan pencadangan.</p></div></div></div><h4 class="h4">Dokumen &amp; Bukti</h4><div class="grid g2"><div class="card block"><h4 class="h4">Dokumen keluaran</h4><ul class="doc-list"><li>SK Menteri tentang penunjukan kawasan hutan beserta peta lampiran</li><li>Dokumen usulan dari pemerintah daerah</li><li>Telaah data yuridis dan spasial</li><li>Risalah konsultasi dan koordinasi</li></ul></div><div class="card block"><h4 class="h4">Sistem informasi</h4><ul class="doc-list"><li>Basis data kawasan hutan (portal SIGAP)</li><li>Peta Perkembangan Pengukuhan Kawasan Hutan</li></ul></div></div><h4 class="h4">Hak, Kewajiban &amp; Larangan</h4><div class="hkw hkw3"><div class="hk h"><div class="hkh"><span class="hki">&#9878;</span><b>Hak</b></div><ul class=""><li>Masyarakat berhak memperoleh informasi kehutanan serta memberi informasi, saran, dan pertimbangan dalam pembangunan kehutanan (UU 41/1999 Pasal 68 ayat (2) huruf b–c).</li></ul></div><div class="hk k"><div class="hkh"><span class="hki">&#10003;</span><b>Kewajiban</b></div><ul class=""><li>Menteri menyelenggarakan pengukuhan dengan memperhatikan RTRW dan memulai proses melalui penunjukan (PP 23/2021 Pasal 16–18).</li><li>Penunjukan wilayah provinsi atau wilayah tertentu secara parsial dilakukan oleh Menteri dan <b>dilampiri peta penunjukan</b> (PP 23/2021 Pasal 18).</li><li>Masyarakat wajib ikut memelihara dan menjaga kawasan hutan dari gangguan dan perusakan (UU 41/1999 Pasal 69 ayat (1)).</li></ul></div><div class="hk l"><div class="hkh"><span class="hki">&#10005;</span><b>Larangan</b></div><ul class=""><li><b>Tidak ditemukan larangan</b> yang dirumuskan khusus untuk tata cara penunjukan dalam PP 23/2021 Pasal 17–18. Larangan umum tetap berlaku.</li><li>Dilarang mengerjakan, menggunakan, dan/atau menduduki kawasan hutan secara tidak sah (UU 41/1999 sebagaimana diubah terakhir melalui UU 6/2023, Pasal 50 ayat (2) huruf a).</li></ul></div></div><h4 class="h4">Kriteria Uji</h4><div class="card block"><ul class="doc-list"><li>Konsistensi peta dengan RTRW dan data pertanahan</li><li>Kejelasan skala, proyeksi, datum, dan sumber data peta</li><li>Tidak adanya tumpang tindih hak atau izin</li><li>Kelengkapan bukti konsultasi dan koordinasi</li><li>Ketertelusuran perubahan luas dan fungsi kawasan</li><li>Peta lampiran wajib menyertai SK, bukan terpisah</li></ul></div><h4 class="h4">Risiko &amp; Titik Perhatian</h4><div class="risk-board"><div class="risk"><span class="rk hi">01</span><div><b>Tinggi</b><span>Ketidaksesuaian RTRW dengan data geospasialaktual kawasan.</span></div></div><div class="risk"><span class="rk hi">02</span><div><b>Tinggi</b><span>Sumber dan tahun peta tidak jelas sehingga luas tidak dapat dipertanggungjawabkan.</span></div></div><div class="risk"><span class="rk hi">03</span><div><b>Tinggi</b><span>Tumpang tindih hak atau izin yang tidak terpetakan dalam telaah.</span></div></div><div class="risk"><span class="rk ">04</span><div><b>Sedang</b><span>Tidak tersedianya bukti pelibatan pihak terkait dalam proses consultations.</span></div></div><div class="risk"><span class="rk ">05</span><div><b>Sedang</b><span>Perubahan luas atau fungsi kawasan tidak tertelusuri ke dokumen sebelumnya.</span></div></div></div><h4 class="h4">Data Kinerja Terverifikasi</h4><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0"><div class="kpi"><span class="kbar"></span><span class="klabel">Contoh penetapan fungsi 2022</span><span class="kval" style="font-size:26px">3 kawasan</span><span class="kfoot">Periode: SK.901/2022 · SK.810/2022 · SK.998/2022</span></div><div class="kpi g"><span class="kbar"></span><span class="klabel">Catatan sumber</span><span class="kval" style="font-size:26px">Contoh penetapan fungsi 2022</span><span class="kfoot">TN Moyo Satonda ±31.200,15 ha; Tahura Gn. Baliyohuto ±6.208 ha; TWA Pulau Pombo ±6,9 ha</span></div></div><div class="chips"><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0008_UU-41-1999_Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0008</span>UU 41/1999 Kehutanan</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0009_UU-6-2023_Cipta-Kerja_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0009</span>UU 6/2023 Cipta Kerja</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0010_PP-23-2021_Penyelenggaraan-Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0010</span>PP 23/2021 Penyelenggaraan Kehutanan</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0033_PermenLHK-7-2021_Perencanaan-Pengukuhan-Kawasan-Hutan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0033</span>Permen LHK 7/2021 (berlaku)</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0034_Permenhut-20-2025_Perubahan-PermenLHK-7-2021_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0034</span>Permenhut 20/2025 (perubahan)</a></div><h3 class="h3" id="p2-tata-batas"><span class="h3no">2.2</span> Penataan Batas Kawasan Hutan<span class="h3sub">Mewujudkan batas kawasan secara nyata di lapangan dan menyelesaikan persoalan batas atau tenurial secara partisipatif.</span></h3><div class="chips" style="margin-top:14px"><span class="chip"><span class="ev">Dasar</span>Pasal 15 ayat (1) huruf b</span><span class="chip"><span class="ev">LHK-01.03.A.2</span>Pengesahan Penataan Batas Kawasan Hutan</span></div><div class="grid g2"><div class="card block"><ul class="doc-list"><li>Mewujudkan <b>batas hukum</b> dan <b>batas lapangan</b> yang menunjukkan letak yang sama.</li><li>Mengidentifikasi dan menyelesaikan hak pihak ketiga di sepanjang trayek batas.</li><li>Memisahkan wilayah yang belum dapat ditetapkan secara utuh, untuk penetapan sebagian.</li></ul></div><div class="card block"><div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Dasar</th><th>Ketentuan</th></tr></thead><tbody><tr><td>UU 41/1999</td><td>Pasal 15 ayat (1) huruf b — dasar penataan batas.</td></tr><tr><td>PP 23/2021</td><td>Pasal 19 — tahapan penataan batas.</td></tr><tr><td>PP 23/2021</td><td>Panels 20 — panitia tata batas, berita acara, peta tata batas, dan pengesahan hasilnya.</td></tr><tr><td>Permen LHK 7/2021</td><td>Ketentuan penataan batas luar, batas fungsi, kawasan konservasi di wilayah perairan, dan penyelesaian penguasaan tanah.</td></tr></tbody></table></div></div></div><h4 class="h4">Input &amp; Prasyarat</h4><ul class="doc-list"><li>SK dan peta penunjukan kawasan hutan</li><li>Peta dan data batas administrasi</li><li>Data hak tanah (sertifikat, Hak Milik, Hak Guna Bangunan)</li><li>Daftar desa yang akan dilalui trayek batas</li><li>Data konflik tenurial yang teridentifikasi</li></ul><h4 class="h4">Kegiatan Pokok</h4><div class="flow"><div class="fstep"><span class="fn ">1</span><div><b>Penetapan trayek batas</b><p class="fc">Penetapan trayek batas sesuai ketentuan yang berlaku (Pasal 19 ayat (2) huruf a).</p></div></div><div class="fstep"><span class="fn t">2</span><div><b>Pembentukan panitia tata batas</b><p class="fc">Pembentukan panitia tata batas sesuai kewenangan (Pasal 20; ketentuan pembentukan panitia tata batas dari peraturan lama telah dicabut).</p></div></div><div class="fstep"><span class="fn ">3</span><div><b>Pengumuman</b><p class="fc">Pengumuman rencana tata batas di desa-desa yang dilalui trayek batas (Pasal 19 ayat (2) huruf b).</p></div></div><div class="fstep"><span class="fn g">4</span><div><b>Pelibatan masyarakat</b><p class="fc">Pelibatan masyarakat dan pemerintah daerah dalam proses tata batas.</p></div></div><div class="fstep"><span class="fn i">5</span><div><b>Identifikasi hak pihak ketiga</b><p class="fc">Identifikasi dan inventarisasi hak pihak ketiga di sepanjang trayek (Pasal 19 ayat (2) huruf d).</p></div></div><div class="fstep"><span class="fn ">6</span><div><b>Penyelesaian hak</b><p class="fc">Penyelesaian masalah hak atas tanah dan lahan di sepanjang trayek (Pasal 19 ayat (3)).</p></div></div><div class="fstep"><span class="fn t">7</span><div><b>Pemasangan tanda batas</b><p class="fc">Pemasangan pal atau patok batas di lapangan.</p></div></div><div class="fstep"><span class="fn ">8</span><div><b>Pengukuran batas</b><p class="fc">Pengukuran batas dengan alat dan metode yang sesuai.</p></div></div><div class="fstep"><span class="fn g">9</span><div><b>Pemetaan hasil</b><p class="fc">Pemetaan hasil tata batas dalam format geospasial.</p></div></div><div class="fstep"><span class="fn i">10</span><div><b>Berita acara tata batas</b><p class="fc">Penyusunan dan penandatanganan berita acara tata batas (Pasal 20).</p></div></div><div class="fstep"><span class="fn ">11</span><div><b>Pengesahan hasil tata batas</b><p class="fc">Pengesahan hasil tata batas oleh Menteri (Pasal 20).</p></div></div></div><h4 class="h4">Dokumen &amp; Bukti</h4><div class="grid g2"><div class="card block"><h4 class="h4">Dokumen keluaran</h4><ul class="doc-list"><li>Berita acara tata batas yang telah ditandatangani</li><li>Peta hasil tata batas</li><li>Register pal batas dan koordinat</li><li>SK penetapan panitia tata batas</li><li>Dokumentasi pengumuman, pelibatan, dan penyelesaian keberatan</li></ul></div><div class="card block"><h4 class="h4">Sistem informasi</h4><ul class="doc-list"><li>Basis data pengukuhan kawasan hutan</li><li>Peta Perkembangan Pengukuhan Kawasan Hutan</li></ul></div></div><h4 class="h4">Hak, Kewajiban &amp; Larangan</h4><div class="hkw hkw3"><div class="hk h"><div class="hkh"><span class="hki">&#9878;</span><b>Hak</b></div><ul class=""><li>Hak pihak ketiga di sepanjang trayek batas harus diinventarisasi dan diselesaikan; hak yang berada di dalam kawasan diselesaikan melalui penataan kawasan hutan dalam rangka pengukuhan (PP 23/2021 Pasal 19 ayat (2) huruf d dan ayat (3)).</li><li>Masyarakat dapat memberi informasi, saran, pertimbangan, dan melakukan pengawasan (UU 41/1999 Pasal 68 ayat (2) huruf c–d).</li></ul></div><div class="hk k"><div class="hkh"><span class="hki">&#10003;</span><b>Kewajiban</b></div><ul class=""><li>Panitia tata batas wajib melaksanakan rangkaian kegiatan Pasal 19.</li><li>Panitia wajib menyelesaikan masalah hak atas tanah/lahan di sepanjang trayek.</li><li>Panitia wajib memeriksa hasil pekerjaan, serta membuat dan menandatangani berita acara dan peta tata batas.</li><li>Hasilnya <b>disahkan oleh Menteri</b> (PP 23/2021 Pasal 20).</li></ul></div><div class="hk l"><div class="hkh"><span class="hki">&#10005;</span><b>Larangan</b></div><ul class=""><li><b>Tidak ditemukan larangan</b> prosedural khusus dalam PP 23/2021 Pasal 19–20.</li><li>Larangan mengerjakan, menggunakan, dan/atau menduduki kawasan hutan secara tidak sah tetap berlaku (UU 41/1999 jo. UU 6/2023, Pasal 50 ayat (2) huruf a), tanpa menghilangkan kewajiban penyelesaian hak pihak ketiga melalui prosedur Pasal 19 PP 23/2021.</li></ul></div></div><h4 class="h4">Kriteria Uji</h4><div class="card block"><ul class="doc-list"><li>Kesesuaian trayek dengan dokumen penunjukan</li><li>Bukti pelibatan masyarakat dan pemerintah daerah</li><li>Penanganan klaim atau hak pihak ketiga</li><li>Akurasi koordinat dan panjang batas</li><li>Keberadaan fisik pal batas di lapangan</li><li>Konsistensi berita acara dengan peta</li></ul></div><h4 class="h4">Risiko &amp; Titik Perhatian</h4><div class="risk-board"><div class="risk"><span class="rk hi">01</span><div><b>Tinggi</b><span>Panitia atau tim tidak sesuai kewenangan.</span></div></div><div class="risk"><span class="rk hi">02</span><div><b>Tinggi</b><span>Pengumuman atau pelibatan masyarakat tidak memadai.</span></div></div><div class="risk"><span class="rk hi">03</span><div><b>Tinggi</b><span>Klaim pihak ketiga tidak diselesaikan atau tidak dicatat.</span></div></div><div class="risk"><span class="rk hi">04</span><div><b>Tinggi</b><span>Koordinat dan pal batas tidak konsisten antara lapangan, berita acara, dan peta.</span></div></div><div class="risk"><span class="rk ">05</span><div><b>Sedang</b><span>Berita acara tidak lengkap atau tidak disahkan.</span></div></div><div class="risk"><span class="rk ">06</span><div><b>Sedang</b><span>Kawasan belum dapat ditetapkan secara utuh tanpa dasar penetapan parsial yang memadai.</span></div></div></div><h4 class="h4">Data Kinerja Terverifikasi</h4><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0"><div class="kpi"><span class="kbar"></span><span class="klabel">Bukti ankles ABSEN</span><span class="kval" style="font-size:26px">Tidak dirinci</span><span class="kfoot">Periode: 2021–2025</span></div><div class="kpi g"><span class="kbar"></span><span class="klabel">Catatan sumber</span><span class="kval" style="font-size:26px">Bukti ankles ABSEN</span><span class="kfoot">Laporan Kinerja Ditjen KSDAE tidak memuat data panjang batas, jumlah pal, maupun status tata batas kawasan konservasi</span></div></div><div class="chips"><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0008_UU-41-1999_Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0008</span>UU 41/1999 Kehutanan</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0010_PP-23-2021_Penyelenggaraan-Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0010</span>PP 23/2021 Pasal 19–20</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0033_PermenLHK-7-2021_Perencanaan-Pengukuhan-Kawasan-Hutan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0033</span>Permen LHK 7/2021</a></div><h3 class="h3" id="p3-pemetaan"><span class="h3no">2.3</span> Pemetaan Kawasan Hutan<span class="h3sub">Mengubah hasil penataan batas menjadi informasi geospasial kawasan yang baku, dapat digunakan, dan dapat dipertukarkan.</span></h3><div class="chips" style="margin-top:14px"><span class="chip"><span class="ev">Dasar</span>Pasal 15 ayat (1) huruf c</span><span class="chip"><span class="ev">LHK-01.03.A.3</span>Pemetaan kawasan hutan</span></div><div class="grid g2"><div class="card block"><ul class="doc-list"><li>Menuangkan hasil penunjukan dan penataan batas ke dalam <b>informasi geospasial yang dapat dipertanggungjawabkan</b>.</li><li>Menyediakan peta yang dapat dipertukarkan antarunit kerja.</li><li>Menjadi dasar teknis penetapan kawasan hutan.</li></ul></div><div class="card block"><div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Dasar</th><th>Ketentuan</th></tr></thead><tbody><tr><td>UU 41/1999</td><td>Pasal 15 ayat (1) huruf c — pemetaan sebagai tahap pengukuhan.</td></tr><tr><td>PP 23/2021</td><td>Pasal 16 ayat (3) — penggunaan koordinat geografis, satelit, dan penginderaan jauh.</td></tr><tr><td>PP 23/2021</td><td>Pasal 21 — peta pada setiap tahapan pengukuhan.</td></tr><tr><td>Permen LHK 7/2021</td><td>Ketentuan peta pada setiap tahap pengukuhan.</td></tr></tbody></table></div></div></div><h4 class="h4">Input &amp; Prasyarat</h4><ul class="doc-list"><li>Hasil pengukuran batas lapangan</li><li>Berita acara tata batas</li><li>Peta penunjukan dan peta kerja trayek batas</li><li>Data koordinat dari alat ukur dan penginderaan jauh</li><li>Standar informasi geospasial yang berlaku</li></ul><h4 class="h4">Kegiatan Pokok</h4><div class="flow"><div class="fstep"><span class="fn ">1</span><div><b>Kompilasi hasil pengukuran</b><p class="fc">Kompilasi koordinat dan data pengukuran batas.</p></div></div><div class="fstep"><span class="fn t">2</span><div><b>Pengolahan koordinat</b><p class="fc">Pengolahan dan koreksi koordinat sesuai sistem referensi.</p></div></div><div class="fstep"><span class="fn ">3</span><div><b>Penyusunan geometri batas</b><p class="fc">Penyusunan geometri batas dari data koordinat.</p></div></div><div class="fstep"><span class="fn g">4</span><div><b>Pemeriksaan topologi dan atribut</b><p class="fc">Pemeriksaan celah, tumpang tindih, dan kelengkapan atribut.</p></div></div><div class="fstep"><span class="fn i">5</span><div><b>Penyesuaian standar geospasial</b><p class="fc">Penyesuaian dengan standar informasi geospasial yang berlaku.</p></div></div><div class="fstep"><span class="fn ">6</span><div><b>Pengendalian mutu</b><p class="fc">Pengendalian mutu peta.</p></div></div><div class="fstep"><span class="fn t">7</span><div><b>Pemutakhiran basis data</b><p class="fc">Pemutakhiran basis data kawasan hutan dan Peta Perkembangan Pengukuhan Kawasan Hutan.</p></div></div></div><h4 class="h4">Dokumen &amp; Bukti</h4><div class="grid g2"><div class="card block"><h4 class="h4">Dokumen keluaran</h4><ul class="doc-list"><li>Peta penunjukan</li><li>Peta rencana/kerja trayek batas</li><li>Peta pemancangan batas sementara</li><li>Peta hasil tata batas</li><li>Peta penetapan kawasan hutan</li></ul></div><div class="card block"><h4 class="h4">Sistem informasi</h4><ul class="doc-list"><li>Basis data pengukuhan kawasan hutan</li><li>Peta Perkembangan Pengukuhan Kawasan Hutan</li><li>Jaringan Informasi Geospasial LHK</li><li>Geoportal KLHK</li></ul></div></div><h4 class="h4">Hak, Kewajiban &amp; Larangan</h4><div class="hkw hkw3"><div class="hk h"><div class="hkh"><span class="hki">&#9878;</span><b>Hak</b></div><ul class=""><li>Masyarakat berhak memperoleh informasi kehutanan dan melakukan pengawasan terhadap pembangunan kehutanan (UU 41/1999 Pasal 68 ayat (2) huruf b dan d).</li></ul></div><div class="hk k"><div class="hkh"><span class="hki">&#10003;</span><b>Kewajiban</b></div><ul class=""><li>Penyelenggaraan pengukuhan menggunakan koordinat geografis/satelit dan dapat menggunakan teknologi penginderaan jauh (PP 23/2021 Pasal 16 ayat (3)).</li><li>Pemetaan harus menghasilkan peta penunjukan, rencana trayek batas, pemancangan batas sementara, hasil penataan batas, dan penetapan (PP 23/2021 Pasal 21).</li></ul></div><div class="hk l"><div class="hkh"><span class="hki">&#10005;</span><b>Larangan</b></div><ul class=""><li><b>Tidak ditemukan larangan</b> khusus mengenai pembuatan peta pada PP 23/2021 Pasal 21.</li><li>Penggunaan peta tidak dapat dijadikan dasar untuk kegiatan yang dilarang oleh UU 41/1999 jo. UU 6/2023 Pasal 50, termasuk pendudukan kawasan secara tidak sah atau kegiatan berizin yang menimbulkan kerusakan hutan.</li></ul></div></div><h4 class="h4">Kriteria Uji</h4><div class="card block"><ul class="doc-list"><li>Akurasi posisi dan sistem referensi koordinat</li><li>Kelengkapan metadata dan riwayat versi</li><li>Ketepatan luas antara angka tekstual dan luasan spasial</li><li>Tidak adanya celah atau tumpang tindih geometri</li><li>Kesesuaian antara peta analog dan digital</li><li>Hasil lapangan direkam dalam basis data resmi</li></ul></div><h4 class="h4">Risiko &amp; Titik Perhatian</h4><div class="risk-board"><div class="risk"><span class="rk hi">01</span><div><b>Tinggi</b><span>Datum, proyeksi, atau skala tidak tepat.</span></div></div><div class="risk"><span class="rk hi">02</span><div><b>Tinggi</b><span>Perbedaan luas tekstual dan spasial.</span></div></div><div class="risk"><span class="rk hi">03</span><div><b>Tinggi</b><span>Topologi bermasalah (celah/tumpang tindih).</span></div></div><div class="risk"><span class="rk ">04</span><div><b>Sedang</b><span>Metadata dan riwayat versi tidak ada.</span></div></div><div class="risk"><span class="rk ">05</span><div><b>Sedang</b><span>Hasil lapangan tidak direkam dalam basis data resmi.</span></div></div></div><h4 class="h4">Data Kinerja Terverifikasi</h4><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0"><div class="kpi"><span class="kbar"></span><span class="klabel">Bukti ankles ABSEN</span><span class="kval" style="font-size:26px">Tidak dirinci</span><span class="kfoot">Periode: 2021–2025</span></div><div class="kpi g"><span class="kbar"></span><span class="klabel">Catatan sumber</span><span class="kval" style="font-size:26px">Bukti ankles ABSEN</span><span class="kfoot">Peta Developing disebut secara tekstual tanpa angka, metadata, atau status versi</span></div></div><div class="chips"><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0008_UU-41-1999_Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0008</span>UU 41/1999 Kehutanan</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0010_PP-23-2021_Penyelenggaraan-Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0010</span>PP 23/2021 Pasal 16, 21</a></div><h3 class="h3" id="p4-penetapan"><span class="h3no">2.4</span> Penetapan Kawasan Hutan<span class="h3sub">Menetapkan kawasan berdasarkan hasil pengukuhan sehingga tercipta kepastian hukum atas status, fungsi, letak, batas, dan luas kawasan.</span></h3><div class="chips" style="margin-top:14px"><span class="chip"><span class="ev">Dasar</span>Pasal 15 ayat (1) huruf d</span><span class="chip"><span class="ev">LHK-01.03.A.4</span>Penetapan kawasan hutan</span></div><div class="grid g2"><div class="card block"><ul class="doc-list"><li>Menegaskan <b>hukum final</b> mengenai status, fungsi, letak, batas, dan luas kawasan.</li><li>Memberikan nomor register kawasan hutan.</li><li>Menjadi dasar penataan kawasan, zona/blok, dan rencana pengelolaan konservasi.</li></ul></div><div class="card block"><div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Dasar</th><th>Ketentuan</th></tr></thead><tbody><tr><td>UU 41/1999</td><td>Pasal 14 dan Pasal 15 ayat (1) huruf d — dasar penetapan.</td></tr><tr><td>PP 23/2021</td><td>Pasal 22 — dasar penetapan, keterbukaan hasil penetapan, dan nomor register kawasan.</td></tr><tr><td>PP 23/2021</td><td>Pasal 28–31 — penetapan kawasan hutan.</td></tr><tr><td>Permen LHK 7/2021</td><td>Bagian penetapan kawasan hutan.</td></tr></tbody></table></div></div></div><h4 class="h4">Input &amp; Prasyarat</h4><ul class="doc-list"><li>Berita acara tata batas yang telah <b>temu gelang</b></li><li>Peta tata batas yang telah disahkan</li><li>Daftar hak pihak ketiga yang belum selesai beserta penjelasan</li><li>Dokumen pelibatan masyarakat</li><li>Usulan penetapan dari unit pengelola</li></ul><h4 class="h4">Kegiatan Pokok</h4><div class="flow"><div class="fstep"><span class="fn ">1</span><div><b>Verifikasi kelengkapan dokumen</b><p class="fc">Verifikasi kelengkapan rantai dokumen pengukuhan sejak penunjukan.</p></div></div><div class="fstep"><span class="fn t">2</span><div><b>Pemeriksaan kesesuaian</b><p class="fc">Pemeriksaan kesesuaian antara berita acara dan peta tata batas.</p></div></div><div class="fstep"><span class="fn ">3</span><div><b>Penyelesaian isu terbuka</b><p class="fc">Penyelesaian isu tenurial, keberatan, atau konflik yang masih terbuka.</p></div></div><div class="fstep"><span class="fn g">4</span><div><b>Penyusunan rancangan keputusan</b><p class="fc">Penyusunan rancangan keputusan penetapan kawasan hutan.</p></div></div><div class="fstep"><span class="fn i">5</span><div><b>Penetapan</b><p class="fc">Penetapan oleh pejabat berwenang (Menteri Kehutanan).</p></div></div><div class="fstep"><span class="fn ">6</span><div><b>Pemberian nomor register</b><p class="fc">Kawasan yang telah ditetapkan wajib diberi nomor register (Pasal 22 ayat (4)).</p></div></div><div class="fstep"><span class="fn t">7</span><div><b>Pendahuluan dan pemutakhiran</b><p class="fc">Pendahuluan hasil penetapan kepada masyarakat serta pemutakhiran sistem dan peta.</p></div></div><div class="fstep"><span class="fn ">8</span><div><b>Dokumentasi hasil</b><p class="fc">Dokumentasi hasil penetapan.</p></div></div></div><h4 class="h4">Dokumen &amp; Bukti</h4><div class="grid g2"><div class="card block"><h4 class="h4">Dokumen keluaran</h4><ul class="doc-list"><li>SK penetapan kawasan hutan beserta peta lampiran</li><li>Nomor register kawasan</li><li>Daftar hak pihak ketiga yang belum selesai beserta penjelasan</li><li>Dokumen pendahuluan hasil penetapan</li></ul></div><div class="card block"><h4 class="h4">Sistem informasi</h4><ul class="doc-list"><li>Basis data pengukuhan kawasan hutan</li><li>Peta Perkembangan Pengukuhan Kawasan Hutan</li></ul></div></div><h4 class="h4">Hak, Kewajiban &amp; Larangan</h4><div class="hkw hkw3"><div class="hk h"><div class="hkh"><span class="hki">&#9878;</span><b>Hak</b></div><ul class=""><li>Hasil penetapan <b>terbuka untuk diketahui masyarakat</b> (PP 23/2021 Pasal 22 ayat (3)).</li><li>Masyarakat di dalam/sekitar hutan berhak memperoleh kompensasi karena kehilangan akses sebagai sumber penghidupan (UU 41/1999 Pasal 68 ayat (3)).</li><li>Setiap orang berhak atas kompensasi karena kehilangan hak atas tanah miliknya akibat penetapan (UU 41/1999 Pasal 68 ayat (4)).</li></ul></div><div class="hk k"><div class="hkh"><span class="hki">&#10003;</span><b>Kewajiban</b></div><ul class=""><li>Menteri menetapkan kawasan berdasarkan <b>berita acara tata batas dan peta tata batas yang telah temu gelang</b> (PP 23/2021 Pasal 22 ayat (1)).</li><li>Hak pihak ketiga yang belum selesai <b>harus dijelaskan dalam penetapan</b> (Pasal 22 ayat (2)).</li><li>Kawasan yang telah ditetapkan <b>wajib diberi nomor register</b> (Pasal 22 ayat (4)).</li><li>Hasil penetapan harus pendahuluan agar dapat diketahui masyarakat (Pasal 22 ayat (3)).</li></ul></div><div class="hk l"><div class="hkh"><span class="hki">&#10005;</span><b>Larangan</b></div><ul class=""><li><b>Tidak ditemukan larangan</b> khusus dalam PP 23/2021 Pasal 22.</li><li>Setelah penetapan, larangan umum kegiatan tidak sah dan kegiatan berizin yang menimbulkan kerusakan hutan tetap berlaku (UU 41/1999 jo. UU 6/2023, Pasal 50).</li></ul></div></div><h4 class="h4">Kriteria Uji</h4><div class="card block"><ul class="doc-list"><li>Kelengkapan rantai dokumen sejak penunjukan</li><li>Penyelesaian keberatan atau konflik</li><li>Konsistensi nama, luas, fungsi, dan koordinat</li><li>Legalitas kewenangan penandatangan</li><li>Publikasi dan pemutakhiran basis data setelah penetapan</li><li>Status batas dinyatakan eksplisit (penetapan parsial vs temu gelang)</li></ul></div><h4 class="h4">Risiko &amp; Titik Perhatian</h4><div class="risk-board"><div class="risk"><span class="rk hi">01</span><div><b>Tinggi</b><span>Dokumen tata batas belum lengkap.</span></div></div><div class="risk"><span class="rk hi">02</span><div><b>Tinggi</b><span>Permasalahan hak belum ditindaklanjuti dalam penetapan.</span></div></div><div class="risk"><span class="rk hi">03</span><div><b>Tinggi</b><span>Peta lampiran berbeda dengan hasil tata batas.</span></div></div><div class="risk"><span class="rk hi">04</span><div><b>Tinggi</b><span>Keputusan atau peta tidak didistribusikan atau tidak masuk sistem informasi.</span></div></div><div class="risk"><span class="rk ">05</span><div><b>Sedang</b><span>Keterlambatan penetapan setelah tata batas selesai.</span></div></div><div class="risk"><span class="rk ">06</span><div><b>Sedang</b><span>Status Penetapan tidak konsisten antara sistem, dokumen, dan peta.</span></div></div><div class="risk"><span class="rk hi">07</span><div><b>Tinggi</b><span>Penyebutan kawasan “sudah ditetapkan” padahal bukti hanya penunjukan atau tata batas sebagian.</span></div></div></div><h4 class="h4">Data Kinerja Terverifikasi</h4><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0"><div class="kpi"><span class="kbar"></span><span class="klabel">Kawasan ditetapkan s.d. Des 2024</span><span class="kval" style="font-size:26px">573 unit</span><span class="kfoot">Periode: Laporan Kinerja 2024</span></div><div class="kpi g"><span class="kbar"></span><span class="klabel">Catatan sumber</span><span class="kval" style="font-size:26px">Kawasan ditetapkan s.d. Des 2024</span><span class="kfoot">Total luas kurang lebih 27 juta ha — namun tabel dalam dokumen yang sama menyebut 563 unit / 26.910.593,81 ha</span></div></div><div class="chips"><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0008_UU-41-1999_Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0008</span>UU 41/1999 Pasal 14, 15</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0010_PP-23-2021_Penyelenggaraan-Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0010</span>PP 23/2021 Pasal 22, 28–31</a><a class="chip" href="../DATA_DAN_BUKTI/01_laporan_kinerja/01_Ditjen_KSDAE/2024_EV-2026-0004_Ditjen-KSDAE_Laporan-Kinerja_FINAL_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0004</span>LK Ditjen KSDAE 2024</a></div>
+<h3 class="h3" id="titik-sambung"><span class="h3no">2.5</span> Titik Sambung ke Pengelolaan Konservasi<span class="h3sub">Pengukuhan dan zonasi tidak saling menggantikan. Kegagalan paling sering terjadi di persimpangan keduanya.</span></h3>
+<div class="grid g2">
+  <div class="card block">
+    <h4 class="h4">Tiga aturan yang tidak boleh dilanggar</h4>
+    <div class="risk"><span class="rk hi">1</span><div><b>Penunjukan dan penetapan tidak menggantikan dokumen zona/blok</b><span>SK penetapan kawasan hutan memberi kepastian status, tetapi tidak otomatis menghasilkan rencana pengelolaan. Rencana pengelolaan harus tetap disusun dan disahkan berdasarkan hasil inventarisasi dan penataan zona/blok.</span></div></div>
+    <div class="risk"><span class="rk hi">2</span><div><b>Zona/blok tidak boleh mengubah batas luar atau fungsi kawasan</b><span>Perubahan batas luar atau fungsi kawasan hanya dapat melalui prosedur perubahan/pengukuhan yang sah. Dokumen pengelolaan harus selalu diuji terhadap versi batas penetapan/penetapan paling mutakhir.</span></div></div>
+    <div class="risk"><span class="rk hi">3</span><div><b>Status batas wajib dinyatakan eksplisit</b><span>Bedakan batas penunjukan, hasil tata batas sementara/definitif, penetapan parsial, dan penetapan temu gelang. Jangan menyebut kawasan “sudah ditetapkan” bila bukti hanya menunjukkan penunjukan atau tata batas sebagian.</span></div></div>
+  </div>
+  <div class="card block">
+    <h4 class="h4">Prinsip yang harus dinyatakan dalam dokumen</h4>
+    <p class="muted" style="font-size:14.2px">Setiap peta pengelolaan wajib menjelaskan secara eksplisit batas legal yang dipakai:</p>
+    <div class="chips">
+      <span class="chip"><span class="ev">Tahap 1</span> Batas penunjukan</span>
+      <span class="chip"><span class="ev">Tahap 2</span> Hasil tata batas sementara</span>
+      <span class="chip"><span class="ev">Tahap 2b</span> Hasil tata batas definitif</span>
+      <span class="chip"><span class="ev">Tahap 4a</span> Penetapan parsial</span>
+      <span class="chip"><span class="ev">Tahap 4b</span> Penetapan temu gelang</span>
+    </div>
+    <div class="note ok" style="margin-top:18px"><span class="nt">Titik uji yang praktis</span>Ambil satu peta zona/blok. Tanyakan: batas mana yang dipakai, pada berapa tahap pengukuhan, apakah sudah penetapan? Bila tiga pertanyaan itu tidak dapat dijawab dari dokumen, peta tersebut tidak dapat dipakai sebagai dasar pemeriksaan.</div>
+  </div>
+</div>
+
+<h2 class="h2" id="domain-b" data-tagno="Bagian 03 · Domain B" data-sub="Siklus pengelolaan konservasi menurut PP 28/2011 jo. PP 108/2015 beserta norma teknis dan unsur pendukungnya." data-badge="9 proses + 1 unsur pendukung" style="--c-accent:var(--emerald);--c-ink:var(--emerald)"><span class="tagno">Bagian 03 · Domain B</span><span class="h2row"><span>Pengelolaan Konservasi KSA dan KPA</span><p class="sub">Siklus pengelolaan konservasi menurut PP 28/2011 jo. PP 108/2015 beserta norma teknis dan unsur pendukungnya.</p><span class="badge">9 proses + 1 unsur pendukung</span></span></h2><p class="lead">Sembilan proses pada Domain B tidak berhenti pada urutan linear. Hasil lapangan dinilai melalui monitoring dan evaluasi, lalu digunakan untuk memperbaiki zonasi, rencana, target, metode, serta skema kemitraan.</p><div class="flow" id="siklus-pp28"><div class="fstep"><span class="fn t">1</span><div><b>Inventarisasi potensi</b><p class="fc">Mandat sekurang-kurangnya sekali dalam 10 tahun untuk seluruh kawasan</p><a class="fcode" href="#p5-zona">Permenhut P.81/2014</a></div></div><div class="fstep"><span class="fn ">2</span><div><b>Penataan zona/blok & wilayah kerja</b><p class="fc">Konsultasi publik sebelum penetapan</p><a class="fcode" href="#p5-zona">PP 28/2011 Pasal 16 · Permen LHK P.76/2015</a></div></div><div class="fstep"><span class="fn g">3</span><div><b>Rencana pengelolaan</b><p class="fc">RPJP 10 tahun dan RPK 1 tahun</p><a class="fcode" href="#p6-rencana">PP 28/2011 Pasal 21–23 · Permen LHK P.35/2016</a></div></div><div class="fstep"><span class="fn i">4</span><div><b>Perlindungan · Pengawetan · Pemanfaatan</b><p class="fc">Kesesuaian fungsi zona/blok dan berlaku</p><a class="fcode" href="#p7-pelaksanaan">PP 28/2011 Pasal 24–40</a></div></div><div class="fstep"><span class="fn ">5</span><div><b>Monitoring & evaluasi kesesuaian fungsi</b><p class="fc">Periodik paling lama setiap lima tahun</p><a class="fcode" href="#p9-monev">PP 28/2011 Pasal 41–42 · Permenhut P.49/2014</a></div></div></div><h3 class="h3" id="p5-zona"><span class="h3no">3.1</span> Penataan Kawasan Konservasi<span class="h3sub">Inventarisasi potensi, pemolaan kawasan, penataan wilayah kerja, dan penetapan zona/blok pengelolaan.</span></h3><div class="chips" style="margin-top:14px"><span class="chip"><span class="ev">Dasar</span>Pasal 14–20 PP 28/2011</span><span class="chip"><span class="ev">LHK-02.01.A</span>Penataan kawasan — planning</span><span class="chip"><span class="ev">LHK-02.01.B</span>Penataan kawasan — implementasi</span><span class="chip"><span class="ev">LHK-02.UPT.A-3</span>Pelaksanaan UPT: penyusunan zona/blok</span><span class="chip"><span class="ev">LHK-02.UPT.A-4</span>Pelaksanaan UPT: penetapan zona/blok</span></div><p class="lead">Mengatur ruang pengelolaan di dalam kawasan sesuai fungsi, karakteristik biofisik, potensi, kerentanan, dan tujuan konservasi.</p><div class="grid g2"><div class="card block"><ul class="doc-list"><li>Mengatur <b>ruang pengelolaan</b> di dalam kawasan sesuai fungsi dan karakteristik biofisik.</li><li>Menetapkan zona (taman nasional) atau blok (KSA/KPA selain taman nasional) sebagai dasar peruntukan ruang.</li><li>Membagi wilayah kerja atau resor sebagai satuan pelaksanaan lapangan.</li><li>Menjadi dasar seluruh kegiatan perlindungan, pengawetan, pemanfaatan, dan pemulihan.</li></ul></div><div class="card block"><div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Dasar</th><th>Ketentuan</th></tr></thead><tbody><tr><td>PP 28/2011</td><td>Pasal 14 — perencanaan mencakup inventarisasi potensi, penataan kawasan, dan rencana pengelolaan.</td></tr><tr><td>PP 28/2011</td><td>Pasal 15–19 — penetapan zona/blok oleh Menteri atau pejabat yang ditunjuk; konsultasi publik pada Pasal 17 ayat (1).</td></tr><tr><td>PP 28/2011</td><td>Pasal 16 ayat (1) — penataan wilayah kerja merupakan bagian wajib dari penataan kawasan.</td></tr><tr><td>Permenhut P.81/2014</td><td>Tata cara pelaksanaan inventarisasi potensi pada KSA dan KPA.</td></tr><tr><td>Permen LHK P.76/2015</td><td>Kriteria zona pengelolaan taman nasional dan blok pengelolaan CA, SM, Tahura, dan TWA.</td></tr></tbody></table></div></div></div><h4 class="h4">Input &amp; Prasyarat</h4><ul class="doc-list"><li>Hasil inventarisasi potensi yang mutakhir</li><li>Data spasial batas legal kawasan (penetapan paling mutakhir)</li><li>Kriteria fungsi, potensi, kondisi biofisik, dan sosial budaya</li><li>Data kondisi sosial masyarakat dan akses tradisional</li></ul><h4 class="h4">Kegiatan Pokok</h4><div class="flow"><div class="fstep"><span class="fn ">1</span><div><b>Pelaksanaan inventarisasi potensi</b><p class="fc">Pengumpulan data ekologi (ekosistem, lingkungan, tumbuhan dan satwa liar) serta ekonomi dan sosial budaya.</p></div></div><div class="fstep"><span class="fn t">2</span><div><b>Mandat 10 tahun</b><p class="fc">Unit pengelola melaksanakan inventarisasi sekurang-kurangnya <b>sekali dalam 10 tahun</b>, atau lebih sering bila kondisi tertentu menyebabkan penataan/rencana tidak sesuai kondisi terkini.</p></div></div><div class="fstep"><span class="fn ">3</span><div><b>Pemetaan dan pemolaan kawasan</b><p class="fc">Pemetaan potensi dan ancaman serta pemolaan kawasan konservasi.</p></div></div><div class="fstep"><span class="fn g">4</span><div><b>Penyusunan rancangan zona/blok</b><p class="fc">Penyusunan rancangan zona/blok berdasarkan hasil inventarisasi.</p></div></div><div class="fstep"><span class="fn i">5</span><div><b>Konsultasi publik</b><p class="fc">Konsultasi publik untuk memberi ruang partisipasi para pihak (Pasal 17 ayat (1)).</p></div></div><div class="fstep"><span class="fn ">6</span><div><b>Penilaian rancangan</b><p class="fc">Penilaian rancangan terhadap kriteria masing-masing zona/blok.</p></div></div><div class="fstep"><span class="fn t">7</span><div><b>Penetapan zona/blok</b><p class="fc">Penetapan oleh Menteri atau pejabat yang ditunjuk.</p></div></div><div class="fstep"><span class="fn ">8</span><div><b>Penandaan dan sosialisasi</b><p class="fc">Penandaan batas zona/blok di lapangan dan sosialisasi kepada masyarakat.</p></div></div><div class="fstep"><span class="fn g">9</span><div><b>Pemantauan dan evaluasi</b><p class="fc">Pemantauan dan evaluasi penetapan serta pemutakhiran peta.</p></div></div><div class="fstep"><span class="fn i">10</span><div><b>Penataan wilayah kerja</b><p class="fc">Pembagian wilayah kerja/resor sebagai satuan pelaksanaan.</p></div></div></div><h4 class="h4">Dokumen &amp; Bukti</h4><div class="grid g2"><div class="card block"><h4 class="h4">Dokumen keluaran</h4><ul class="doc-list"><li>Keputusan penetapan zona/blok</li><li>Dokumen deskripsi zona/blok beserta criteria</li><li>Berita acara konsultasi publik</li><li>Dokumen inventarisasi potensi dan peta tematik</li><li>SK penetapan wilayah kerja/resor</li></ul></div><div class="card block"><h4 class="h4">Sistem informasi</h4><ul class="doc-list"><li>Basis data potensi kawasan</li><li>Peta zona/blok terhadap batas legal</li><li>Basis data satwa liar (BSL)</li><li>SIPUHH</li></ul></div></div><h4 class="h4">Hak, Kewajiban &amp; Larangan</h4><div class="hkw hkw3"><div class="hk h"><div class="hkh"><span class="hki">&#9878;</span><b>Hak</b></div><ul class=""><li>Masyarakat berhak mengetahui rencana pengelolaan, memberi informasi/saran/pertimbangan, dan mengawasi penyelenggaraan KSA/KPA (PP 28/2011 Pasal 50 huruf a–c).</li><li>Konsultasi dalam penyusunan zona atau blok memberi ruang partisipasi para pihak (Pasal 17 ayat (1)).</li></ul></div><div class="hk k"><div class="hkh"><span class="hki">&#10003;</span><b>Kewajiban</b></div><ul class=""><li>Unit pengelola melaksanakan inventarisasi potensi dan menyusun zona/blok dengan memperhatikan hasil konsultasi (PP 28/2011 Pasal 15–19).</li><li>Zona atau blok ditetapkan oleh Menteri/pejabat yang ditunjuk (Pasal 15–19).</li><li>Penataan wilayah kerja merupakan bagian <b>wajib</b> dari penataan kawasan (Pasal 16 ayat (1)).</li><li>Hasil inventarisasi dipakai sebagai dasar penyesuaian penataan kawasan dan rencana pengelolaan.</li></ul></div><div class="hk l"><div class="hkh"><span class="hki">&#10005;</span><b>Larangan</b></div><ul class=""><li>Setiap orang dilarang melakukan kegiatan yang mengakibatkan perubahan terhadap <b>keutuhan</b> KSA atau KPA (UU 5/1990 jo. UU 32/2024 Pasal 19 dan Pasal 33).</li><li>Kegiatan yang tidak sesuai fungsi zona/blok termasuk larangan dalam rezim Pasal 33.</li><li>Akses tradisional/khusus tidak boleh ditetapkan tanpa justifikasi.</li></ul></div></div><h4 class="h4">Kriteria Uji</h4><div class="card block"><ul class="doc-list"><li>Dasar data memadai dan metodologi inventarisasi representatif</li><li>Data mutakhir (maks. 10 tahun atau kondisi tertentu)</li><li>Data spasial dan nonspasial konsisten</li><li>Kriteria setiap zona/blok dipenuhi</li><li>Ancaman dan gangguan tercakup dalam inventarisasi</li><li>Akses tradisional/khusus tidak ditetapkan tanpa justifikasi</li><li>Konsultasi terdokumentasi</li><li>Peta konsisten dengan batas legal</li><li>Kegiatan lapangan sesuai peruntukan ruang</li></ul></div><h4 class="h4">Risiko &amp; Titik Perhatian</h4><div class="risk-board"><div class="risk"><span class="rk hi">01</span><div><b>Tinggi</b><span>Dasar data inventarisasi sudah tidak mutakhir atau tidak representatif.</span></div></div><div class="risk"><span class="rk hi">02</span><div><b>Tinggi</b><span>Kriteria zona/blok tidak terpenuhi pada sebagian zona.</span></div></div><div class="risk"><span class="rk hi">03</span><div><b>Tinggi</b><span>Peta zona/blok menyimpangi peta legal (mengubah batas luar atau fungsi).</span></div></div><div class="risk"><span class="rk hi">04</span><div><b>Tinggi</b><span>Akses tradisional/khusus ditetapkan tanpa justifikasi dan tanpa persetujuan.</span></div></div><div class="risk"><span class="rk ">05</span><div><b>Sedang</b><span>Konsultasi tidak terdokumentasi atau bersifat formalitas.</span></div></div><div class="risk"><span class="rk ">06</span><div><b>Sedang</b><span>Hasil inventarisasi tidak digunakan dalam penyusunan zona/blok dan rencana.</span></div></div><div class="risk"><span class="rk ">07</span><div><b>Sedang</b><span>Wilayah kerja/resor tidak ditetapkan sehingga pelaksanaan tidak jelas.</span></div></div></div><h4 class="h4">Data Kinerja Terverifikasi</h4><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0"><div class="kpi"><span class="kbar"></span><span class="klabel">Jumlah zona/blok ditetapkan</span><span class="kval" style="font-size:26px">Tidak dirinci</span><span class="kfoot">Periode: 2021–2025</span></div><div class="kpi g"><span class="kbar"></span><span class="klabel">Catatan sumber</span><span class="kval" style="font-size:26px">Jumlah zona/blok ditetapkan</span><span class="kfoot">Hanya disebut secara naratif (zona/blok tradisional); tidak ditemukan angka jumlah zona/blok yang ditetapkan per kawasan</span></div></div><div class="chips"><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0011_PP-28-2011_Pengelolaan-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0011</span>PP 28/2011 Pasal 14–20</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0012_PP-108-2015_Perubahan-PP28_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0012</span>PP 108/2015 (perubahan)</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0035_Permenhut-P81-2014_Inventarisasi-Potensi-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0035</span>Permenhut P.81/2014 inventarisasi</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0036_PermenLHK-P76-2015_Zona-Blok-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0036</span>Permen LHK P.76/2015 zona/blok</a></div><h3 class="h3" id="p6-rencana"><span class="h3no">3.2</span> Perencanaan Pengelolaan Konservasi<span class="h3sub">Penyusunan rencana jangka panjang dan jangka pendek beserta indikator, anggaran, dan mekanisme evaluasinya.</span></h3><div class="chips" style="margin-top:14px"><span class="chip"><span class="ev">Dasar</span>Pasal 21–23 PP 28/2011</span><span class="chip"><span class="ev">LHK-02.01.B-2</span>Perencanaan pengelolaan — rencana jangka pendek</span><span class="chip"><span class="ev">LHK-02.UPT.A-5</span>Pelaksanaan UPT: penyusunan rencana pengelolaan</span></div><p class="lead">Menyusun arah, sasaran, strategi, program, dan kegiatan berdasarkan potensi, masalah, ancaman, serta tujuan kawasan.</p><div class="grid g2"><div class="card block"><ul class="doc-list"><li>Menetapkan arah, sasaran, dan kegiatan pengelolaan berdasarkan potensi dan ancaman.</li><li>Menyusun <b>rencana jangka panjang 10 tahunan</b> dan <b>rencana jangka pendek 1 tahunan</b>.</li><li>Menjadi dasar kerja dan dasar anggaran unit pengelola.</li><li>Menyediakan indikator yang dapat diukur dan dievaluasi.</li></ul></div><div class="card block"><div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Dasar</th><th>Ketentuan</th></tr></thead><tbody><tr><td>PP 28/2011</td><td>Pasal 21–23 — penyusunan, jangka waktu, muatan, pengesahan, dan evaluasi rencana pengelolaan.</td></tr><tr><td>PP 28/2011</td><td>Pasal 22 ayat (3) — rencana jangka panjang dievaluasi sekurang-kurangnya sekali dalam lima tahun.</td></tr><tr><td>PP 28/2011</td><td>Pasal 23 — muatan paling sedikit memuat visi, misi, tujuan, strategi, zona/blok, pendanaan, kelembagaan, serta pemantauan dan evaluasi.</td></tr><tr><td>Permen LHK P.35/2016</td><td>Tata cara penyusunan rencana pengelolaan pada KSA dan KPA.</td></tr></tbody></table></div></div></div><h4 class="h4">Input &amp; Prasyarat</h4><ul class="doc-list"><li>Hasil inventarisasi potensi</li><li>Penataan zona/blok</li><li>Identifikasi masalah strategis dan ancaman</li><li>Data evaluasi sebelumnya</li><li>Kerangka anggaran dan sumber daya</li></ul><h4 class="h4">Kegiatan Pokok</h4><div class="flow"><div class="fstep"><span class="fn ">1</span><div><b>Inventarisasi dan analisis kondisi</b><p class="fc">Analisis kondisi, potensi, masalah, dan ancaman kawasan.</p></div></div><div class="fstep"><span class="fn t">2</span><div><b>Penetapan visi dan tujuan</b><p class="fc">Penetapan visi, misi, tujuan, dan sasaran yang terukur.</p></div></div><div class="fstep"><span class="fn ">3</span><div><b>Penyusunan RPJP</b><p class="fc">Penyusunan rencana pengelolaan jangka panjang (10 tahun).</p></div></div><div class="fstep"><span class="fn g">4</span><div><b>Penetapan strategi dan program</b><p class="fc">Penetapan strategi, program, dan kegiatan.</p></div></div><div class="fstep"><span class="fn i">5</span><div><b>Penjabaran ke RPK</b><p class="fc">Penjabaran rencana jangka panjang ke rencana jangka pendek/tahunan.</p></div></div><div class="fstep"><span class="fn ">6</span><div><b>Konsultasi</b><p class="fc">Konsultasi dengan pemangku kepentingan.</p></div></div><div class="fstep"><span class="fn t">7</span><div><b>Penetapan indikator</b><p class="fc">Penetapan indikator kinerja beserta target.</p></div></div><div class="fstep"><span class="fn ">8</span><div><b>Pengesahan</b><p class="fc">Dokumen dinilai dan disahkan sesuai kewenangan.</p></div></div><div class="fstep"><span class="fn g">9</span><div><b>Evaluasi dan perubahan</b><p class="fc">Evaluasi rencana jangka panjang sekurang-kurangnya sekali dalam lima tahun; perubahan rencana terdokumentasi.</p></div></div></div><h4 class="h4">Dokumen &amp; Bukti</h4><div class="grid g2"><div class="card block"><h4 class="h4">Dokumen keluaran</h4><ul class="doc-list"><li>Dokumen RPJP (rencana pengelolaan jangka panjang 10 tahun)</li><li>Dokumen RPK (rencana pengelolaan jangka pendek 1 tahun)</li><li>Dokumen penilaian dan pengesahan</li><li>Daftar indikator kinerja beserta target</li><li>Dokumen revisi rencana</li></ul></div><div class="card block"><h4 class="h4">Sistem informasi</h4><ul class="doc-list"><li>Basis data rencana pengelolaan</li><li>Peta program/kegiatan</li></ul></div></div><h4 class="h4">Hak, Kewajiban &amp; Larangan</h4><div class="hkw hkw3"><div class="hk h"><div class="hkh"><span class="hki">&#9878;</span><b>Hak</b></div><ul class=""><li>Masyarakat berhak mengetahui rencana pengelolaan dan menyampaikan informasi, saran, serta pertimbangan (PP 28/2011 Pasal 50 huruf a–b).</li></ul></div><div class="hk k"><div class="hkh"><span class="hki">&#10003;</span><b>Kewajiban</b></div><ul class=""><li>Unit pengelola menyusun rencana berdasarkan hasil inventarisasi (Pasal 21).</li><li>Rencana terdiri atas rencana jangka panjang 10 tahunan dan rencana jangka pendek tahunan (Pasal 22).</li><li>Rencana jangka panjang <b>dievaluasi sekurang-kurangnya sekali dalam lima tahun</b> (Pasal 22 ayat (3)).</li><li>Muatan rencana paling sedikit mengikuti Pasal 23: visi, misi, tujuan, strategi, zona/blok, pendanaan, kelembagaan, serta monitoring dan evaluasi.</li></ul></div><div class="hk l"><div class="hkh"><span class="hki">&#10005;</span><b>Larangan</b></div><ul class=""><li><b>Tidak ditemukan larangan khusus</b> dalam Pasal 21–23.</li><li>Rencana tidak boleh melegitimasi kegiatan yang mengubah keutuhan KSA/KPA atau tidak sesuai fungsi zona (UU 5/1990 jo. UU 32/2024 Pasal 19 dan Pasal 33).</li></ul></div></div><h4 class="h4">Kriteria Uji</h4><div class="card block"><ul class="doc-list"><li>Dokumen masih berlaku</li><li>Target terukur</li><li>Kegiatan dan anggaran konsisten dengan tujuan serta zona/blok</li><li>Pengesahan sah sesuai kewenangan</li><li>Evaluasi dilakukan dan perubahan rencana terdokumentasi</li><li>Keterhubungan rencana dengan hasil inventarisasi dan zonasi</li><li>Kejelasan indikator, jadwal, penanggung jawab, dan anggaran</li><li>Sinkronisasi pusat–UPT–daerah</li></ul></div><h4 class="h4">Risiko &amp; Titik Perhatian</h4><div class="risk-board"><div class="risk"><span class="rk hi">01</span><div><b>Tinggi</b><span>Rencana tidak dapat dipertanggungjawabkan secara tertulis (dokumen).</span></div></div><div class="risk"><span class="rk hi">02</span><div><b>Tinggi</b><span>Rencana tidak memberi ruang manuver dan tidak responsif terhadap perubahan kondisi.</span></div></div><div class="risk"><span class="rk hi">03</span><div><b>Tinggi</b><span>Kegiatan di luar zona/blok tetap dijalankan.</span></div></div><div class="risk"><span class="rk hi">04</span><div><b>Tinggi</b><span>Evaluasi lima tahunan tidak dilaksanakan.</span></div></div><div class="risk"><span class="rk hi">05</span><div><b>Tinggi</b><span>Perubahan rencana tidak terdokumentasi.</span></div></div><div class="risk"><span class="rk ">06</span><div><b>Sedang</b><span>Target tidak terukur atau tidak memiliki baseline.</span></div></div><div class="risk"><span class="rk ">07</span><div><b>Sedang</b><span>Anggaran tidak terhubung dengan kegiatan rencana.</span></div></div></div><h4 class="h4">Data Kinerja Terverifikasi</h4><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0"><div class="kpi"><span class="kbar"></span><span class="klabel">Nilai SAKIP Ditjen KSDAE</span><span class="kval" style="font-size:26px">82,45 poin</span><span class="kfoot">Periode: 2025</span></div><div class="kpi g"><span class="kbar"></span><span class="klabel">Catatan sumber</span><span class="kval" style="font-size:26px">Nilai SAKIP Ditjen KSDAE</span><span class="kfoot">Target 82,31 — capaian 101%; achievement ini tidak secara langsung mengukur mutu RPJP</span></div></div><div class="chips"><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0011_PP-28-2011_Pengelolaan-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0011</span>PP 28/2011 Pasal 21–23</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0012_PP-108-2015_Perubahan-PP28_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0012</span>PP 108/2015 (perubahan)</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0037_PermenLHK-P35-2016_Rencana-Pengelolaan-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0037</span>Permen LHK P.35/2016 rencana pengelolaan</a></div><h3 class="h3" id="p7-pelaksanaan"><span class="h3no">3.3</span> Pelaksanaan Pengelolaan Konservasi<span class="h3sub">Perlindungan sistem penyangga kehidupan, pengawetan keanekaragaman hayati, pemanfaatan lestari, dan pemulihan ekosistem.</span></h3><div class="chips" style="margin-top:14px"><span class="chip"><span class="ev">Dasar</span>Pasal 24–40 PP 28/2011</span><span class="chip"><span class="ev">LHK-02.02 s.d. LHK-02.05</span>Pelaksanaan perlindungan, pengawetan, pemanfaatan, pemulihan</span><span class="chip"><span class="ev">LHK-02.UPT.B s.d. E</span>Pelaksanaan UPT pada lapangan</span></div><p class="lead">Melaksanakan tindakan konservasi sesuai fungsi kawasan dan rencana yang telah ditetapkan. Pelaksanaan dikelompokkan ke dalam empat substansi utama.</p><div class="grid g2"><div class="card block"><ul class="doc-list"><li>Melaksanakan tindakan konservasi sesuai <b>fungsi kawasan</b> dan rencana yang telah ditetapkan.</li><li>Menjaga keutuhan dan fungsi KSA/KPA melalui empat substansi: perlindungan, pengawetan, pemanfaatan lestari, dan pemulihan.</li><li>Menghasilkan <b>hasil ekologis</b> yang terukur, bukan hanya realisasi fisik dan anggaran.</li></ul></div><div class="card block"><div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Dasar</th><th>Ketentuan</th></tr></thead><tbody><tr><td>UU 5/1990 jo. UU 32/2024</td><td>Pasal 5 — tiga kegiatan konservasi; Pasal 19, 21, 22, dan 33 — larangan dan pengecualian.</td></tr><tr><td>PP 28/2011 jo. PP 108/2015</td><td>Pasal 13 — siklus pengelolaan; Pasal 24 — perlindungan; Pasal 25–28 — pengawetan; Pasal 29–31 — pemulihan; Pasal 32–40 — pemanfaatan.</td></tr><tr><td>PP 8/1999</td><td>Pemanfaatan jenis tumbuhan dan satwa liar.</td></tr><tr><td>Permenhut 27/2025</td><td>Pemanfaatan jasa lingkungan pada KSA, KPA, dan taman buru — mencabut Permen LHK P.8/2019 dan P.18/2019 (peralihan Pasal 591–593).</td></tr><tr><td>Permen LHK 15/2023</td><td>Perizinan berusaha pemanfaatan jenis tumbuhan dan satwa liar.</td></tr><tr><td>PP 36/2024</td><td>Pungutan (PNBP) bidang kehutanan dan lingkungan hidup</td></tr></tbody></table></div></div></div><h4 class="h4">Input &amp; Prasyarat</h4><ul class="doc-list"><li>Rencana pengelolaan yang disahkan</li><li>Penataan zona/blok yang ditetapkan</li><li>Perizinan/persetujuan yang berlaku</li><li>Perjanjian kerja sama yang aktif</li><li>Data lapangan dan sistem pemantauan</li></ul><h4 class="h4">Kegiatan Pokok</h4><div class="flow"><div class="fstep"><span class="fn ">1</span><div><b>A · Perlindungan sistem penyangga kehidupan</b><p class="fc">Perlindungan dan pengamanan kawasan; pencegahan dan penanganan gangguan; pengendalian kebakaran; penutupan kawasan; evaluasi kesesuaian fungsi; pengelolaan berbasis resor.</p></div></div><div class="fstep"><span class="fn t">2</span><div><b>B · Pengawetan keanekaragaman hayati</b><p class="fc">Pengawetan tumbuhan, satwa liar, dan habitatnya; konservasi spesies dan sumber daya genetik; keamanan hayati; pengendalian jenis invasif; penanganan konflik satwa; pengawasan peredaran, penangkaran, dan peragaan; penelitian dan pendidikan.</p></div></div><div class="fstep"><span class="fn ">3</span><div><b>C · Pemanfaatan secara lestari</b><p class="fc">Wisata alam dan jasa lingkungan; penelitian dan pendidikan; pemanfaatan tumbuhan dan satwa liar serta sumber daya genetik; pemanfaatan air, energi air, panas bumi, dan karbon — termasuk perizinan atau persetujuan sesuai zona.</p></div></div><div class="fstep"><span class="fn g">4</span><div><b>D · Pemulihan ekosistem</b><p class="fc">Perencanaan pemulihan; rehabilitasi atau restorasi; pemilihan kawasan dan teknik pemulihan; pelaksanaan; pemeliharaan; monitoring; penilaian keberhasilan.</p></div></div></div><h4 class="h4">Dokumen &amp; Bukti</h4><div class="grid g2"><div class="card block"><h4 class="h4">Dokumen keluaran</h4><ul class="doc-list"><li>Rencana pengamanan dan peta kerawanan</li><li>Laporan gangguan dan penanganan perkara</li><li>Laporan pengendalian kebakaran</li><li>Peta patroli, peta habitat, dan peta pemulihan</li><li>Dokumen perizinan/persetujuan pemanfaatan</li><li>Laporan kegiatan, tren gangguan/populasi/tutupan, dan PNBP</li><li>Kajian dan rencana pemulihan, serta penilaian keberhasilan</li></ul></div><div class="card block"><h4 class="h4">Sistem informasi</h4><ul class="doc-list"><li>SMART (Spatial Monitoring and Reporting Tools) Patrol</li><li>Basis Data Sumber Daya Hutan (BDSKH)</li><li>Geoportal KLHK · SIPUHH</li><li>Basis data satwa liar</li><li>Grid Design System (GDS) untuk penentuan jalur patroli</li></ul></div></div><h4 class="h4">Hak, Kewajiban &amp; Larangan</h4><div class="hkw hkw3"><div class="hk h"><div class="hkh"><span class="hki">&#9878;</span><b>Hak</b></div><ul class=""><li>Masyarakat berhak mengetahui, memberi masukan, dan mengawasi penyelenggaraan KSA/KPA (PP 28/2011 Pasal 50).</li><li>Pemanfaatan yang sah hanya dapat dilakukan sesuai bentuk, lokasi/zona, izin atau persetujuan, dan batas kewenangan (PP 28/2011 Pasal 32–40 dan peraturan tematik).</li></ul></div><div class="hk k"><div class="hkh"><span class="hki">&#10003;</span><b>Kewajiban</b></div><ul class=""><li>Perlindungan dilakukan melalui pencegahan, penanganan gangguan, dan pengamanan yang efektif (PP 28/2011 Pasal 24).</li></ul></div><div class="hk l"><div class="hkh"><span class="hki">&#10005;</span><b>Larangan</b></div><ul class=""><li>Dilarang mengubah keutuhan KSA/KPA atau melakukan kegiatan yang tidak sesuai fungsi zona (UU 5/1990 jo. UU 32/2024 Pasal 19 dan Pasal 33).</li><li>Dilarang mengambil, merusak, memiliki, mengangkut, atau memperdagangkan tumbuhan/satwa dilindungi tanpa dasar pengecualian atau perizinan yang sah (UU 5/1990 Pasal 21–22).</li><li>Dilarang melakukan pemanfaatan yang merusak bentang alam atau mengubah fungsi KSA/KPA (PP 28/2011 Pasal 32 ayat (2)).</li></ul></div></div><h4 class="h4">Kriteria Uji</h4><div class="card block"><ul class="doc-list"><li>Ada rencana keamanan dan peta kerawanan yang disahkan, beserta mekanisme respons gangguan (Pasal 24 PP 28/2011).</li><li>Ada upaya pengawetan jenis, habitat, dan keanekaragaman hayati yang didukung data populasi dan tutupan yang terpantau (Pasal 25-28).</li><li>Setiap pemanfaatan memiliki perizinan atau persetujuan yang masih berlaku, dan bobot, lokasi, serta jangka waktu izin sesuai ketentuan (Pasal 32-40).</li><li>Ada kajian, rencana pemulihan, dan penilaian keberhasilan pemulihan yang terdokumentasi serta dipelihara (Pasal 29-31).</li><li>Kewajiban pemegang izin terhadap konservasi dan masyarakat dilaksanakan, bukan sekadar dicantumkan dalam dokumen.</li><li>Capaian ekologis (populasi, tutupan habitat, tren gangguan) dilaporkan selain realisasi fisik dan keuangan.</li><li>Data lapangan, patroli, dan keanekaragaman hayati terekam dalam SIMON/SMART dan BDSKH.</li><li>Kualitas data patroli dan biodiversity cukup untuk mendukung keputusan pengelolaan.</li></ul></div><h4 class="h4">Risiko &amp; Titik Perhatian</h4><div class="risk-board"><div class="risk"><span class="rk hi">01</span><div><b>Tinggi</b><span>Kegiatan tidak sesuai dengan rencana dan zona/blok.</span></div></div><div class="risk"><span class="rk hi">02</span><div><b>Tinggi</b><span>Izin/persetujuan tidak sesuai bobot, lokasi, atau jangka waktu.</span></div></div><div class="risk"><span class="rk hi">03</span><div><b>Tinggi</b><span>Dampak ekologis tidak dipantau; hanya realisasi fisik dan anggaran yang dilaporkan.</span></div></div><div class="risk"><span class="rk hi">04</span><div><b>Tinggi</b><span>Capaian ekologis (populasi, habitat, tutupan) tidak diukur.</span></div></div><div class="risk"><span class="rk hi">05</span><div><b>Tinggi</b><span>Kewajiban pemegang izin dan manfaat bagi konservasi/masyarakat tidak terealisasi.</span></div></div><div class="risk"><span class="rk ">06</span><div><b>Sedang</b><span>Kualitas data patroli dan biodiversitas rendah.</span></div></div><div class="risk"><span class="rk ">07</span><div><b>Sedang</b><span>Penanganan gangguan tidak tuntas.</span></div></div><div class="risk"><span class="rk ">08</span><div><b>Sedang</b><span>Bukti keberhasilan pemulihan tidak ada atau tidak dipelihara.</span></div></div></div><h4 class="h4">Data Kinerja Terverifikasi</h4><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0"><div class="kpi"><span class="kbar"></span><span class="klabel">Perlindungan & penghambatan KSA/KPA/TB</span><span class="kval" style="font-size:26px">482.851 ha</span><span class="kfoot">Periode: 2025</span></div><div class="kpi g"><span class="kbar"></span><span class="klabel">Catatan sumber</span><span class="kval" style="font-size:26px">Perlindungan & penghambatan KSA/KPA/TB</span><span class="kfoot">Target 226.858 ha — capaian 95,85%; pengendalian kebakaran 52.524 ha dari 52.845 ha (98,40%)</span></div></div><div class="chips"><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0006_UU-5-1990_KSDAHE_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0006</span>UU 5/1990 KSDAHE</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0007_UU-32-2024_Perubahan-KSDAHE_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0007</span>UU 32/2024 (perubahan)</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0011_PP-28-2011_Pengelolaan-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0011</span>PP 28/2011 Pasal 24–40</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0018_Permenhut-27-2025_Jasa-Lingkungan_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0018</span>Permenhut 27/2025 jasa lingkungan</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0022_PP-8-1999_Pemanfaatan-TSL_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0022</span>PP 8/1999 TSL</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0023_PermenLHK-15-2023_Perizinan-TSL_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0023</span>Permen LHK 15/2023 perizinan TSL</a></div><h3 class="h3" id="p8-mitra"><span class="h3no">3.4</span> Kemitraan dan Pelibatan Masyarakat<span class="h3sub">Akses, kerja sama, kemitraan konservasi, pemberdayaan, desa binaan, penyuluhan, dan bentuk kolaborasi.</span></h3><div class="chips" style="margin-top:14px"><span class="chip"><span class="ev">Dasar</span>Pasal 43–50 PP 28/2011</span><span class="chip"><span class="ev">LHK-02.01.C</span>Kemitraan dan masyarakat — planning</span><span class="chip"><span class="ev">LHK-02.02.B</span>Kemitraan dan masyarakat — implementasi</span><span class="chip"><span class="ev">LHK-02.UPT.A-6, A-7</span>Pelaksanaan UPT: akses dan kepemimpinan</span><span class="chip"><span class="ev">LHK-02.UPT.B-5 s.d. B-10</span>Pelaksanaan UPT: kemitraan dan pendampingan</span></div><p class="lead">Mengatur keterlibatan masyarakat dan para pihak melalui akses, kerja sama, kemitraan konservasi, pemberdayaan, desa binaan, penyuluhan, dan bentuk kolaborasi lainnya.</p><div class="grid g2"><div class="card block"><ul class="doc-list"><li>Mengatur keterlibatan masyarakat melalui <b>akses yang sah</b> sesuai bentuk dan peruntukan ruang.</li><li>Membangun kemitraan konservasi yang tidak mengalihkan tanggung jawab pengelola.</li><li>Memberdayakan masyarakat sekitar kawasan agar تحصل manfaat dan mampu menjaga konservasi.</li><li>Mencegah konflik kepentingan melalui pembagian peran dan manfaat yang adil.</li></ul></div><div class="card block"><div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Dasar</th><th>Ketentuan</th></tr></thead><tbody><tr><td>PP 28/2011 jo. PP 108/2015</td><td>Pasal 43 — kerja sama penyelenggaraan KSA/KPA; Pasal 44–47 — daerah penyangga; Pasal 48 — pendanaan; Pasal 49–50 — pemberdayaan dan peran masyarakat.</td></tr><tr><td>Permen LHK P.43/2017</td><td>Pasal 2–21 — pemberdayaan masyarakat di sekitar KSA/KPA; Pasal 11–19 — rincian akses dan fasilitasi.</td></tr><tr><td>Permenhut P.85/2014 jo. Permen LHK P.44/2017</td><td>Tata cara kerja sama penyelenggaraan KSA/KPA; Pasal 18–19 — kewajiban mitra.</td></tr><tr><td>Permen LHK 3/2022</td><td>Kerja sama dalam negeri di lingkungan Kementerian</td></tr><tr><td>Permen LHK P.20/2022</td><td>CITES kayu; Permen LHK P.83/2016 — perhutanan sosial.</td></tr></tbody></table></div></div></div><h4 class="h4">Input &amp; Prasyarat</h4><ul class="doc-list"><li>Hasil pemetaan kelompok dan kepentingan masyarakat</li><li>Kriteria sasaran penerima akses</li><li>Calon mitra dan lokasi calon kerja sama</li><li>Data kondisi sosial, ekonomi, dan budaya masyarakat</li></ul><h4 class="h4">Kegiatan Pokok</h4><div class="flow"><div class="fstep"><span class="fn ">1</span><div><b>Identifikasi kelompok</b><p class="fc">Identifikasi kelompok dan kepentingan masyarakat dalam/sekitar kawasan.</p></div></div><div class="fstep"><span class="fn t">2</span><div><b>Verifikasi mitra</b><p class="fc">Verifikasi calon mitra serta lokasi kegiatan.</p></div></div><div class="fstep"><span class="fn ">3</span><div><b>Penyusunan kesepakatan</b><p class="fc">Penyusunan kesepakatan kerja sama dan rencana kerja.</p></div></div><div class="fstep"><span class="fn g">4</span><div><b>Pemberian akses</b><p class="fc">Pemberian akses sesuai ketentuan (bentuk akses dalam zonasi/blok).</p></div></div><div class="fstep"><span class="fn i">5</span><div><b>Peningkatan kapasitas</b><p class="fc">Peningkatan kapasitas masyarakat (pelatihan, pendampingan, penyuluhan).</p></div></div><div class="fstep"><span class="fn ">6</span><div><b>Pendampingan</b><p class="fc">Pendampingan kelompok mitra oleh UPT.</p></div></div><div class="fstep"><span class="fn t">7</span><div><b>Pembagian peran dan manfaat</b><p class="fc">Pembagian peran, manfaat, dan beban secara adil.</p></div></div><div class="fstep"><span class="fn ">8</span><div><b>Evaluasi kemitraan</b><p class="fc">Evaluasi kemitraan dan pelaporan perkembangan.</p></div></div><div class="fstep"><span class="fn g">9</span><div><b>Penyusunan rencana pemberdayaan</b><p class="fc">Menetapkan sasaran dan menyusun rencana pemberdayaan berbasis kajian bersama pemangku kepentingan.</p></div></div></div><h4 class="h4">Dokumen &amp; Bukti</h4><div class="grid g2"><div class="card block"><h4 class="h4">Dokumen keluaran</h4><ul class="doc-list"><li>Dokumen kerja sama atau kemitraan (NDP/Perjanjian)</li><li>Dokumen akses kelola yang sah</li><li>Kesepakatan konservasi (Perdes/Kepala UPT–Kepala Desa)</li><li>Rencana kerja kelompok</li><li>Dokumen kegiatan pemberdayaan dan desa binaan</li><li>Laporan perkembangan kemitraan</li></ul></div><div class="card block"><h4 class="h4">Sistem informasi</h4><ul class="doc-list"><li>Basis data kemitraan konservasi</li><li>Peta akses/zona/blok tradisional</li></ul></div></div><h4 class="h4">Hak, Kewajiban &amp; Larangan</h4><div class="hkw hkw3"><div class="hk h"><div class="hkh"><span class="hki">&#9878;</span><b>Hak</b></div><ul class=""><li>Masyarakat berhak mengetahui rencana, memberi informasi/saran/pertimbangan, mengawasi, serta ikut menjaga dan memelihara KSA/KPA (PP 28/2011 Pasal 50).</li><li>Pemberdayaan mencakup peningkatan kapasitas dan akses melalui desa konservasi, pemungutan HHBK pada zona/blok tradisional atau pemanfaatan tradisional, fasilitasi kemitraan, dan izin pengusahaan jasa wisata alam (PP 28/2011 Pasal 49 ayat (2)–(4) sebagaimana diubah PP 108/2015).</li><li>Rincian akses dan fasilitasi terdapat pada Permen LHK P.43/2017 Pasal 11–19.</li></ul></div><div class="hk k"><div class="hkh"><span class="hki">&#10003;</span><b>Kewajiban</b></div><ul class=""><li>Pemerintah pusat dan daerah harus memberdayakan masyarakat sekitar KSA/KPA (PP 28/2011 Pasal 49 ayat (1)).</li><li>Unit pengelola wajib menetapkan sasaran dan menyusun rencana pemberdayaan berbasis kajian bersama pemangku kepentingan (Permen LHK P.43/2017 Pasal 4–5).</li><li>Mitra kerja sama wajib memenuhi ketentuan perlindungan, sarana, data, pendampingan, rehabilitasi, pelibatan petugas, dan perlindungan habitat (Permenhut P.85/2014 Pasal 18–19).</li></ul></div><div class="hk l"><div class="hkh"><span class="hki">&#10005;</span><b>Larangan</b></div><ul class=""><li>PP 108/2015 <b>menghapus Pasal 49 ayat (5) PP 28/2011</b>, sehingga larangan pemindahtanganan/pengagunan pada bunyi lama tidak dipakai sebagai kriteria aktif.</li><li>Larangan yang tetap relevan: mengubah keutuhan/fungsi kawasan (UU 5/1990 jo. UU 32/2024 Pasal 19 dan Pasal 33).</li><li>Mitra wajib menghindari fragmentasi habitat, perubahan struktur vegetasi, spesies invasif, serta gangguan terhadap hidupan liar (Permenhut P.85/2014 Pasal 18).</li></ul></div></div><h4 class="h4">Kriteria Uji</h4><div class="card block"><ul class="doc-list"><li>Kejelasan hak dan kewajiban</li><li>Ketepatan sasaran penerima akses</li><li>Persetujuan dan partisipasi bermakna</li><li>Kesesuaian lokasi dengan zonasi</li><li>Pembagian manfaat yang adil</li><li>Pencegahan konflik kepentingan</li><li>Kepatuhan terhadap perjanjian</li><li>Dampak terhadap tutupan, habitat, dan kesejahteraan</li></ul></div><h4 class="h4">Risiko &amp; Titik Perhatian</h4><div class="risk-board"><div class="risk"><span class="rk hi">01</span><div><b>Tinggi</b><span>Akses diberikan di zona/blok yang seharusnya tidak ada akses.</span></div></div><div class="risk"><span class="rk hi">02</span><div><b>Tinggi</b><span>Bentuk akses tidak sesuai ketentuan peraturan.</span></div></div><div class="risk"><span class="rk hi">03</span><div><b>Tinggi</b><span>Mitra melanggar ketentuan perlindungan, sarana, data, pendampingan, rehabilitasi, dan perlindungan habitat.</span></div></div><div class="risk"><span class="rk hi">04</span><div><b>Tinggi</b><span>Pembagian manfaat tidak adil atau tidak terdokumentasi.</span></div></div><div class="risk"><span class="rk hi">05</span><div><b>Tinggi</b><span>Kesepakatan konservasi ditandatangani tanpa kajian bersama.</span></div></div><div class="risk"><span class="rk ">06</span><div><b>Sedang</b><span>Persetujuan bersifat formalitas tanpa partisipasi bermakna.</span></div></div><div class="risk"><span class="rk ">07</span><div><b>Sedang</b><span>Dampak terhadap tutupan dan kesejahteraan tidak diukur.</span></div></div><div class="risk"><span class="rk ">08</span><div><b>Sedang</b><span>Kepatuhan terhadap perjanjian tidak dimonitor.</span></div></div></div><h4 class="h4">Data Kinerja Terverifikasi</h4><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0"><div class="kpi"><span class="kbar"></span><span class="klabel">Kesepakatan konservasi ditandatangani</span><span class="kval" style="font-size:26px">541 dokumen</span><span class="kfoot">Periode: 2022</span></div><div class="kpi g"><span class="kbar"></span><span class="klabel">Catatan sumber</span><span class="kval" style="font-size:26px">Kesepakatan konservasi ditandatangani</span><span class="kfoot">Target 500; ditandatangani Kepala UPT dengan Kepala Desa. Kumulatif kerja sama s.d. 2025: 852 dokumen</span></div></div><div class="chips"><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0013_PermenLHK-P43-2017_Pemberdayaan-Masyarakat_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0013</span>Permen LHK P.43/2017 pemberdayaan</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0014_Permenhut-P85-2014_Kerja-Sama-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0014</span>Permenhut P.85/2014 kerja sama</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0015_PermenLHK-P44-2017_Perubahan-Kerja-Sama_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0015</span>Permen LHK P.44/2017 perubahan</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0012_PP-108-2015_Perubahan-PP28_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0012</span>PP 108/2015 (perubahan)</a></div><h3 class="h3" id="p9-monev"><span class="h3no">3.5</span> Monitoring dan Evaluasi<span class="h3sub">Evaluasi kesesuaian fungsi, evaluasi rencana jangka panjang, dan tindak lanjut atas hasil evaluasi.</span></h3><div class="chips" style="margin-top:14px"><span class="chip"><span class="ev">Dasar</span>Pasal 41–42 PP 28/2011</span><span class="chip"><span class="ev">LHK-02.02.A-4, A-5</span>Monitoring dan evaluasi — implementation</span><span class="chip"><span class="ev">LHK-02.UPT.B-4, B-5</span>Pelaksanaan UPT: monitoring dan evaluasi</span></div><p class="lead">Memantau kondisi kawasan dan keanekaragaman hayati, menilai efektivitas pengelolaan, dan memastikan tindak lanjut atas hasil evaluasi.</p><div class="grid g2"><div class="card block"><ul class="doc-list"><li>Memantau kondisi kawasan dan keanekaragaman hayati.</li><li>Menilai efektivitas pengelolaan dan kesesuaian fungsi kawasan.</li><li>Memastikan tindak lanjut atas hasil evaluasi: mempertahankan fungsi, pemulihan ekosistem, dan/atau perubahan fungsi.</li></ul></div><div class="card block"><div class="tw" style="margin:0;border:0;box-shadow:none"><table><thead><tr><th>Dasar</th><th>Ketentuan</th></tr></thead><tbody><tr><td>PP 28/2011 jo. PP 108/2015</td><td>Pasal 22 ayat (3) — evaluasi rencana jangka panjang sekurang-kurangnya sekali dalam lima tahun.</td></tr><tr><td>PP 28/2011</td><td>Pasal 23 — muatan pemantauan dan evaluasi dalam rencana.</td></tr><tr><td>PP 28/2011</td><td>Pasal 41 — evaluasi kesesuaian fungsi; Pasal 42 — tindak lanjut.</td></tr><tr><td>Permenhut P.49/2014</td><td>Tata cara evaluasi kesesuaian fungsi KSA/KPA.</td></tr><tr><td>Perpres 29/2014</td><td>SAKIP — kerangka akuntabilitas, pengukuran, pelaporan, evaluasi, dan capaian kinerja.</td></tr></tbody></table></div></div></div><h4 class="h4">Input &amp; Prasyarat</h4><ul class="doc-list"><li>Rencana pengelolaan dan indikator kinerja</li><li>Data monitoring lapangan dan spasial</li><li>Data gangguan, populasi, tutupan, dan pemanfaatan</li><li>Hasil evaluasi sebelumnya</li></ul><h4 class="h4">Kegiatan Pokok</h4><div class="flow"><div class="fstep"><span class="fn ">1</span><div><b>Penetapan indikator dan baseline</b><p class="fc">Penetapan indikator dan nilai baseline sebelum evaluasi.</p></div></div><div class="fstep"><span class="fn t">2</span><div><b>Pengumpulan data</b><p class="fc">Pengumpulan serta validasi data lapangan, patroli, dan spasial.</p></div></div><div class="fstep"><span class="fn ">3</span><div><b>Pemantauan kawasan</b><p class="fc">Pemantauan kondisi kawasan dan keanekaragaman hayati.</p></div></div><div class="fstep"><span class="fn g">4</span><div><b>Evaluasi rencana</b><p class="fc">Evaluasi pelaksanaan rencana pengelolaan jangka panjang.</p></div></div><div class="fstep"><span class="fn i">5</span><div><b>Penilaian efektivitas</b><p class="fc">Penilaian efektivitas pengelolaan dan kesesuaian fungsi kawasan.</p></div></div><div class="fstep"><span class="fn ">6</span><div><b>Evaluasi kesesuaian fungsi</b><p class="fc">Evaluasi kesesuaian kondisi kawasan dengan kriteria dan tujuan fungsi kawasan.</p></div></div><div class="fstep"><span class="fn t">7</span><div><b>Identifikasi masalah</b><p class="fc">Identifikasi masalah dan akar penyebab.</p></div></div><div class="fstep"><span class="fn ">8</span><div><b>Penyusunan rekomendasi</b><p class="fc">Penyusunan rekomendasi mempertahankan fungsi, pemulihan, dan/atau perubahan fungsi.</p></div></div><div class="fstep"><span class="fn g">9</span><div><b>Pemantauan tindak lanjut</b><p class="fc">Pemantauan tindak lanjut atas rekomendasi.</p></div></div></div><h4 class="h4">Dokumen &amp; Bukti</h4><div class="grid g2"><div class="card block"><h4 class="h4">Dokumen keluaran</h4><ul class="doc-list"><li>Laporan tim evaluasi kesesuaian fungsi</li><li>Rekomendasi mempertahankan fungsi / pemulihan / perubahan fungsi</li><li>Rencana tindak lanjut</li><li>Laporan monitoring dan evaluasi rencana pengelolaan</li></ul></div><div class="card block"><h4 class="h4">Sistem informasi</h4><ul class="doc-list"><li>SMART Summary</li><li>Basis data monitoring dan evaluasi</li><li>Analisis perubahan spasial</li></ul></div></div><h4 class="h4">Hak, Kewajiban &amp; Larangan</h4><div class="hkw hkw3"><div class="hk h"><div class="hkh"><span class="hki">&#9878;</span><b>Hak</b></div><ul class=""><li>Masyarakat berhak melakukan pengawasan terhadap penyelenggaraan KSA/KPA serta menyampaikan informasi, saran, dan pertimbangan (PP 28/2011 Pasal 50 huruf b–c).</li><li>Hasil penetapan kawasan juga terbuka untuk diketahui masyarakat (PP 23/2021 Pasal 22 ayat (3)).</li></ul></div><div class="hk k"><div class="hkh"><span class="hki">&#10003;</span><b>Kewajiban</b></div><ul class=""><li>Rencana jangka panjang <b>dievaluasi sekurang-kurangnya sekali dalam lima tahun</b> (PP 28/2011 Pasal 22 ayat (3)).</li><li>KSA/KPA dievaluasi secara periodik <b>setiap lima tahun atau sesuai kebutuhan</b> oleh tim teknis yang dibentuk Menteri (Pasal 41).</li><li>Hasil evaluasi <b>wajib menjadi dasar pertimbangan tindak lanjut</b> berupa pemulihan ekosistem dan/atau perubahan fungsi sesuai ketentuan (Pasal 42).</li><li>Pelaporan dan evaluasi kinerja organisasi mengikuti Perpres 29/2014 (SAKIP).</li></ul></div><div class="hk l"><div class="hkh"><span class="hki">&#10005;</span><b>Larangan</b></div><ul class=""><li><b>Tidak ditemukan larangan</b> yang dirumuskan khusus dalam PP 28/2011 Pasal 41–42.</li><li>Hasil monitoring atau evaluasi tidak dapat digunakan untuk membenarkan kegiatan yang dilarang oleh UU 5/1990 jo. UU 32/2024 Pasal 19, Pasal 21, dan Pasal 33.</li></ul></div></div><h4 class="h4">Kriteria Uji</h4><div class="card block"><ul class="doc-list"><li>Keandalan dan keterbandingan data antarperiode</li><li>Kesesuaian indikator dengan tujuan kawasan</li><li>Independensi validasi</li><li>Pemanfaatan data spasial dan lapangan</li><li>Ketepatan waktu pelaporan</li><li>Penanggung jawab tindak lanjut</li><li>Bukti bahwa hasil evaluasi benar-benar mengubah rencana atau pelaksanaan</li></ul></div><h4 class="h4">Risiko &amp; Titik Perhatian</h4><div class="risk-board"><div class="risk"><span class="rk hi">01</span><div><b>Tinggi</b><span>Evaluasi tidak ditindaklanjuti — rekomendasi berhenti di dokumen.</span></div></div><div class="risk"><span class="rk hi">02</span><div><b>Tinggi</b><span>Data tidak dapat diperbandingan antarperiode.</span></div></div><div class="risk"><span class="rk hi">03</span><div><b>Tinggi</b><span>Rekomendasi perubahan fungsi tidak melalui prosedur yang sah.</span></div></div><div class="risk"><span class="rk ">04</span><div><b>Sedang</b><span>Tim dan metode evaluasi tidak sah.</span></div></div><div class="risk"><span class="rk ">05</span><div><b>Sedang</b><span>Data kurang atau tidak mutakhir.</span></div></div><div class="risk"><span class="rk ">06</span><div><b>Sedang</b><span>Seluruh indikator fungsi tidak dinilai.</span></div></div><div class="risk"><span class="rk ">07</span><div><b>Sedang</b><span>Rekomendasi tidak berbasis bukti.</span></div></div><div class="risk"><span class="rk ">08</span><div><b>Sedang</b><span>Progres tindak lanjut tidak dipantau.</span></div></div></div><h4 class="h4">Data Kinerja Terverifikasi</h4><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0"><div class="kpi"><span class="kbar"></span><span class="klabel">Efektivitas pengelolaan KSA/KPA</span><span class="kval" style="font-size:26px">29,29 poin</span><span class="kfoot">Periode: 2022</span></div><div class="kpi g"><span class="kbar"></span><span class="klabel">Catatan sumber</span><span class="kval" style="font-size:26px">Efektivitas pengelolaan KSA/KPA</span><span class="kfoot">Kategori <33 = “pengelolaan kawasan tidak memadai”; TN 76,89; total 63,24 poin dari 280 unit yang dinilai</span></div></div><div class="chips"><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0011_PP-28-2011_Pengelolaan-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0011</span>PP 28/2011 Pasal 41–42</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0039_Permenhut-P49-2014_Evaluasi-Kesesuaian-Fungsi-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0039</span>Permenhut P.49/2014 evaluasi fungsi</a><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0030_Perpres-29-2014_SAKIP_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">EV-2026-0030</span>Perpres 29/2014 SAKIP</a></div>
+<h3 class="h3" id="unsur-pendukung"><span class="h3no">3.6</span> Unsur Pendukung Lintas Proses<span class="h3sub">Kerja sama, daerah penyangga, pemberdayaan, dan pendanaan melintasi seluruh tahap — bukan langkah yang berdiri sendiri setelah pelaksanaan.</span></h3>
+<div class="tw"><table>
+<thead><tr><th>Unsur</th><th>Dasar utama</th><th>Fokus kepatuhan</th><th>Dokumen lokal</th></tr></thead>
+<tbody>
+<tr><td>Kerja sama penyelenggaraan KSA/KPA</td><td>PP 28/2011 Pasal 43; Permenhut P.85/2014 jo. Permen LHK P.44/2017</td><td>Objek kerja sama dibolehkan; tidak mengalihkan tanggung jawab pengelola; perjanjian, target, pendanaan, pelaporan, dan evaluasi jelas.</td>
+<td>
+<a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0014_Permenhut-P85-2014_Kerja-Sama-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">0014</span>P.85/2014</a>
+<a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0015_PermenLHK-P44-2017_Perubahan-Kerja-Sama_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">0015</span>P.44/2017</a>
+</td></tr>
+<tr><td>Daerah penyangga</td><td>PP 28/2011 Pasal 44–47</td><td>Penetapan dan pengelolaan terkoordinasi dengan pemda; program mengurangi tekanan; hak yang telah ada dihormati; hasil terukur.</td>
+<td><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0011_PP-28-2011_Pengelolaan-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">0011</span>PP 28/2011</a></td></tr>
+<tr><td>Pemberdayaan dan peran masyarakat</td><td>PP 28/2011 Pasal 49–50 jo. PP 108/2015; Permen LHK P.43/2017</td><td>Pemetaan kelompok/akses; legalitas bentuk akses; kesesuaian zona/blok dan rencana; manfaat serta dampak konservasi; monitoring.</td>
+<td><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0013_PermenLHK-P43-2017_Pemberdayaan-Masyarakat_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">0013</span>P.43/2017</a></td></tr>
+<tr><td>Pendanaan dan PNBP</td><td>PP 28/2011 Pasal 48; PP 36/2024 tentang PNBP KLHK</td><td>Kebutuhan rencana terhubung dengan anggaran; sumber sah; penerimaan dipungut, dicatat, dan disetor; penggunaan dapat ditelusuri.</td>
+<td><a class="chip" href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0020_PP-36-2024_PNBP-KLHK_RAW_v01.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ev">0020</span>PP 36/2024</a></td></tr>
+</tbody></table></div>
+<div class="kpis" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+<div class="kpi"><span class="kbar"></span><span class="klabel">Kesepakatan konservasi 2022</span><span class="kval">541<span class="u">dokumen</span></span><span class="kfoot">Target 500 — ditandatangani Kepala UPT dengan Kepala Desa</span></div>
+<div class="kpi"><span class="kbar"></span><span class="klabel">Kemitraan konservasi kumulatif</span><span class="kval">181.973<span class="u">ha</span></span><span class="kfoot">Kumulatif 2020–2022; akses 2022 saja 70.750,36 ha</span></div>
+<div class="kpi"><span class="kbar"></span><span class="klabel">Kerja sama kumulatif s.d. 2025</span><span class="kval">852<span class="u">dokumen</span></span><span class="kfoot">63 dari 184 NDP aktif 2025; 54,6% sektor nirlaba</span></div>
+<div class="kpi g"><span class="kbar"></span><span class="klabel">NTE 2025</span><span class="kval">372<span class="u">M</span></span><span class="kfoot">Rp 348.666.453.285; target Rp 235 M — 150%</span></div>
+</div>
+
+<h3 class="h3" id="scorecard"><span class="h3no">3.7</span> Kartu Ringkas Sembilan Proses<span class="h3sub">Setiap kartu memuat tujuan, dasar, kegiatan, keluaran, hak/kewajiban, dan risiko yang dapat ditelusuri.</span></h3><div class="scards"><a class="scard" href="#p1-penunjukan"><span class="scno">2.1</span><span class="sct">Penunjukan Kawasan Hutan</span><span class="scc ok">bukti &amp; risiko terisi</span></a><a class="scard" href="#p2-tata-batas"><span class="scno">2.2</span><span class="sct">Penataan Batas Kawasan Hutan</span><span class="scc ok">bukti &amp; risiko terisi</span></a><a class="scard" href="#p3-pemetaan"><span class="scno">2.3</span><span class="sct">Pemetaan Kawasan Hutan</span><span class="scc ok">bukti &amp; risiko terisi</span></a><a class="scard" href="#p4-penetapan"><span class="scno">2.4</span><span class="sct">Penetapan Kawasan Hutan</span><span class="scc ok">bukti &amp; risiko terisi</span></a><a class="scard" href="#p5-zona"><span class="scno">3.1</span><span class="sct">Penataan Kawasan Konservasi</span><span class="scc ok">bukti &amp; risiko terisi</span></a><a class="scard" href="#p6-rencana"><span class="scno">3.2</span><span class="sct">Perencanaan Pengelolaan Konservasi</span><span class="scc ok">bukti &amp; risiko terisi</span></a><a class="scard" href="#p7-pelaksanaan"><span class="scno">3.3</span><span class="sct">Pelaksanaan Pengelolaan Konservasi</span><span class="scc ok">bukti &amp; risiko terisi</span></a><a class="scard" href="#p8-mitra"><span class="scno">3.4</span><span class="sct">Kemitraan dan Pelibatan Masyarakat</span><span class="scc ok">bukti &amp; risiko terisi</span></a><a class="scard" href="#p9-monev"><span class="scno">3.5</span><span class="sct">Monitoring dan Evaluasi</span><span class="scc ok">bukti &amp; risiko terisi</span></a></div>
+  <!-- ══ BAGIAN 04 — KINERJA ══ -->
+  <h2 class="h2" id="kinerja" data-tagno="Bagian 04" data-sub="Data realisasi 2021–2025 dari Laporan Kinerja Ditjen KSDAE sebagai pembanding efektivitas proses." data-badge="6 subbagian">
+    <span class="tagno">Bagian 04</span>
+    <span class="h2row">
+      <span>Kinerja Pengelolaan dan Bukti Realisasi</span>
+      <p class="sub">Data realisasi 2021–2025 dari Laporan Kinerja Ditjen KSDAE sebagai pembanding efektivitas proses.</p>
+      <span class="badge">6 subbagian</span>
+    </span>
+  </h2>
+
+  <h3 class="h3" id="k-luas"><span class="h3no">4.1</span> Luas dan Unit Kawasan Konservasi
+    <span class="h3sub">Objek pengukuhan yang harus dikelola. Perubahan jumlah unit dan luas antar tahun menunjukkan aktivitas perubahan fungsi kawasan hutan.</span>
+  </h3>
+
+  <div class="lr" id="luasSeries"></div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Fungsi kawasan</th><th>2024 (tabel: 563 unit)</th><th>2024 (naratif: 568 unit)</th><th>2025 (579 unit)</th></tr></thead>
+      <tbody>
+        <tr><td>Cagar Alam (CA)</td><td>214 unit · 4.182.814,19 ha</td><td>214 unit · 4,18 juta ha</td><td>214 unit</td></tr>
+        <tr><td>Suaka Margasatwa (SM)</td><td>85 unit · 4.899.402,88 ha</td><td>80 unit · 4,9 juta ha</td><td>96 unit</td></tr>
+        <tr><td>Taman Nasional (TN)</td><td>54 unit · 16.124.167,53 ha</td><td>54 unit · 16,09 juta ha</td><td>57 unit</td></tr>
+        <tr><td>Taman Wisata Alam (TWA)</td><td>130 unit · 787.622,31 ha</td><td>130 unit · 796 ribu ha</td><td>145 unit</td></tr>
+        <tr><td>Taman Hutan Raya (Tahura)</td><td>39 unit · 401.966,58 ha</td><td>39 unit · 383 ribu ha</td><td>42 unit</td></tr>
+        <tr><td>Taman Buru (TB)</td><td>11 unit · 138.258,09 ha</td><td>11 unit · 160 ribu ha</td><td>10 unit</td></tr>
+        <tr><td>Belum ditetapkan fungsi</td><td>—</td><td>40 unit · 387 ribu ha</td><td><span class="ck o">6 kawasan</span></td></tr>
+        <tr><td><b>Total</b></td><td><b>26.910.593,81 ha</b></td><td><b>26,89 juta ha</b></td><td><b>27 juta ha</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note stop">
+    <span class="nt">Inkonsistensi yang harus dicatat</span>
+    Laporan Kinerja 2024 memuat <b>dua angka berbeda untuk objek yang sama</b>: tabel “Luas Kawasan Konservasi” menyebut <b>563 unit / 26.910.593,81 ha</b>, sedangkan narasi menyebut <b>573 unit / kurang lebih 27 juta ha</b>. Jumlah unit per fungsi juga berbeda antara tabel dan narasi (mis. SM 85 vs 80 unit). Keduanya berada dalam satu dokumen sumber yang sama. Ini adalah bahan pemeriksaan, bukan sekadar salah ketik.
+  </div>
+
+  <h3 class="h3" id="k-efektivitas"><span class="h3no">4.2</span> Efektivitas Pengelolaan (MEET/METT)
+    <span class="h3sub">Indikator keluaran proses “Evaluasi kesesuaian fungsi”. Perbedaan skor antarkategori kawasan menunjukkan di mana proses paling lemah.</span>
+  </h3>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Tahun</th><th>Target (poin)</th><th>Realisasi (poin)</th><th>Capaian</th><th>Keterangan</th></tr></thead>
+      <tbody>
+        <tr><td>2020</td><td>52,20</td><td>60,23</td><td><span class="ck">114,72%</span></td><td>Baseline pembanding</td></tr>
+        <tr><td>2021</td><td>55,00</td><td>61,56</td><td><span class="ck">111,93%</span></td><td>—</td></tr>
+        <tr><td>2022</td><td>57,50</td><td>63,24</td><td><span class="ck">109,98%</span></td><td>280 unit dinilai MEET oleh 76 UPT/UPTD</td></tr>
+        <tr><td>2023</td><td colspan="3"><span class="ck o">tidak dirinci dalam laporan</span></td><td>Tidak ditemukan angka MEET 2023</td></tr>
+        <tr><td>2024</td><td colspan="3"><span class="ck o">tidak dirinci dalam laporan</span></td><td>Tidak ditemukan angka MEET 2024</td></tr>
+        <tr><td>2025</td><td colspan="3"><span class="ck b">METT: TN 78,9 · lainnya 63,76</span></td><td>TN kategori “sangat efektif”; lainnya “cukup efektif”</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid g2">
+    <div class="card block">
+      <h4 class="h4">Sebaran nilai per fungsi kawasan (2022)</h4>
+      <div class="risk"><span class="rk">TN</span><div><b>76,89 poin</b><span>Nilai tertinggi. Dilaporkan wajar karena kawasan dengan fungsi taman nasional umumnya memiliki nilai tertinggi.</span></div></div>
+      <div class="risk"><span class="rk hi">KSA/KPA</span><div><b>29,29 poin</b><span>Kategori <b>&lt; 33 poin = “pengelolaan kawasan tidak memadai”</b>. Inilah titik fokus pemeriksaan paling kuat untuk KSA/KPA.</span></div></div>
+    </div>
+    <div class="card block">
+      <h4 class="h4">Ambang kategori penilaian</h4>
+      <div class="risk"><span class="rk hi">&lt;33</span><div><b>Pengelolaan kawasan tidak memadai</b><span>Kategori terburuk. KSA/KPA 2022 berada di sini.</span></div></div>
+      <div class="risk"><span class="rk">33–67</span><div><b>Kurang memadai (kurang efektif)</b><span>Kategori tengah. TN 2022 berada di sini.</span></div></div>
+      <div class="risk"><span class="rk">≥67</span><div><b>Cukup baik (efektif)</b><span>Kategori tertinggi. TN 2025 (78,9) mencapai ini.</span></div></div>
+    </div>
+  </div>
+
+  <h3 class="h3" id="k-ikp"><span class="h3no">4.3</span> Capaian IKP Ditjen KSDAE
+    <span class="h3sub">Rata-rata capaian selalu di atas 100%, namun beberapa indikator struktural berfluktuasi tajam — terutama inventarisasi verifikasi di luar kawasan konservasi.</span>
+  </h3>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>IKP</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr></thead>
+      <tbody>
+        <tr><td>Rata-rata capaian IKP</td><td><span class="ck">123,98%</span></td><td><span class="ck">106,23%</span></td><td><span class="ck">101,69%</span></td><td><span class="ck">111,12%</span></td><td><span class="ck">121,8%</span></td></tr>
+        <tr><td>Nilai SAKIP</td><td>80,02</td><td>79,12</td><td>79,88</td><td>82,31</td><td>82,45</td></tr>
+        <tr><td>InVer kehati tinggi <b>di dalam</b> KK</td><td>10.655.955,99 ha <small>(145,97%)</small></td><td>12.203.261,61 ha <small>(117,22%)</small></td><td>13.020.000 ha <small>(108,50%)</small></td><td>26.800.000 ha <small>(141,05%)</small></td><td><span class="ck o">—</span></td></tr>
+        <tr><td>InVer kehati tinggi <b>di luar</b> KK</td><td>8.932.059,60 ha <small>(150,00%)</small></td><td>8.059.968,28 ha <small>(80,60%)</small></td><td>15.611.293,24 ha <small>(156,11%)</small></td><td>9.353.269,34 ha <small>(106,45%)</small></td><td><span class="ck o">—</span></td></tr>
+        <tr><td>Nilai ekspor pemanfaatan TSL</td><td>Rp 4,20 T <small>(150,00%)</small></td><td>Rp 1,74 T <small>(83,00%)</small></td><td>Rp 1,73 T <small>(80,56%)</small></td><td>Rp 850 M <small>(99,97%)</small></td><td>Rp 8,48 T <small>(109,42%)</small></td></tr>
+        <tr><td>Nilai PNBP jasa lingkungan &amp; TSL</td><td>Rp 75,29 M <small>(107,55%)</small></td><td>Rp 130,23 M <small>(130,23%)</small></td><td>Rp 185,75 M <small>(80,76%)</small></td><td>Rp 236 M <small>(94,40%)</small></td><td>Rp 372 M <small>(150,00%)</small></td></tr>
+        <tr><td>Jumlah desa</td><td>598 <small>(100,50%)</small></td><td>612 <small>(122,40%)</small></td><td>879 <small>(87,90%)</small></td><td>904 <small>(124,68%)</small></td><td><span class="ck o">—</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="h3" id="k-perlindungan"><span class="h3no">4.4</span> Perlindungan, Kebakaran, dan Pemulihan
+    <span class="h3sub">Keluaran proses Perlindungan (Pasal 24) dan Pemulihan Ekosistem (Pasal 29–31).</span>
+  </h3>
+
+  <h4 class="h4">Perlindungan dan pengendalian kebakaran <span class="h4tag">Pasal 24 PP 28/2011</span></h4>
+  <div class="tw">
+    <table class="tbl-sm">
+      <thead><tr><th>Indikator</th><th>Target</th><th>Realisasi</th><th>Capaian</th><th>Tahun</th></tr></thead>
+      <tbody>
+        <tr><td>Perlindungan &amp; pengamanan KSA/KPA/TB</td><td>226.858 ha</td><td>482.851 ha</td><td><span class="ck">95,85%</span></td><td>2025</td></tr>
+        <tr><td>Pengendalian kebakaran KSA/KPA/TB</td><td>52.845 ha</td><td>52.524 ha</td><td><span class="ck">98,40%</span></td><td>2025</td></tr>
+        <tr><td>Luas kebakaran hutan &amp; lahan</td><td>11.973 ha</td><td>3.648,85 ha</td><td><span class="ck">69,53%</span></td><td>2025</td></tr>
+        <tr><td>Penyelesaian konflik tenurial</td><td>—</td><td>558.976 ha</td><td><span class="ck b">—</span></td><td>2021</td></tr>
+        <tr><td>Konflik tenurial ditangani</td><td>446.090 ha</td><td>283.964 ha</td><td><span class="ck o">63,65%</span></td><td>2022</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4 class="h4">Pemulihan ekosistem <span class="h4tag">Pasal 29–31 PP 28/2011 jo. Permenhut P.48/2014</span></h4>
+  <div class="tw">
+    <table class="tbl-sm">
+      <thead><tr><th>Program</th><th>Target</th><th>Realisasi</th><th>Capaian</th><th>Tahun</th></tr></thead>
+      <tbody>
+        <tr><td>Pemulihan ekosistem di KK (SBSN)</td><td>57.096 ha</td><td>64.047,135 ha</td><td><span class="ck">112,17%</span></td><td>2022</td></tr>
+        <tr><td>Pemulihan ekosistem (KK)</td><td>—</td><td>31.055 ha</td><td><span class="ck b">—</span></td><td>2021</td></tr>
+        <tr><td>Pemulihan ekosistem (PN6 IKN)</td><td>—</td><td>762 ha</td><td><span class="ck b">—</span></td><td>2022</td></tr>
+        <tr><td>Rehabilitasi (Padat Karya RO 5)</td><td>—</td><td>Rp 34,1 M · 6.560 orang · 102.324 HOK</td><td><span class="ck b">—</span></td><td>2023</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="h3" id="k-mitra"><span class="h3no">4.5</span> Pemberdayaan, Kemitraan, dan Pemanfaatan
+    <span class="h3sub">Proses Kemitraan dan masyarakat (Pasal 43–50) beserta indikator pemanfaatan TSL dan jasa lingkungan.</span>
+  </h3>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Indikator</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr></thead>
+      <tbody>
+        <tr><td>Kesepakatan konservasi</td><td>—</td><td><b>541</b> <small>(target 500)</small></td><td>473 desa / 48 UPT</td><td>—</td><td>—</td></tr>
+        <tr><td>Luas akses kemitraan konservasi</td><td>—</td><td>70.750,36 ha <small>(kumulatif 181.973,19 ha)</small></td><td>21.996,90 ha akses tradisional</td><td>—</td><td>—</td></tr>
+        <tr><td>Kerja sama (kumulatif)</td><td>—</td><td>—</td><td>—</td><td>—</td><td><b>852 dokumen</b></td></tr>
+        <tr><td>PNBP jasa lingkungan &amp; TSL</td><td>Rp 75,29 M</td><td>Rp 130,23 M</td><td>Rp 185,75 M</td><td>Rp 236 M</td><td>Rp 372 M</td></tr>
+        <tr><td>Ekspor TSL (+ bioprospecting)</td><td>Rp 4,20 T</td><td>Rp 1,74 T</td><td>Rp 1,73 T</td><td>Rp 850 M</td><td>Rp 8,48 T</td></tr>
+        <tr><td>Pelepasliaran satwa</td><td>52.359 individu / 207 jenis</td><td>122.135 ekor kelahiran in situ</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Pengunjung kawasan konservasi</td><td>2.947.971</td><td>5.297.404</td><td>6.018.792</td><td>6.591.289</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="h3" id="k-actor"><span class="h3no">4.6</span> Aktor dan Pembagian Kewenangan
+    <span class="h3sub">Konsekuensi praktisnya: unit yang benar-benar menjalankan proses di lapangan adalah UPT, bukan pusat.</span>
+  </h3>
+
+  <div class="flow">
+    <div class="fstep"><span class="fn">1</span><div><b>Menteri Kehutanan</b><p class="fc">Penunjukan dan penetapan kawasan hutan; penetapan zona/blok; pembentukan tim evaluasi kesesuaian fungsi. Penetapan yang telah terjadi: <b>TN Moyo Satonda</b> (±31.200,15 ha, SK.901/2022), <b>Tahura Gunung Baliyohuto</b> (±6.208 ha, SK.810/2022), <b>TWA Pulau Pombo</b> (±6,9 ha, SK.998/2022), serta TN Gunung Maras, Zamrud, dan Gandang Dewata (2024).</p></div></div>
+    <div class="fstep"><span class="fn t">2</span><div><b>Ditjen KSDAE</b><p class="fc">Koordinasi nasional, penyusunan standar, konsolidasi data, dan pelaporan kinerja. Struktur 2022–2025: <b>6 pusat + 74 UPT</b> = 8 BBKSDA + 8 BBTN + 18 BKSDA + 40 BTN. Jumlah pegawai 2021: 9.462 orang; 2023: 9.751 orang.</p></div></div>
+    <div class="fstep"><span class="fn g">3</span><div><b>UPT KSDAE (BBKSDA / BKSDA / BBTN / BTN)</b><p class="fc">Pelaksana lapangan: inventarisasi potensi, menyusun zona/blok, menyusun dan melaksanakan rencana pengelolaan, perlindungan, pengawetan, pemanfaatan, pemulihan, kemitraan, serta monitoring dan evaluasi. UPT juga menandatangani kesepakatan konservasi dengan kepala desa.</p></div></div>
+    <div class="fstep"><span class="fn i">4</span><div><b>Pemerintah daerah, ATR/BPN, dan mitra</b><p class="fc">Pemerintah daerah: RTRW, batas administrasi, dan dukungan daerah penyangga. ATR/BPN: data pertanahan dan hak pihak ketiga. Mitra/lembaga nirlaba, badan usaha, perguruan tinggi, dan organisasi masyarakat sipil: kerja sama, penelitian, dan pemberdayaan.</p></div></div>
+  </div>
+
+  <div class="kpis" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+    <div class="kpi"><span class="kbar"></span><span class="klabel">UPT KSDAE</span><span class="kval">74<span class="u">unit</span></span><span class="kfoot">8 BBKSDA · 8 BBTN · 18 BKSDA · 40 BTN</span></div>
+    <div class="kpi"><span class="kbar"></span><span class="klabel">Pegawai 2023</span><span class="kval">9.751<span class="u">orang</span></span><span class="kfoot">2021: 9.462 orang</span></div>
+    <div class="kpi g"><span class="kbar"></span><span class="klabel">Provinsi</span><span class="kval">38<span class="u">provinsi</span></span><span class="kfoot">355 kabupaten · 1.614 kecamatan</span></div>
+    <div class="kpi g"><span class="kbar"></span><span class="klabel">Desa penyangga</span><span class="kval">7.043<span class="u">desa</span></span><span class="kfoot">±9,5 juta masyarakat dengan ketergantungan SDA</span></div>
+  </div>
+
+<h2 class="h2" id="bukti" data-tagno="Bagian 05" data-sub="Daftar 37 peraturan sebagai berkas bukti yang dapat dibuka langsung." data-badge="37 berkas"><span class="tagno">Bagian 05</span><span class="h2row"><span>Daftar Bukti Regulasi</span><p class="sub">Daftar 37 peraturan sebagai berkas bukti yang dapat dibuka langsung.</p><span class="badge">37 berkas</span></span></h2><div class="note ok"><span class="nt">Cara memakai</span>Buka berkas peraturan pendukung untuk menguji setiap kriteria. Setiap kode EV merujuk satu naskah regulasi pada folder <code class="mono">02_peraturan</code>.</div><div class="tw"><table class="tbl-sm"><thead><tr><th>Kode</th><th>Peraturan (berkas bukti)</th><th>Jumlah</th></tr></thead><tbody><tr><td><span class="ck b">EV-0006</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0006_UU-5-1990_KSDAHE_RAW_v01.pdf" target="_blank" rel="noopener">UU-5-1990 KSDAHE</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0006_UU-5-1990_KSDAHE_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0007</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0007_UU-32-2024_Perubahan-KSDAHE_RAW_v01.pdf" target="_blank" rel="noopener">UU-32-2024 Perubahan-KSDAHE</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0007_UU-32-2024_Perubahan-KSDAHE_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0008</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0008_UU-41-1999_Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener">UU-41-1999 Kehutanan</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0008_UU-41-1999_Kehutanan_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0009</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0009_UU-6-2023_Cipta-Kerja_RAW_v01.pdf" target="_blank" rel="noopener">UU-6-2023 Cipta-Kerja</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0009_UU-6-2023_Cipta-Kerja_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0010</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0010_PP-23-2021_Penyelenggaraan-Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener">PP-23-2021 Penyelenggaraan-Kehutanan</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0010_PP-23-2021_Penyelenggaraan-Kehutanan_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0011</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0011_PP-28-2011_Pengelolaan-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener">PP-28-2011 Pengelolaan-KSA-KPA</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0011_PP-28-2011_Pengelolaan-KSA-KPA_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0012</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0012_PP-108-2015_Perubahan-PP28_RAW_v01.pdf" target="_blank" rel="noopener">PP-108-2015 Perubahan-PP28</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0012_PP-108-2015_Perubahan-PP28_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0013</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0013_PermenLHK-P43-2017_Pemberdayaan-Masyarakat_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-P43-2017 Pemberdayaan-Masyarakat</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0013_PermenLHK-P43-2017_Pemberdayaan-Masyarakat_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0014</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0014_Permenhut-P85-2014_Kerja-Sama-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener">Permenhut-P85-2014 Kerja-Sama-KSA-KPA</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0014_Permenhut-P85-2014_Kerja-Sama-KSA-KPA_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0015</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0015_PermenLHK-P44-2017_Perubahan-Kerja-Sama_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-P44-2017 Perubahan-Kerja-Sama</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0015_PermenLHK-P44-2017_Perubahan-Kerja-Sama_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0016</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0016_PermenLHK-P8-2019_Pariwisata-Alam_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-P8-2019 Pariwisata-Alam</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0016_PermenLHK-P8-2019_Pariwisata-Alam_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0017</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0017_PermenLHK-P18-2019_Air-Energi-Air_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-P18-2019 Air-Energi-Air</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0017_PermenLHK-P18-2019_Air-Energi-Air_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0018</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0018_Permenhut-27-2025_Jasa-Lingkungan_RAW_v01.pdf" target="_blank" rel="noopener">Permenhut-27-2025 Jasa-Lingkungan</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0018_Permenhut-27-2025_Jasa-Lingkungan_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0019</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0019_PP-12-2014_PNBP-Kehutanan_RAW_v01.pdf" target="_blank" rel="noopener">PP-12-2014 PNBP-Kehutanan</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0019_PP-12-2014_PNBP-Kehutanan_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0020</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0020_PP-36-2024_PNBP-KLHK_RAW_v01.pdf" target="_blank" rel="noopener">PP-36-2024 PNBP-KLHK</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0020_PP-36-2024_PNBP-KLHK_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0021</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0021_PermenLHK-P86-2016_Harga-Patokan-TSL_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-P86-2016 Harga-Patokan-TSL</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0021_PermenLHK-P86-2016_Harga-Patokan-TSL_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0022</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0022_PP-8-1999_Pemanfaatan-TSL_RAW_v01.pdf" target="_blank" rel="noopener">PP-8-1999 Pemanfaatan-TSL</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0022_PP-8-1999_Pemanfaatan-TSL_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0023</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0023_PermenLHK-15-2023_Perizinan-TSL_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-15-2023 Perizinan-TSL</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0023_PermenLHK-15-2023_Perizinan-TSL_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0024</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0024_PermenLHK-P20-2022_CITES-Kayu_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-P20-2022 CITES-Kayu</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0024_PermenLHK-P20-2022_CITES-Kayu_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0025</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0025_PermenLHK-P83-2016_Perhutanan-Sosial_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-P83-2016 Perhutanan-Sosial</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0025_PermenLHK-P83-2016_Perhutanan-Sosial_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0026</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0026_PermenLHK-3-2022_Kerja-Sama-Dalam-Negeri_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-3-2022 Kerja-Sama-Dalam-Negeri</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0026_PermenLHK-3-2022_Kerja-Sama-Dalam-Negeri_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0027</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0027_PermenLHK-15-2021_Organisasi-KLHK_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-15-2021 Organisasi-KLHK</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0027_PermenLHK-15-2021_Organisasi-KLHK_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0028</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0028_PermenLHK-17-2022_Organisasi-UPT-KSDAE_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-17-2022 Organisasi-UPT-KSDAE</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0028_PermenLHK-17-2022_Organisasi-UPT-KSDAE_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0029</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0029_PermenLHK-22-2022_Perubahan-UPT-KSDAE_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-22-2022 Perubahan-UPT-KSDAE</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0029_PermenLHK-22-2022_Perubahan-UPT-KSDAE_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0030</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0030_Perpres-29-2014_SAKIP_RAW_v01.pdf" target="_blank" rel="noopener">Perpres-29-2014 SAKIP</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0030_Perpres-29-2014_SAKIP_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0031</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0031_Perpres-34-2022_Kebijakan-Kelautan_RAW_v01.pdf" target="_blank" rel="noopener">Perpres-34-2022 Kebijakan-Kelautan</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0031_Perpres-34-2022_Kebijakan-Kelautan_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0032</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260811_EV-2026-0032_Perpres-105-2021_Daerah-Tertinggal_RAW_v01.pdf" target="_blank" rel="noopener">Perpres-105-2021 Daerah-Tertinggal</a><div class="muted mono" style="font-size:11.5px">20260811_EV-2026-0032_Perpres-105-2021_Daerah-Tertinggal_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0033</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0033_PermenLHK-7-2021_Perencanaan-Pengukuhan-Kawasan-Hutan_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-7-2021 Perencanaan-Pengukuhan-Kawasan-Hutan</a><div class="muted mono" style="font-size:11.5px">20260827_EV-2026-0033_PermenLHK-7-2021_Perencanaan-Pengukuhan-Kawasan-Hutan_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0034</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0034_Permenhut-20-2025_Perubahan-PermenLHK-7-2021_RAW_v01.pdf" target="_blank" rel="noopener">Permenhut-20-2025 Perubahan-PermenLHK-7-2021</a><div class="muted mono" style="font-size:11.5px">20260827_EV-2026-0034_Permenhut-20-2025_Perubahan-PermenLHK-7-2021_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0035</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0035_Permenhut-P81-2014_Inventarisasi-Potensi-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener">Permenhut-P81-2014 Inventarisasi-Potensi-KSA-KPA</a><div class="muted mono" style="font-size:11.5px">20260827_EV-2026-0035_Permenhut-P81-2014_Inventarisasi-Potensi-KSA-KPA_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0036</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0036_PermenLHK-P76-2015_Zona-Blok-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-P76-2015 Zona-Blok-KSA-KPA</a><div class="muted mono" style="font-size:11.5px">20260827_EV-2026-0036_PermenLHK-P76-2015_Zona-Blok-KSA-KPA_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0037</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0037_PermenLHK-P35-2016_Rencana-Pengelolaan-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener">PermenLHK-P35-2016 Rencana-Pengelolaan-KSA-KPA</a><div class="muted mono" style="font-size:11.5px">20260827_EV-2026-0037_PermenLHK-P35-2016_Rencana-Pengelolaan-KSA-KPA_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0038</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0038_Permenhut-P48-2014_Pemulihan-Ekosistem-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener">Permenhut-P48-2014 Pemulihan-Ekosistem-KSA-KPA</a><div class="muted mono" style="font-size:11.5px">20260827_EV-2026-0038_Permenhut-P48-2014_Pemulihan-Ekosistem-KSA-KPA_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0039</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260827_EV-2026-0039_Permenhut-P49-2014_Evaluasi-Kesesuaian-Fungsi-KSA-KPA_RAW_v01.pdf" target="_blank" rel="noopener">Permenhut-P49-2014 Evaluasi-Kesesuaian-Fungsi-KSA-KPA</a><div class="muted mono" style="font-size:11.5px">20260827_EV-2026-0039_Permenhut-P49-2014_Evaluasi-Kesesuaian-Fungsi-KSA-KPA_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0040</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260925_EV-2026-0040_Permenhut-4-2025_Organisasi-UPT-KSDAE_RAW_v01.pdf" target="_blank" rel="noopener">Permenhut-4-2025 Organisasi-UPT-KSDAE</a><div class="muted mono" style="font-size:11.5px">20260925_EV-2026-0040_Permenhut-4-2025_Organisasi-UPT-KSDAE_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0041</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260925_EV-2026-0041_Permenhut-8-2025_Organisasi-UPT-Gakkum-Dalkarhut_RAW_v01.pdf" target="_blank" rel="noopener">Permenhut-8-2025 Organisasi-UPT-Gakkum-Dalkarhut</a><div class="muted mono" style="font-size:11.5px">20260925_EV-2026-0041_Permenhut-8-2025_Organisasi-UPT-Gakkum-Dalkarhut_RAW_v01.pdf</div></td><td>1 berkas</td></tr><tr><td><span class="ck b">EV-0042</span></td><td><a href="../DATA_DAN_BUKTI/02_peraturan/20260925_EV-2026-0042_Permenhut-3-2025_Organisasi-BPKH_RAW_v01.pdf" target="_blank" rel="noopener">Permenhut-3-2025 Organisasi-BPKH</a><div class="muted mono" style="font-size:11.5px">20260925_EV-2026-0042_Permenhut-3-2025_Organisasi-BPKH_RAW_v01.pdf</div></td><td>1 berkas</td></tr></tbody></table></div>
+    <footer class="foot">
+      <div class="foot-in">
+        <div>
+          <b>Proses Bisnis Pengukuhan dan Pengelolaan Konservasi</b>
+          <p>Kerangka kriteria dan peta hubungan regulasi. Disusun dari 42 naskah peraturan pada
+          <code class="mono">DATA_DAN_BUKTI/02_peraturan</code> dan Laporan Kinerja Ditjen KSDAE 2021–2025.</p>
+        </div>
+        <div class="foot-meta">
+          <span><b>37</b> berkas bukti regulasi</span>
+          <span><b>9</b> proses · <b>4</b> tahap pengukuhan</span>
+          <span>Diperbarui: 27 Agustus 2026</span>
+        </div>
+      </div>
+      <p class="disclaimer">Dokumen ini adalah alat bantu pemetaan kriteria dan hubungan regulasi, <b>bukan pendapat hukum</b>. Setiap kasus kawasan, rencana, dan keputusan zonasi perlu diuji terhadap dokumen asli dan keadaan lapangan.</p>
+    </footer>
+  </div>
+</main>
+
+<script>
+/* ── data untuk grafik batang sederhana ── */
+const LUAS = [
+  { t: "2021", v: 27016, n: "27,016 juta ha" },
+  { t: "2022", v: 26894, n: "26.894.122,42 ha" },
+  { t: "2023", v: 26910, n: "26,91 juta ha" },
+  { t: "2024", v: 26911, n: "26.910.593,81 ha" },
+  { t: "2025", v: 27000, n: "±27 juta ha" },
+];
+const IKP = [
+  { t: "2021", v: 123.98 }, { t: "2022", v: 106.23 },
+  { t: "2023", v: 101.69 }, { t: "2024", v: 111.12 }, { t: "2025", v: 121.8 },
+];
+const MEET = [
+  { t: "2020", v: 60.23 }, { t: "2021", v: 61.56 }, { t: "2022", v: 63.24 },
+  { t: "2025", v: 63.76, gap: true },
+];
+
+/* ── sidebar dari heading ── */
+function buildSidebar() {
+  const nav = document.getElementById("navtree");
+  const heads = document.querySelectorAll("h2.h2");
+  const groups = [];
+  const q = "";
+  heads.forEach((h, hi) => {
+    const link = document.createElement("a");
+    link.className = "nlink n l1";
+    link.href = "#" + h.id;
+    link.dataset.target = h.id;
+    link.innerHTML =
+      '<span class="ntag">' + (h.dataset.tagno || "") + '</span>' +
+      '<span class="ntxt">' + h.dataset.sub.split("—")[0].trim() + '</span>';
+    // ambil semua sub-heading (h3) sampai h2 berikutnya
+    let el = h.nextElementSibling;
+    const subs = [];
+    while (el && !(el.tagName === "H2" && el.classList.contains("h2"))) {
+      if (el.tagName === "H3" && el.classList.contains("h3") && el.id) {
+        subs.push(el);
+      }
+      el = el.nextElementSibling;
+    }
+    const wrap = document.createElement("div");
+    wrap.className = "ngroup";
+    const head = document.createElement("button");
+    head.className = "ngroup-h";
+    head.innerHTML = '<span>' + h.dataset.sub.split("—")[0].trim() + '</span><span class="chev">›</span>';
+    head.title = h.dataset.tagno + " — " + h.dataset.sub;
+    head.addEventListener("click", () => wrap.classList.toggle("closed"));
+    const m = document.createElement("span");
+    m.className = "ncount";
+    m.textContent = subs.length;
+    head.appendChild(m);
+    const body = document.createElement("div");
+    body.className = "ngroup-b";
+    body.appendChild(link);
+    subs.forEach((s) => {
+      const no = s.querySelector(".h3no");
+      const a = document.createElement("a");
+      a.className = "nlink n l2";
+      a.href = "#" + s.id;
+      a.dataset.target = s.id;
+      const title = s.childNodes;
+      let txt = "";
+      title.forEach((n) => {
+        if (n.nodeType === 3) txt += n.textContent;
+      });
+      a.innerHTML =
+        '<span class="ntag">' + (no ? no.textContent : "") + '</span>' +
+        '<span class="ntxt">' + txt.trim() + '</span>';
+      body.appendChild(a);
+    });
+    wrap.appendChild(head);
+    wrap.appendChild(body);
+    nav.appendChild(wrap);
+    groups.push(wrap);
+  });
+  return groups;
+}
+
+/* ── scroll spy ── */
+function scrollSpy() {
+  const links = Array.from(document.querySelectorAll(".nlink"));
+  const targets = links
+    .map((l) => document.getElementById(l.dataset.target))
+    .filter(Boolean);
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          links.forEach((l) => l.classList.remove("active"));
+          const a = links.find((l) => l.dataset.target === e.target.id);
+          if (a) {
+            a.classList.add("active");
+            const grp = a.closest(".ngroup");
+            if (grp) grp.classList.remove("closed");
+          }
+        }
+      });
+    },
+    { rootMargin: "-15% 0px -75% 0px", threshold: 0 }
+  );
+  targets.forEach((t) => obs.observe(t));
+}
+
+/* ── progress bar ── */
+function progress() {
+  const bar = document.getElementById("prog");
+  const upd = () => {
+    const h = document.documentElement;
+    const p = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = Math.min(100, Math.max(0, p)) + "%";
+  };
+  document.addEventListener("scroll", upd, { passive: true });
+  upd();
+}
+
+/* ── pencarian ── */
+function search() {
+  const inp = document.getElementById("q");
+  const clear = document.getElementById("qclear");
+  const groups = Array.from(document.querySelectorAll(".ngroup"));
+  const run = () => {
+    const v = inp.value.toLowerCase().trim();
+    clear.style.display = v ? "grid" : "none";
+    groups.forEach((g) => {
+      let shown = 0;
+      g.querySelectorAll(".nlink").forEach((l) => {
+        const hit = !v || l.textContent.toLowerCase().includes(v);
+        l.style.display = hit ? "" : "none";
+        if (hit) shown++;
+      });
+      g.style.display = shown ? "" : "none";
+      if (v) g.classList.remove("closed");
+    });
+    if (v) {
+      document.querySelectorAll(".prose section, .card").forEach((s) => {
+        const hit = s.textContent.toLowerCase().includes(v);
+        s.classList.toggle("hl", hit);
+      });
+    } else {
+      document.querySelectorAll(".hl").forEach((s) => s.classList.remove("hl"));
+    }
+  };
+  inp.addEventListener("input", run);
+  inp.addEventListener("keydown", (e) => { if (e.key === "Escape") { inp.value = ""; run(); } });
+  clear.addEventListener("click", () => { inp.value = ""; inp.focus(); run(); });
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault(); inp.focus();
+    }
+  });
+}
+
+/* ── sidebar mobile ── */
+function drawer() {
+  const body = document.body;
+  const open = document.getElementById("drawerbtn");
+  const close = document.getElementById("drawerclose");
+  const scrim = document.getElementById("scrim");
+  const show = () => body.classList.add("drawer-open");
+  const hide = () => body.classList.remove("drawer-open");
+  open && open.addEventListener("click", show);
+  close && close.addEventListener("click", hide);
+  scrim && scrim.addEventListener("click", hide);
+  document.querySelectorAll(".nlink").forEach((a) => a.addEventListener("click", hide));
+}
+
+/* ── grafik batang ── */
+function bars() {
+  const host = document.getElementById("luasSeries");
+  if (!host) return;
+  const max = Math.max.apply(null, LUAS.map((d) => d.v));
+  host.innerHTML = LUAS.map((d) => {
+    const w = (d.v / max) * 100;
+    return '<div class="lrrow"><span class="lrl">' + d.t + '</span>' +
+      '<span class="lrtrack"><i style="width:' + w.toFixed(1) + '%"></i></span>' +
+      '<span class="lrv">' + d.n + '</span></div>';
+  }).join("");
+}
+
+/* ── ribbon proses (peta besar) ── */
+function ribbon() {
+  const host = document.getElementById("ribbon");
+  if (!host) return;
+  const items = [
+    { no: "1", t: "Penunjukan", a: "#p1-penunjukan", l2: false },
+    { no: "2", t: "Penataan Batas", a: "#p2-tata-batas", l2: false },
+    { no: "3", t: "Pemetaan", a: "#p3-pemetaan", l2: false },
+    { no: "4", t: "Penetapan", a: "#p4-penetapan", l2: false },
+    { no: "5", t: "Penataan Kawasan", a: "#p5-zona", l2: true },
+    { no: "6", t: "Perencanaan", a: "#p6-rencana", l2: true },
+    { no: "7", t: "Pelaksanaan", a: "#p7-pelaksanaan", l2: true },
+    { no: "8", t: "Kemitraan", a: "#p8-mitra", l2: true },
+    { no: "9", t: "Monitoring & Evaluasi", a: "#p9-monev", l2: true },
+  ];
+  host.innerHTML =
+    '<div class="rbl">' + items.map((i) =>
+      '<a class="rb' + (i.l2 ? " b" : "") + '" href="' + i.a + '">' +
+      '<span class="rbn">' + i.no + '</span><span class="rbt">' + i.t + '</span></a>'
+    ).join("") + '</div>' +
+    '<div class="rbstage"><span>Domain A · Pengukuhan</span><span>Domain B · Pengelolaan</span></div>';
+}
+
+/* ── inisialisasi ── */
+document.addEventListener("DOMContentLoaded", () => {
+  buildSidebar();
+  scrollSpy();
+  progress();
+  search();
+  drawer();
+  bars();
+  ribbon();
+  const y = document.getElementById("tahun");
+  if (y) y.textContent = new Date().getFullYear();
+});
+
+</script>
+</body>
+</html>
